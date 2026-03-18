@@ -28,12 +28,12 @@ cd community-reading-list
 ```
 
 We recommend installing the dependencies using [`uv`](https://docs.astral.sh/uv/)
-if you have it installed (Needs `uv >= 0.8.0`):
+if you have it installed (needs `uv` version 0.8.0 or above):
 ```sh
 uv sync && source .venv/bin/activate
 ```
 
-Otherwise, using `pip` (you will need to have at least python `3.10` installed for this to work):
+Otherwise, using `pip` (you will need to have at least Python 3.10 installed for this to work):
 ```sh
 python -m venv .venv && source .venv/bin/activate
 pip install .
