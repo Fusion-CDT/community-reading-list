@@ -1,0 +1,61 @@
+name: Convert suggested literature to PR
+on:
+  issues:
+    types: [opened]
+
+jobs:
+    create-contribution:
+        if: contains(github.event.issue.labels.*.name, 'literature-suggestion')
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            pull-requests: write
+        
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+            
+            - name: Parse issue
+              id: parser
+              uses: issue-ops/parser@v5.0.0
+              with:
+                body: ${{ github.event.issue.body }}
+                issue-form-template: suggest-literature.yml
+
+            - name: Generate markdown file
+              shell: bash
+              run: |
+                DOI="${{ steps.parser.outputs.parsed_doi }}"
+                FILEPATH="${{ steps.parser.outputs.parsed_filepath }}"
+                TAGS="${{ steps.parser.outputs.parsed_tags }}"
+                CONTENT="${{ steps.parser.outputs.parsed_content }}"
+
+                FULL_PATH="docs/literature/${FILEPATH}.md"
+                # Extract the directory the file needs to go in and make the folder
+                DIR_PATH=$(dirname "$FULL_PATH")
+                mkdir -p "$DIR_PATH"
+                
+                cat <<EOF > "$FULL_PATH"
+                ---
+                tags: $TAGS
+                doi: $DOI
+                comments: true
+                ---
+                
+                $CONTENT
+                EOF
+            
+            - name: Create PR
+              uses: peter-evans/create-pull-request@v6
+              with:
+                base: main
+                commit-message: "${{ github.event.issue.title }}"
+                title: "${{ github.event.issue.title }}"
+                body: |
+                    Auto-generated PR for adding the suggested literature.
+                    
+                    Suggested by @${{ github.event.issue.user.login }}
+
+                    Closes #${{ github.event.issue.number }}
+                branch: "add-suggested-literature-${{ github.event.issue.number }}" 
+                delete-branch: true
