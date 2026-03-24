@@ -1,0 +1,17 @@
+{% if page.edit_url %}
+  {% if "content.action.edit" in features %}
+    {% set edit_prefix = config.repo_url ~ "/edit/main/" %}
+    {% set filepath = page.edit_url | replace(edit_prefix, "") %}
+    {% if "literature" in page.edit_url %}
+      <a href="{{ config.repo_url }}/issues/new?template=edit-literature.yml&labels=edit-literature&title=Edit:%20{{ filepath }}" title="{{ lang.t('action.edit') }}" class="md-content__button md-icon" rel="edit">
+        {% set icon = config.theme.icon.edit or "material/file-edit-outline" %}
+        {% include ".icons/" ~ icon ~ ".svg" %}
+      </a>
+    {% elif "tutorials" in page.edit_url %}
+      <a href="{{ config.repo_url }}/issues/new?template=edit-tutorial.yml&labels=edit-tutorial&title=Edit:%20{{ filepath }}" title="{{ lang.t('action.edit') }}" class="md-content__button md-icon" rel="edit">
+        {% set icon = config.theme.icon.edit or "material/file-edit-outline" %}
+        {% include ".icons/" ~ icon ~ ".svg" %}
+      </a>
+    {% endif %}
+  {% endif %}
+{% endif %}
