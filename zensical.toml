@@ -17,12 +17,12 @@ site_name = "Fusion CDT Community Reading List"
 # meaningful description of the site content for use by search engines.
 #
 # Read more: https://zensical.org/docs/setup/basics/#site_description
-site_description = "A new project generated from the default template project."
+site_description = "A collection of useful resources related to plasma physics, material science, fusion power and machine learning created by students on the https://fusion-cdt.ac.uk/"
 
 # The site_author attribute. This is used in the HTML head element.
 #
 # Read more: https://zensical.org/docs/setup/basics/#site_author
-site_author = "<your name here>"
+site_author = "FusionCDT researchers"
 
 # The site_url is the canonical URL for your site. When building online
 # documentation you should set this.
@@ -38,7 +38,7 @@ edit_uri = "edit/main/docs"
 #
 # Read more: https://zensical.org/docs/setup/basics/#copyright
 copyright = """
-Copyright &copy; 2026 The authors
+Copyright &copy; 2026 The Fusion CDT researchers
 """
 
 # Zensical supports both implicit navigation and explicitly defined navigation.
@@ -75,7 +75,7 @@ extra_css = ["stylesheets/reference.css"]
 # Enable MathJax. See: https://zensical.org/docs/authoring/math/
 extra_javascript = [
     "javascripts/mathjax.js",
-    "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"
+    "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js",
 ]
 
 # Enable tags. See: https://zensical.org/docs/setup/tags/?h=tag
@@ -123,7 +123,7 @@ custom_dir = "overrides"
 # - https://zensical.org/docs/setup/logo-and-icons/#favicon
 # - https://developer.mozilla.org/en-US/docs/Glossary/Favicon
 #
-#favicon = "images/favicon.png"
+favicon = "images/favicon.png"
 
 # Zensical supports more than 60 different languages. This means that the
 # labels and tooltips that Zensical's templates produce are translated.
@@ -333,5 +333,3 @@ toggle.name = "Switch to light mode"
 #[[project.extra.social]]
 #icon = "fontawesome/brands/github"
 #link = "https://github.com/user/repo"
-
-

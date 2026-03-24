@@ -1,5 +1,12 @@
-# Fusion CDT community reading list
-A collection of useful resources related to plasma physics, material science and fusion power created by students on the [EPSRC CDT in Fusion Power](https://fusion-cdt.ac.uk/). 
+<h1 align="center">
+  <picture>
+    <source srcset="docs/images/Fusion_CDT_logo_dark.png" media="(prefers-color-scheme: dark)">
+    <source srcset="docs/images/Fusion_CDT_logo_light.png" media="(prefers-color-scheme: light)">
+    <img src="docs/images/Fusion_CDT_logo_light.png" alt="Fusion CDT logo">
+  </picture>
+</h1>
+
+A collection of useful resources related to plasma physics, material science, fusion power and machine learning created by students on the [EPSRC CDT in Fusion Power](https://fusion-cdt.ac.uk/).
 
 > [!NOTE]
 > This is a work-in-progress, any and all feedback is welcome.
