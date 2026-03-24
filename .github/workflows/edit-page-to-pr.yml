@@ -1,0 +1,91 @@
+name: Convert edit suggestion to PR
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  apply-edit:
+    if: |
+      contains(github.event.issue.labels.*.name, 'edit-literature') ||
+      contains(github.event.issue.labels.*.name, 'edit-tutorial')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract filepath from issue title
+        id: extract
+        run: |
+          TITLE="${{ github.event.issue.title }}"
+          FILEPATH="${TITLE#Edit: }"
+          echo "filepath=${FILEPATH}" >> $GITHUB_OUTPUT
+
+      - name: Determine issue template
+        id: template
+        run: |
+          if [[ "${{ contains(github.event.issue.labels.*.name, 'edit-literature') }}" == "true" ]]; then
+            echo "file=edit-literature.yml" >> $GITHUB_OUTPUT
+          else
+            echo "file=edit-tutorial.yml" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Parse issue
+        id: parser
+        uses: issue-ops/parser@v5.0.0
+        with:
+          body: ${{ github.event.issue.body }}
+          issue-form-template: ${{ steps.template.outputs.file }}
+
+      - name: Validate filepath
+        run: |
+          FILEPATH="${{ steps.extract.outputs.filepath }}"
+          if [ ! -f "${FILEPATH}" ]; then
+            echo "::error::File '${FILEPATH}' not found in repository."
+            exit 1
+          fi
+
+      - name: Apply edit to file
+        env:
+          FILEPATH: ${{ steps.extract.outputs.filepath }}
+          PROPOSED_CONTENT: ${{ steps.parser.outputs.parsed_proposed_content }}
+        run: |
+          python3 << 'PYEOF'
+          import os
+
+          filepath = os.environ['FILEPATH']
+          proposed_content = os.environ['PROPOSED_CONTENT']
+
+          with open(filepath, 'r') as f:
+              existing = f.read()
+
+          # Preserve the YAML frontmatter block
+          if existing.startswith('---'):
+              parts = existing.split('---', 2)
+              frontmatter = '---' + parts[1] + '---\n'
+          else:
+              frontmatter = ''
+
+          with open(filepath, 'w') as f:
+              f.write(frontmatter + '\n' + proposed_content.strip() + '\n')
+
+          print(f"Updated {filepath}")
+          PYEOF
+
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          base: main
+          commit-message: "${{ github.event.issue.title }}"
+          title: "${{ github.event.issue.title }}"
+          body: |
+            Auto-generated PR applying an edit suggested via issue.
+
+            Suggested by @${{ github.event.issue.user.login }}
+
+            Closes #${{ github.event.issue.number }}
+          branch: "edit-page-${{ github.event.issue.number }}"
+          delete-branch: true
