@@ -1,0 +1,33 @@
+name: Edit existing tutorial
+description: Propose a correction or improvement to an existing tutorial page.
+title: "Edit: "
+labels: ["edit-tutorial"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the Fusion CDT Community Reading List!
+
+        Before filling in the form below, navigate to the page on the
+        [reading list site](https://fusion-cdt.github.io/community-reading-list/)
+        so you can view and copy its current content.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What needs changing?
+      description: Describe what is incorrect or could be improved, and why.
+      placeholder: "e.g. The link to the GS2 documentation is outdated."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_content
+    attributes:
+      label: Proposed content
+      description: |
+        The new markdown content for the page body (everything after the opening `---` frontmatter block).
+        Copy the existing content from the page, make your changes, and paste the result here.
+      placeholder: "Your improved content here..."
+    validations:
+      required: true
