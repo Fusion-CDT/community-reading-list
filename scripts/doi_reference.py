@@ -75,11 +75,12 @@ def _first_or_str(value):
 
 
 def _initials(given):
-    """Return concatenated initials from a given name string.
+    """Return dot-separated initials from a given name string.
 
-    E.g. "Gregory G." -> "GG", "William" -> "W", "E. G." -> "EG".
+    e.g. "S. I." -> "S. I.", "Gregory G." -> "G. G.", "William" -> "W."
     """
-    return "".join(part[0] for part in given.split())
+    parts = given.split()
+    return " ".join(p[0].upper() + "." for p in parts if p)
 
 
 def _header_lines(title, authors, journal_line, doi):
@@ -104,8 +105,10 @@ def _header_lines(title, authors, journal_line, doi):
 def _format_crossref(data, doi):
     """Format a Crossref metadata record (journal articles, etc.)."""
     title = _first_or_str(data["title"])
+    # Here we use `.title()` rather than `.capitalize()` as the former better
+    # handles names like "O'Brien".
     authors = ", ".join(
-        _initials(a["given"]) + " " + a["family"]
+        _initials(a["given"]) + " " + a["family"].title()
         for a in data["author"]
     )
     journal = _first_or_str(data["container-title"])
@@ -123,8 +126,10 @@ def _format_datacite_arxiv(data, doi):
     attrs = data["data"]["attributes"]
 
     title = attrs["titles"][0]["title"]
+    # Here we use `.title()` rather than `.capitalize()` as the former better
+    # handles names like "O'Brien".
     authors = ", ".join(
-        _initials(c["givenName"]) + " " + c["familyName"]
+        _initials(c["givenName"]) + " " + c["familyName"].title()
         for c in attrs["creators"]
     )
     arxiv_id = next(
