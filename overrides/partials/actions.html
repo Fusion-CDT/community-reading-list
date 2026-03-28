@@ -3,7 +3,7 @@
     {% set edit_prefix = config.repo_url ~ "/edit/main/" %}
     {% set filepath = page.edit_url | replace(edit_prefix, "") %}
     {% if "literature" in page.edit_url %}
-      <a href="{{ config.repo_url }}/issues/new?template=edit-literature.yml&labels=edit-literature&title=Edit:%20{{ filepath }}&proposed_content={{ page.markdown | urlencode }}" title="{{ lang.t('action.edit') }}" class="md-content__button md-icon" rel="edit">
+      <a href="{{ config.repo_url }}/issues/new?template=edit-literature.yml&labels=edit-literature&title=Edit:%20{{ filepath }}" data-raw-url="{{ config.repo_url | replace('https://github.com/', 'https://raw.githubusercontent.com/') }}/main/{{ filepath }}" title="{{ lang.t('action.edit') }}" class="md-content__button md-icon" rel="edit">
         {% set icon = config.theme.icon.edit or "material/file-edit-outline" %}
         {% include ".icons/" ~ icon ~ ".svg" %}
       </a>
