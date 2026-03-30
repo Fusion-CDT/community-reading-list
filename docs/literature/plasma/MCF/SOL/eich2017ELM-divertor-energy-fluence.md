@@ -1,5 +1,12 @@
 ---
-tags: MCF, ELM
+tags: 
+  - MCF
+  - divertor
+  - ELM
+  - ITER
+  - JET
+  - MAST
+  - ASDEX-Upgrade
 doi: 10.1016/j.nme.2017.04.014
 comments: true
 ---
