@@ -1,5 +1,11 @@
 ---
-tags: MCF, pilot plants , pilot reactos , fusion gain, small device , low power
+tags: 
+  - MCF
+  - pilot-plants
+  - pilot-reactors
+  - fusion-gain
+  - small-device
+  - low-power
 doi: 10.1088/0029-5515/55/3/033001
 comments: true
 ---
