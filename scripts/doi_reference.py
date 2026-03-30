@@ -112,12 +112,13 @@ def _format_crossref(data, doi):
         for a in data["author"]
     )
     journal = _first_or_str(data["container-title"])
-    vol = data["volume"]
-    issue = data["issue"]
+    vol = data.get("volume", "")
+    issue = data.get("issue", "")
     pages = data.get("page", data.get("article-number", "")).replace("-", "\u2013")
     year = str(data["issued"]["date-parts"][0][0])
 
-    journal_line = f"<em>{journal}</em>, <b>{vol}</b>({issue}), {pages} ({year})"
+    vol_issue = f"<b>{vol}</b>({issue})" if issue else f"<b>{vol}</b>"
+    journal_line = f"<em>{journal}</em>, {vol_issue}, {pages} ({year})"
     return _header_lines(title, authors, journal_line, doi)
 
 
