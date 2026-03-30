@@ -34,14 +34,23 @@ jobs:
                 # Extract the directory the file needs to go in and make the folder
                 DIR_PATH=$(dirname "$FULL_PATH")
                 mkdir -p "$DIR_PATH"
-                
+
+                # Convert comma-separated tags to YAML list format
+                if [ -n "$TAGS" ]; then
+                    TAGS_LIST=$(echo "$TAGS" | tr ',' '\n' | sed 's/^[[:space:]]*//; s/[[:space:]]*$//' | grep -v '^$' | sed 's/^/  - /')
+                    TAGS_YAML="tags:
+                ${TAGS_LIST}"
+                else
+                    TAGS_YAML="tags:"
+                fi
+
                 cat <<EOF > "$FULL_PATH"
                 ---
-                tags: $TAGS
+                ${TAGS_YAML}
                 doi: $DOI
                 comments: true
                 ---
-                
+
                 $CONTENT
                 EOF
             
