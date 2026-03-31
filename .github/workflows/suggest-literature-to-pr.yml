@@ -29,6 +29,8 @@ jobs:
                 FILEPATH="${{ steps.parser.outputs.parsed_filepath }}"
                 TAGS="${{ steps.parser.outputs.parsed_tags }}"
                 CONTENT="${{ steps.parser.outputs.parsed_content }}"
+                CONTRIBUTOR_NAME="${{ steps.parser.outputs.parsed_contributor_name }}"
+                GITHUB_USERNAME="${{ github.event.issue.user.login }}"
 
                 FULL_PATH="docs/literature/${FILEPATH}.md"
                 # Extract the directory the file needs to go in and make the folder
@@ -44,15 +46,27 @@ jobs:
                     TAGS_YAML="tags:"
                 fi
 
-                cat <<EOF > "$FULL_PATH"
-                ---
-                ${TAGS_YAML}
-                doi: $DOI
-                comments: true
-                ---
+                # Build optional contributors block
+                if [ -n "$CONTRIBUTOR_NAME" ]; then
+                    CONTRIBUTORS_YAML="contributors:
+                  - name: \"${CONTRIBUTOR_NAME}\"
+                    github: \"${GITHUB_USERNAME}\""
+                else
+                    CONTRIBUTORS_YAML=""
+                fi
 
-                $CONTENT
-                EOF
+                {
+                  echo "---"
+                  echo "${TAGS_YAML}"
+                  echo "doi: $DOI"
+                  if [ -n "$CONTRIBUTORS_YAML" ]; then
+                    echo "${CONTRIBUTORS_YAML}"
+                  fi
+                  echo "comments: true"
+                  echo "---"
+                  echo ""
+                  echo "$CONTENT"
+                } > "$FULL_PATH"
             
             - name: Create PR
               uses: peter-evans/create-pull-request@v6

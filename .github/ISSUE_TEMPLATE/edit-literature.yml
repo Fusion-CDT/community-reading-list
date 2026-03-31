@@ -31,3 +31,12 @@ body:
       placeholder: "Your improved description here..."
     validations:
       required: true
+
+  - type: input
+    id: contributor_name
+    attributes:
+      label: Your name (optional)
+      description: Your full name, to be credited as a contributor to this note.
+      placeholder: "e.g. Bailey Cook"
+    validations:
+      required: false

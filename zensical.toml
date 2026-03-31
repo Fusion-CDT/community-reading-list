@@ -84,6 +84,7 @@ extra_javascript = [
 gyrokinetics = "gyrokinetics"
 
 [project.markdown_extensions.doi_reference]
+[project.markdown_extensions.contributors]
 
 [project.markdown_extensions.pymdownx.arithmatex]
 generic = true
