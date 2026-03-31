@@ -1,8 +1,19 @@
 # Contributing
 
-## Filename convention for literature notes
+## How do I contribute new literature?
 
-Literature note filenames follow a [Better BibTeX](https://retorque.re/zotero-better-bibtex/)-style naming convention: `<firstauthor><year><shorttitle>.md`
+New literature notes can be contributed by [creating a GitHub Issue](https://github.com/Fusion-CDT/community-reading-list/issues/new/choose) and selecting the **"Suggest literature"** template. Fill in as many fields as you can:
+
+- **DOI** — the DOI of the paper or resource, if available (e.g. `10.1063/1.2178779`)
+- **Location and filename** — where in the reading list it should live and what to call it, following the [filename convention](#filename-convention-for-literature-notes) above (e.g. `plasma/MCF/gyrokinetics/howes2006astro-gyrokinetics`)
+- **Tags** — comma-separated tags to aid discoverability (e.g. `gyrokinetics, MCF`)
+- **Content** — a brief description of why the resource is useful, written in Markdown
+
+Once you submit the issue, a pull request will be automatically created and a maintainer will review it.
+
+### Filename convention for literature notes
+
+We use a [Better BibTeX](https://retorque.re/zotero-better-bibtex/)-style naming convention: `<firstauthor><year><shorttitle>.md`
 
 - `<firstauthor>` — surname of the first author, lowercase (e.g. `howes`, `abel`)
 - `<year>` — four-digit publication year (e.g. `2006`, `2013`)
@@ -17,22 +28,11 @@ Examples from the repository:
 | `highcock2012zero-turbulence.md` | Highcock | 2012 | zero-turbulence |
 | `kotschenreuther1995gs2.md` | Kotschenreuther | 1995 | gs2 |
 
-## How to contribute new literature notes
-
-New literature notes can be contributed by [creating a GitHub Issue](https://github.com/Fusion-CDT/community-reading-list/issues/new/choose) and selecting the **"Suggest literature"** template. Fill in as many fields as you can:
-
-- **DOI** — the DOI of the paper or resource, if available (e.g. `10.1063/1.2178779`)
-- **Location and filename** — where in the reading list it should live and what to call it, following the [filename convention](#filename-convention-for-literature-notes) above (e.g. `plasma/MCF/gyrokinetics/howes2006astro-gyrokinetics`)
-- **Tags** — comma-separated tags to aid discoverability (e.g. `gyrokinetics, MCF`)
-- **Content** — a brief description of why the resource is useful, written in Markdown
-
-Once you submit the issue, a pull request will be automatically created and a maintainer will review it.
-
-## How to contribute new tutorial notes
+## How do I contribute new tutorials?
 > [!NOTE]
 > Contributing new tutorial notes is not currently supported via the issue workflow. This section will be updated once a process is in place.
 
-## How to edit an existing literature or tutorial note
+## How do I edit an existing literature or tutorial note?
 
 ### Using the edit button (recommended)
 
