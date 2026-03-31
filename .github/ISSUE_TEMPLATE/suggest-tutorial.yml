@@ -1,0 +1,37 @@
+name: Suggest tutorial
+description: Suggest a tutorial to add to the reading list.
+title: "Add suggested tutorial: "
+labels: ["tutorial-suggestion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing to the Fusion CDT Community Reading List!
+        Please fill in as much detail as you can below.
+
+  - type: input
+    id: filepath
+    attributes:
+      label: Location and Filename
+      description: Where in the reading list should this live and what should it be called?
+      placeholder: "e.g. docs/tutorials/gyrokinetic-theory.md"
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Comma-separated tags (e.g. existing tags or new tags).
+      placeholder: "e.g. ICF, diagnostics, PIC"
+    validations:
+      required: false
+
+  - type: textarea
+    id: content
+    attributes:
+      label: Content
+      description: The full content of your tutorial in Markdown format.
+      placeholder: 'e.g. Gyrokinetics is a framework used to model micro-turbulence that evolves over timescales $\Omega_i^{-1} \lesssim t \lesssim \tau_E$ and length scales $\rho_i \lesssim L \lesssim L_{T,n}$ where $\Omega_i$ is the ion gyrofrequency, $\tau_E$ is the energy confinement time, $\rho_i$ is the ion gyroradius and $L_{T,n}$ are the length scales associated with the temperature and density gradient...'
+    validations:
+      required: true

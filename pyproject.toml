@@ -3,12 +3,16 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "fusion-cdt-community-reading-list"
+name = "community-reading-list"
 version = "0.1.0"
-description = "Add your description here"
+description = "A collection of useful resources related to plasma physics, material science, fusion power and machine learning created by students on the EPSRC CDT in Fusion Power."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = ["zensical>=0.0.21"]
+maintainers = [
+    { name = "Bailey Cook", email = "bailey.cook@york.ac.uk" },
+    { name = "Joel Adams", email = "joel.adams@york.ac.uk" },
+]
 
 [tool.hatch.build.targets.wheel]
 include = ["scripts/doi_reference.py", "scripts/contributors.py"]
