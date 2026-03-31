@@ -17,12 +17,12 @@ site_name = "Fusion CDT Community Reading List"
 # meaningful description of the site content for use by search engines.
 #
 # Read more: https://zensical.org/docs/setup/basics/#site_description
-site_description = "A collection of useful resources related to plasma physics, material science, fusion power and machine learning created by students on the https://fusion-cdt.ac.uk/"
+site_description = "A collection of useful resources related to plasma physics, material science, fusion power and machine learning created by students on the EPSRC CDT in Fusion Power."
 
 # The site_author attribute. This is used in the HTML head element.
 #
 # Read more: https://zensical.org/docs/setup/basics/#site_author
-site_author = "FusionCDT researchers"
+site_author = "Fusion CDT PhD students and alumni"
 
 # The site_url is the canonical URL for your site. When building online
 # documentation you should set this.
@@ -38,7 +38,7 @@ edit_uri = "edit/main/docs"
 #
 # Read more: https://zensical.org/docs/setup/basics/#copyright
 copyright = """
-Copyright &copy; 2026 The Fusion CDT researchers
+Copyright &copy; Fusion CDT 2026
 """
 
 # Zensical supports both implicit navigation and explicitly defined navigation.
@@ -72,28 +72,36 @@ extra_css = ["stylesheets/reference.css"]
 # Read more: https://zensical.org/docs/customization/#additional-javascript
 #extra_javascript = ["javascripts/extra.js"]
 
-# Enable MathJax. See: https://zensical.org/docs/authoring/math/
+# Add extra JavaScript, including MathJax and custom behaviour for the edit button
+# displayed on literature and tutorial notes
+# See: https://zensical.org/docs/authoring/math/
 extra_javascript = [
     "javascripts/mathjax.js",
     "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js",
     "javascripts/edit-button.js",
 ]
 
-# Enable tags. See: https://zensical.org/docs/setup/tags/?h=tag
-[project.extra.tags]
-gyrokinetics = "gyrokinetics"
-
-[project.markdown_extensions.doi_reference]
-
+# Enable Arithmatex, which stops the Markdone engine from messing with LaTeX expressions.
+# See: https://zensical.org/docs/setup/extensions/python-markdown-extensions/?h=arith#arithmatex
 [project.markdown_extensions.pymdownx.arithmatex]
 generic = true
 
-# Enable lists and task lists
+# Load the custom DOI reference extension (scripts/doi_reference.py).
+# This entry tells Python Markdown to call `makeExtension()` in that module,
+# which registers the `DoiReferencePreprocessor` that injects a formatted
+# title/authors/journal header on pages that have a `doi` frontmatter field.
+[project.markdown_extensions.doi_reference]
+
+# Enable lists and task lists. See:
+# https://zensical.org/docs/setup/extensions/python-markdown-extensions/?h=task#tasklist
+# https://zensical.org/docs/setup/extensions/python-markdown/?h=def_list#definition-lists
 [project.markdown_extensions.def_list]
 [project.markdown_extensions.pymdownx.tasklist]
 custom_checkbox = true
 
-# Enable Admonitions. See: https://zensical.org/docs/authoring/admonitions/
+# Enable Admonitions (callouts). See: https://zensical.org/docs/authoring/admonitions/
+# https://zensical.org/docs/setup/extensions/python-markdown-extensions/?h=pymdown.details
+# https://zensical.org/docs/setup/extensions/python-markdown-extensions/?h=superfen#superfences
 [project.markdown_extensions.admonition]
 [project.markdown_extensions.pymdownx.details]
 [project.markdown_extensions.pymdownx.superfences]
