@@ -29,8 +29,14 @@ Examples from the repository:
 | `kotschenreuther1995gs2.md` | Kotschenreuther | 1995 | gs2 |
 
 ## How do I contribute new tutorials?
-> [!NOTE]
-> Contributing new tutorial notes is not currently supported via the issue workflow. This section will be updated once a process is in place.
+
+New tutorial notes can be contributed by [creating a GitHub Issue](https://github.com/Fusion-CDT/community-reading-list/issues/new/choose) and selecting the **"Suggest tutorial"** template. Fill in as many fields as you can:
+
+- **Location and filename** — where in the reading list it should live and what to call it (e.g. `docs/tutorials/gyrokinetic-theory.md`)
+- **Tags** — comma-separated tags to aid discoverability (e.g. `gyrokinetics, MCF`)
+- **Content** — the body of your tutorial, written in Markdown
+
+Once you submit the issue, a pull request will be automatically created and a maintainer will review it.
 
 ## How do I edit an existing literature or tutorial note?
 
