@@ -10,8 +10,8 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = ["zensical>=0.0.21"]
 maintainers = [
-    { "name" = "Bailey Cook", email = "bailey.cook@york.ac.uk" },
-    { "name" = "Joel Adams", email = "joel.adams@york.ac.uk" },
+    { name = "Bailey Cook", email = "bailey.cook@york.ac.uk" },
+    { name = "Joel Adams", email = "joel.adams@york.ac.uk" },
 ]
 
 [tool.hatch.build.targets.wheel]
