@@ -8,20 +8,10 @@
 
 A collection of useful resources related to plasma physics, material science, fusion power and machine learning created by students on the [EPSRC CDT in Fusion Power](https://fusion-cdt.ac.uk/).
 
-> [!NOTE]
-> This is a work-in-progress, any and all feedback is welcome.
+The live site is available here: https://fusion-cdt.github.io/community-reading-list/
 
-## Accessing the live documentation
-
-The documentation is available [here](https://fusion-cdt.github.io/community-reading-list/)
-
-## Contributing to the documentation
-
-This repository is a community-driven effort and is not actively maintained by a dedicated team. As such, some resources may become outdated. We warmly welcome contributions from the community to keep this list relevant! If you have resources to add or corrections to make, please feel free to do so. There are two ways you can contribute:
-- Adding new papers/articles: Create a new [GitHub Issue](https://github.com/Fusion-CDT/community-reading-list/issues)
-- Updating existing papers/articles or adding/updating tutorials: 
-    - Use the edit button at the top of any page on the documentation and edit it on GitHub
-    - Download the code and manually add the entries yourself
+## How do I contribute?
+This repository is a community-driven effort and is not actively maintained by a dedicated team. As such, some resources may become outdated. We warmly welcome contributions from the community to keep this list relevant! If you have resources to add or corrections to make, please feel free to do so. For guidance, see [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
 ## Build locally
 If you'd like to build the site locally, first clone the repository:
