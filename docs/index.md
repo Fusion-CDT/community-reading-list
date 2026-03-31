@@ -38,4 +38,4 @@ fusion-cdt-community-reading-list/docs
 The idea is that all literature notes will go in the [`literature`](./literature) folder under the relevant sub-folder. A disadvantage of this approach is that one paper may belong in several places, but we can only put it in one folder. We can ensure that papers are still easily discoverable via tags though (e.g. `gyrokinetics`, `zonal-flows`, etc.). Longer 'tutorial'-style notes will be stored in the [`tutorials`](./tutorials) folder. These will contain curated notes that aim to guide students through a topic (e.g. read pages 10-50 of paper X, then read chapter 2 of thesis Y, etc.).
 
 ## How do I contribute?
-See [`CONTRIBUTING.md`](https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1&pp=ygUYbmV2ZXIgZ29ubmEgbGV0IHlvdSBkb3duoAcB0gcJCZQKAYcqIYzv)
+See [`CONTRIBUTING.md`](https://github.com/Fusion-CDT/community-reading-list/blob/main/CONTRIBUTING.md)
