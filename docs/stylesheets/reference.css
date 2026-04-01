@@ -27,3 +27,17 @@
 .ref-doi a:hover {
   text-decoration: underline;
 }
+
+.ref-contributors {
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.ref-contributors a {
+  color: var(--md-accent-fg-color);
+  text-decoration: none;
+}
+
+.ref-contributors a:hover {
+  text-decoration: underline;
+}

@@ -15,7 +15,7 @@ maintainers = [
 ]
 
 [tool.hatch.build.targets.wheel]
-include = ["scripts/doi_reference.py"]
+include = ["scripts/doi_reference.py", "scripts/contributors.py"]
 
 [tool.hatch.build.targets.wheel.sources]
 "scripts" = ""
