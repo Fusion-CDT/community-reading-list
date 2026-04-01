@@ -19,6 +19,7 @@ the same pattern as `doi_reference.py`.
 """
 
 import inspect
+
 from markdown import Extension
 from markdown.preprocessors import Preprocessor
 
@@ -66,7 +67,7 @@ class ContributorsPreprocessor(Preprocessor):
             "",
             "---",
             "",
-            f"<p class='ref-contributors'><em>Contributed by: {contributor_str}</em></p>",
+            f"*Contributed by: {contributor_str}*",
             "",
         ]
 
@@ -80,9 +81,7 @@ class ContributorsExtension(Extension):
     """
 
     def extendMarkdown(self, md):
-        md.preprocessors.register(
-            ContributorsPreprocessor(md), "contributors", 29
-        )
+        md.preprocessors.register(ContributorsPreprocessor(md), "contributors", 29)
 
 
 def makeExtension(**kwargs):
