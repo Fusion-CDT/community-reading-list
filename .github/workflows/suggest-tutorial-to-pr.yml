@@ -1,0 +1,68 @@
+name: Convert suggested tutorial to PR
+on:
+  issues:
+    types: [opened]
+
+jobs:
+    create-contribution:
+        if: contains(github.event.issue.labels.*.name, 'tutorial-suggestion')
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            pull-requests: write
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Parse issue
+              id: parser
+              uses: issue-ops/parser@v5.0.0
+              with:
+                body: ${{ github.event.issue.body }}
+                issue-form-template: suggest-tutorial.yml
+
+            - name: Generate markdown file
+              shell: bash
+              run: |
+                FILEPATH="${{ steps.parser.outputs.parsed_filepath }}"
+                TAGS="${{ steps.parser.outputs.parsed_tags }}"
+                CONTENT="${{ steps.parser.outputs.parsed_content }}"
+
+                FULL_PATH="${FILEPATH}"
+                # Extract the directory the file needs to go in and make the folder
+                DIR_PATH=$(dirname "$FULL_PATH")
+                mkdir -p "$DIR_PATH"
+
+                # Convert comma-separated tags to YAML list format
+                if [ -n "$TAGS" ]; then
+                    TAGS_LIST=$(echo "$TAGS" | tr ',' '\n' | sed 's/^[[:space:]]*//; s/[[:space:]]*$//' | grep -v '^$' | sed 's/^/  - /')
+                    TAGS_YAML="tags:
+                ${TAGS_LIST}"
+                else
+                    TAGS_YAML="tags:"
+                fi
+
+                cat <<EOF > "$FULL_PATH"
+                ---
+                ${TAGS_YAML}
+                comments: true
+                ---
+
+                $CONTENT
+                EOF
+
+            - name: Create PR
+              uses: peter-evans/create-pull-request@v6
+              with:
+                base: main
+                commit-message: "${{ github.event.issue.title }}"
+                title: "${{ github.event.issue.title }}"
+                body: |
+                    Auto-generated PR for adding the suggested tutorial.
+
+                    Suggested by @${{ github.event.issue.user.login }}
+
+                    Closes #${{ github.event.issue.number }}
+                branch: "add-suggested-tutorial-${{ github.event.issue.number }}"
+                delete-branch: true
