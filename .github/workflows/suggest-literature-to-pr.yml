@@ -1,7 +1,7 @@
 name: Convert suggested literature to PR
 on:
   issues:
-    types: [opened]
+    types: [opened, edited]
 
 jobs:
     create-contribution:
