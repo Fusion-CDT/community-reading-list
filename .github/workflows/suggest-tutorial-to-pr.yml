@@ -1,7 +1,7 @@
 name: Convert suggested tutorial to PR
 on:
   issues:
-    types: [opened]
+    types: [opened, edited]
 
 jobs:
     create-contribution:
