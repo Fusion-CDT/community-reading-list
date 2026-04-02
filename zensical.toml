@@ -80,6 +80,7 @@ extra_javascript = [
     "javascripts/edit-button.js",
 ]
 
+
 # Enable Arithmatex, which stops the Markdone engine from messing with LaTeX expressions.
 # See: https://zensical.org/docs/setup/extensions/python-markdown-extensions/?h=arith#arithmatex
 [project.markdown_extensions.pymdownx.arithmatex]
@@ -90,6 +91,9 @@ generic = true
 # which registers the `DoiReferencePreprocessor` that injects a formatted
 # title/authors/journal header on pages that have a `doi` frontmatter field.
 [project.markdown_extensions.doi_reference]
+
+# Load the custom contributors extension (scripts/contributors.py)
+[project.markdown_extensions.contributors]
 
 # Enable lists and task lists. See:
 # https://zensical.org/docs/setup/extensions/python-markdown-extensions/?h=task#tasklist

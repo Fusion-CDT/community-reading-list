@@ -8,34 +8,17 @@ comments: false
 ## What is this?
 A collection of useful resources related to plasma physics, material science and fusion power created by students on the [EPSRC CDT in Fusion Power](https://fusion-cdt.ac.uk/). 
 
-!!! warning
-    
-    This is very much a work-in-progress.
+## Why does this exist?
+Every year, new students join the Fusion CDT and have to get up to speed with their chosen research area. Finding the right papers to read and knowing where to start can be a challenge when you're new to a field. On top of that, much of the existing literature is written for specialists, not for students encountering a topic for the first time.
 
-## Project structure
-The repository currently has the following hierarchical structure:
-```
-fusion-cdt-community-reading-list/docs
-├── index.md
-├── literature
-│   ├── materials
-│   └── plasma
-│       ├── ICF
-│       ├── LTP
-│       └── MCF
-│           ├── gyrokinetics
-│           │   ├── abel2013multiscale-gyrokinetics.md
-│           │   ├── highcock2012zero-turbulence.md
-│           │   ├── howes2006astro-gyrokinetics.md
-│           │   └── kotschenreuther1995gs2.md
-│           └── zonal-flows
-│               └── itoh2006zona-flows.md
-└── tutorials
-    ├── gyrokinetic-codes.md
-    └── gyrokinetic-theory.md
-```
+This site is an attempt to fix both of those problems. Here we collect resources that students have found genuinely useful, and pair them with notes written from a student's perspective: what the paper is actually about, recommended background before attempting to read the paper, what to look out for, etc.
 
-The idea is that all literature notes will go in the [`literature`](./literature) folder under the relevant sub-folder. A disadvantage of this approach is that one paper may belong in several places, but we can only put it in one folder. We can ensure that papers are still easily discoverable via tags though (e.g. `gyrokinetics`, `zonal-flows`, etc.). Longer 'tutorial'-style notes will be stored in the [`tutorials`](./tutorials) folder. These will contain curated notes that aim to guide students through a topic (e.g. read pages 10-50 of paper X, then read chapter 2 of thesis Y, etc.).
+## What can I find here?
+Resources on this site fall into two categories:
+
+- **Literature notes** — brief annotations on specific papers. These tell you what a paper covers, why it might be worth reading, and how it fits into the broader literature.
+
+- **Tutorial notes** — longer walkthroughs on a topic or concept, written by students who recently worked through the material themselves. These are designed to give you the kind of context and signposting that textbooks and papers often skip.
 
 ## How do I contribute?
-See [`CONTRIBUTING.md`](https://github.com/Fusion-CDT/community-reading-list/blob/main/CONTRIBUTING.md)
+This repository is a community-driven effort and is not actively maintained by a dedicated team. As such, some resources may become outdated. We warmly welcome contributions from the community to keep this list relevant! If you have resources to add or corrections to make, please feel free to do so. For guidance, see [`CONTRIBUTING.md`](https://github.com/Fusion-CDT/community-reading-list/blob/main/CONTRIBUTING.md)

@@ -52,20 +52,44 @@ jobs:
         env:
           FILEPATH: ${{ steps.extract.outputs.filepath }}
           PROPOSED_CONTENT: ${{ steps.parser.outputs.parsed_proposed_content }}
+          CONTRIBUTOR_NAME: ${{ steps.parser.outputs.parsed_contributor_name }}
+          GITHUB_USERNAME: ${{ github.event.issue.user.login }}
         run: |
+          pip install pyyaml -q
           python3 << 'PYEOF'
           import os
+          import yaml
 
           filepath = os.environ['FILEPATH']
           proposed_content = os.environ['PROPOSED_CONTENT']
+          contributor_name = os.environ.get('CONTRIBUTOR_NAME', '').strip()
+          github_username = os.environ.get('GITHUB_USERNAME', '').strip()
 
           with open(filepath, 'r') as f:
               existing = f.read()
 
-          # Preserve the YAML frontmatter block
+          # Preserve the YAML frontmatter block, updating contributors if needed
           if existing.startswith('---'):
               parts = existing.split('---', 2)
-              frontmatter = '---' + parts[1] + '---\n'
+              frontmatter_text = parts[1]
+              meta = yaml.safe_load(frontmatter_text) or {}
+          else:
+              frontmatter_text = None
+              meta = {}
+
+          if contributor_name:
+              contributors = meta.get('contributors') or []
+              # Avoid adding duplicate entries
+              if not any(c.get('github') == github_username for c in contributors):
+                  contributors.append({'name': contributor_name, 'github': github_username})
+              meta['contributors'] = contributors
+
+          if frontmatter_text is not None:
+              # Re-serialise frontmatter, preserving key order (tags, doi, contributors, comments)
+              key_order = ['tags', 'doi', 'contributors', 'comments']
+              ordered = {k: meta[k] for k in key_order if k in meta}
+              ordered.update({k: v for k, v in meta.items() if k not in ordered})
+              frontmatter = '---\n' + yaml.dump(ordered, default_flow_style=False, allow_unicode=True) + '---\n'
           else:
               frontmatter = ''
 
