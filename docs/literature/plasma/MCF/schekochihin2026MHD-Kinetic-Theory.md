@@ -17,6 +17,4 @@ Note that the author's primary field is theoretical astrophysical plasma, so the
 
 Link to the lecture notes: https://www-thphys.physics.ox.ac.uk/people/AlexanderSchekochihin/KT/2015/KTLectureNotes.pdf
 Or search for: Lectures on Kinetic Theory and Magnetohydrodynamics of Plasmas by AA Schekochihin
-[Lectures on Kinetic Theory and MHD.pdf](https://github.com/user-attachments/files/26435764/Lectures.on.Kinetic.Theory.and.MHD.pdf)
-
-.
+[Lectures on Kinetic Theory and MHD.pdf](https://github.com/user-attachments/files/26435764/Lectures.on.Kinetic.Theory.and.MHD.pdf).
