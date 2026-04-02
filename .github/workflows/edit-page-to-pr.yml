@@ -19,8 +19,9 @@ jobs:
 
       - name: Extract filepath from issue title
         id: extract
+        env:
+          TITLE: ${{ github.event.issue.title }}
         run: |
-          TITLE="${{ github.event.issue.title }}"
           FILEPATH="${TITLE#Edit: }"
           echo "filepath=${FILEPATH}" >> $GITHUB_OUTPUT
 
@@ -41,8 +42,9 @@ jobs:
           issue-form-template: ${{ steps.template.outputs.file }}
 
       - name: Validate filepath
+        env:
+          FILEPATH: ${{ steps.extract.outputs.filepath }}
         run: |
-          FILEPATH="${{ steps.extract.outputs.filepath }}"
           if [ ! -f "${FILEPATH}" ]; then
             echo "::error::File '${FILEPATH}' not found in repository."
             exit 1

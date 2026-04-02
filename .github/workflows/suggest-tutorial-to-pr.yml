@@ -24,12 +24,13 @@ jobs:
 
             - name: Generate markdown file
               shell: bash
+              env:
+                FILEPATH: ${{ steps.parser.outputs.parsed_filepath }}
+                TAGS: ${{ steps.parser.outputs.parsed_tags }}
+                CONTENT: ${{ steps.parser.outputs.parsed_content }}
+                CONTRIBUTOR_NAME: ${{ steps.parser.outputs.parsed_contributor_name }}
+                GITHUB_USERNAME: ${{ github.event.issue.user.login }}
               run: |
-                FILEPATH="${{ steps.parser.outputs.parsed_filepath }}"
-                TAGS="${{ steps.parser.outputs.parsed_tags }}"
-                CONTENT="${{ steps.parser.outputs.parsed_content }}"
-                CONTRIBUTOR_NAME="${{ steps.parser.outputs.parsed_contributor_name }}"
-                GITHUB_USERNAME="${{ github.event.issue.user.login }}"
 
                 FULL_PATH="${FILEPATH}"
                 # Extract the directory the file needs to go in and make the folder
