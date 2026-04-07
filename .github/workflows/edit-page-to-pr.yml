@@ -89,7 +89,7 @@ jobs:
 
           # Normalise tags against the canonical allowlist
           with open('.github/tags.yml') as f:
-              allowlist = [line.strip()[2:] for line in f if line.strip().startswith('- ')]
+              allowlist = yaml.safe_load(f).get('tags', [])
           lookup = {t.lower(): t for t in allowlist}
           if 'tags' in meta and isinstance(meta['tags'], list):
               meta['tags'] = [lookup.get(t.lower(), t.title()) for t in meta['tags'] if t]
