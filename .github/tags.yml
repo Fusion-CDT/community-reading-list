@@ -1,8 +1,8 @@
 # Canonical tag list for the Fusion CDT Community Reading List.
 #
-# When a tag is submitted via an issue form, it is matched case-insensitively
-# against this list. If a match is found the canonical spelling below is used;
-# otherwise Python's str.title() is applied as a fallback.
+# When a PR touches a docs/*.md file the 'Normalise tags' workflow rewrites
+# any tags to their canonical spelling (case-insensitive match). Tags not
+# found here are title-cased automatically as a fallback.
 #
 # To register a new canonical tag, append it to the list in the correct form
 # and open a pull request.

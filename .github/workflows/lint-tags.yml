@@ -1,4 +1,4 @@
-name: Lint tags
+name: Normalise tags
 
 on:
   pull_request:
@@ -7,18 +7,19 @@ on:
       - '.github/tags.yml'
 
 jobs:
-  lint-tags:
+  normalise-tags:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
 
     steps:
-      - name: Checkout repository
+      - name: Checkout PR branch
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.head_ref }}
           fetch-depth: 0
 
-      - name: Check tags in changed files against allowlist
+      - name: Normalise tags in changed files
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
@@ -31,7 +32,7 @@ jobs:
           # Load canonical allowlist
           with open('.github/tags.yml') as f:
               allowlist = yaml.safe_load(f).get('tags', [])
-          canonical = {t.lower() for t in allowlist}
+          lookup = {t.lower(): t for t in allowlist}
 
           # Find .md files added or modified in this PR
           base_sha = os.environ['BASE_SHA']
@@ -45,7 +46,7 @@ jobs:
               print('No changed documentation files to check.')
               sys.exit(0)
 
-          unknown = {}
+          modified = []
           for filepath in changed_files:
               with open(filepath) as f:
                   content = f.read()
@@ -63,30 +64,37 @@ jobs:
                   continue
 
               tags = meta.get('tags')
-              if not tags:
+              if not tags or not isinstance(tags, list):
                   continue
 
-              # Tags may be a list or a comma-separated string
-              if isinstance(tags, str):
-                  tag_list = [t.strip() for t in tags.split(',') if t.strip()]
-              elif isinstance(tags, list):
-                  tag_list = [str(t).strip() for t in tags if t]
-              else:
-                  tag_list = []
+              # Normalise: match canonical form (case-insensitive), fall back to str.title()
+              normalised = [lookup.get(t.lower(), t.title()) for t in tags if isinstance(t, str) and t]
+              if normalised == tags:
+                  continue
 
-              for tag in tag_list:
-                  if tag.lower() not in canonical:
-                      unknown.setdefault(filepath, []).append(tag)
+              meta['tags'] = normalised
+              key_order = ['tags', 'doi', 'contributors', 'comments']
+              ordered = {k: meta[k] for k in key_order if k in meta}
+              ordered.update({k: v for k, v in meta.items() if k not in ordered})
+              new_frontmatter = '---\n' + yaml.dump(ordered, default_flow_style=False, allow_unicode=True, sort_keys=False, width=float('inf')) + '---\n'
+              with open(filepath, 'w') as f:
+                  f.write(new_frontmatter + parts[2])
+              modified.append(filepath)
 
-          if unknown:
-              print('::error::The following files contain tags not listed in .github/tags.yml:')
-              for filepath, tags in unknown.items():
-                  print(f'  {filepath}: {", ".join(tags)}')
-              print()
-              print('To fix this, either:')
-              print('  1. Correct the tag spelling/capitalisation to match a canonical tag in .github/tags.yml.')
-              print('  2. Add the new tag to .github/tags.yml (in the correct canonical form) in this PR.')
-              sys.exit(1)
-
-          print(f'All tags in {len(changed_files)} changed file(s) are valid.')
+          if modified:
+              print(f'Normalised tags in: {", ".join(modified)}')
+          else:
+              print(f'All tags in {len(changed_files)} changed file(s) are already canonical.')
           PYEOF
+
+      - name: Commit normalised tags
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/
+          if git diff --cached --quiet; then
+            echo "No tag changes to commit."
+          else
+            git commit -m "ci: normalise tags"
+            git push
+          fi

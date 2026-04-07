@@ -23,7 +23,6 @@ jobs:
                 issue-form-template: suggest-literature.yml
 
             - name: Generate markdown file
-              id: generate
               shell: bash
               env:
                 DOI: ${{ steps.parser.outputs.parsed_doi }}
@@ -39,31 +38,14 @@ jobs:
                 DIR_PATH=$(dirname "$FULL_PATH")
                 mkdir -p "$DIR_PATH"
 
-                # Normalise tags: match against allowlist (case-insensitive),
-                # falling back to Python's str.title() for unrecognised tags.
+                # Convert comma-separated tags to YAML list format
                 if [ -n "$TAGS" ]; then
-                    TAGS_LIST=$(python3 << 'PYEOF'
-import os
-
-with open('.github/tags.yml') as f:
-    allowlist = [line.strip()[2:] for line in f if line.strip().startswith('- ')]
-
-lookup = {t.lower(): t for t in allowlist}
-tags_input = os.environ.get('TAGS', '')
-for tag in tags_input.split(','):
-    tag = tag.strip()
-    if tag:
-        print('  - ' + lookup.get(tag.lower(), tag.title()))
-PYEOF
-                    )
-                    NORMALIZED_DISPLAY=$(echo "${TAGS_LIST}" | sed 's/^  - //' | tr '\n' ',' | sed 's/,$//' | sed 's/,/, /g')
+                    TAGS_LIST=$(echo "$TAGS" | tr ',' '\n' | sed 's/^[[:space:]]*//; s/[[:space:]]*$//' | grep -v '^$' | sed 's/^/  - /')
                     TAGS_YAML="tags:
                 ${TAGS_LIST}"
                 else
-                    NORMALIZED_DISPLAY="_none_"
                     TAGS_YAML="tags:"
                 fi
-                echo "normalized_tags=${NORMALIZED_DISPLAY}" >> "$GITHUB_OUTPUT"
 
                 # Build optional contributors block
                 if [ -n "$CONTRIBUTOR_NAME" ]; then
@@ -95,9 +77,7 @@ PYEOF
                 title: "${{ github.event.issue.title }}"
                 body: |
                     Auto-generated PR for adding the suggested literature.
-
-                    **Tags:** ${{ steps.generate.outputs.normalized_tags }}
-
+                    
                     Suggested by @${{ github.event.issue.user.login }}
 
                     Closes #${{ github.event.issue.number }}
