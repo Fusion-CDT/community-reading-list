@@ -24,5 +24,5 @@ GitHub page:
 https://github.com/pyro-kinetics/pyrokinetics
 
 Pyrokinetics is in active development with new features and improvements added constantly. There is a monthly  Pyrokinetics users and developers meeting where recommendations are taken, new features are demonstrated and design goals are discussed.
-"Invitation for Pyrokinetics to be added here"
+https://teams.microsoft.com/meet/34783083564582?p=DryIUXHKtk0Cxg63zi
 The Development of Pyrokinetics is actively supported by both the University of York and UKAEA, and we welcomes new contributors.
