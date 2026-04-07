@@ -51,6 +51,7 @@ jobs:
           fi
 
       - name: Apply edit to file
+        id: apply
         env:
           FILEPATH: ${{ steps.extract.outputs.filepath }}
           PROPOSED_CONTENT: ${{ steps.parser.outputs.parsed_proposed_content }}
@@ -86,6 +87,13 @@ jobs:
                   contributors.append({'name': contributor_name, 'github': github_username})
               meta['contributors'] = contributors
 
+          # Normalise tags against the canonical allowlist
+          with open('.github/tags.yml') as f:
+              allowlist = [line.strip()[2:] for line in f if line.strip().startswith('- ')]
+          lookup = {t.lower(): t for t in allowlist}
+          if 'tags' in meta and isinstance(meta['tags'], list):
+              meta['tags'] = [lookup.get(t.lower(), t.title()) for t in meta['tags'] if t]
+
           if frontmatter_text is not None:
               # Re-serialise frontmatter, preserving key order (tags, doi, contributors, comments)
               key_order = ['tags', 'doi', 'contributors', 'comments']
@@ -98,6 +106,14 @@ jobs:
           with open(filepath, 'w') as f:
               f.write(frontmatter + '\n' + proposed_content.strip() + '\n')
 
+          # Write normalised tag list to GITHUB_OUTPUT for the PR body
+          tags = meta.get('tags') or []
+          normalized_display = ', '.join(tags) if tags else '_none_'
+          github_output = os.environ.get('GITHUB_OUTPUT', '')
+          if github_output:
+              with open(github_output, 'a') as f:
+                  f.write(f'normalized_tags={normalized_display}\n')
+
           print(f"Updated {filepath}")
           PYEOF
 
@@ -109,6 +125,8 @@ jobs:
           title: "${{ github.event.issue.title }}"
           body: |
             Auto-generated PR applying an edit suggested via issue.
+
+            **Tags:** ${{ steps.apply.outputs.normalized_tags }}
 
             Suggested by @${{ github.event.issue.user.login }}
 

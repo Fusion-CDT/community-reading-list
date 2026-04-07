@@ -1,0 +1,49 @@
+# Canonical tag list for the Fusion CDT Community Reading List.
+#
+# When a tag is submitted via an issue form, it is matched case-insensitively
+# against this list. If a match is found the canonical spelling below is used;
+# otherwise Python's str.title() is applied as a fallback.
+#
+# To register a new canonical tag, append it to the list in the correct form
+# and open a pull request.
+
+tags:
+  # Confinement concepts
+  - MCF
+  - ICF
+
+  # Acronyms / codes / diagnostics
+  - GS2
+  - TGLF
+  - ELM
+  - ITER
+  - JET
+  - MAST
+  - ASDEX-Upgrade
+  - QED
+
+  # Physics areas
+  - gyrokinetics
+  - gyrofluid
+  - zonal-flows
+  - turbulence
+  - SOL-turbulence
+  - divertor
+
+  # Diagnostics & measurements
+  - diagnostics
+  - reflectometry
+  - microwaves
+  - density
+
+  # Reactor / plant concepts
+  - pilot-plants
+  - pilot-reactors
+  - fusion-gain
+  - small-device
+  - low-power
+
+  # Multi-word topics (title-cased)
+  - Laser Plasma Interaction
+  - Exhaust Modelling
+  - Fluid Code

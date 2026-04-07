@@ -1,0 +1,90 @@
+name: Lint tags
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**/*.md'
+      - '.github/tags.yml'
+
+jobs:
+  lint-tags:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check tags in changed files against allowlist
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          python3 << 'PYEOF'
+          import os
+          import subprocess
+          import sys
+          import yaml
+
+          # Load canonical allowlist
+          with open('.github/tags.yml') as f:
+              allowlist = yaml.safe_load(f).get('tags', [])
+          canonical = {t.lower() for t in allowlist}
+
+          # Find .md files added or modified in this PR
+          base_sha = os.environ['BASE_SHA']
+          result = subprocess.run(
+              ['git', 'diff', '--name-only', '--diff-filter=AM', f'{base_sha}...HEAD'],
+              capture_output=True, text=True, check=True
+          )
+          changed_files = [p for p in result.stdout.splitlines() if p.startswith('docs/') and p.endswith('.md')]
+
+          if not changed_files:
+              print('No changed documentation files to check.')
+              sys.exit(0)
+
+          unknown = {}
+          for filepath in changed_files:
+              with open(filepath) as f:
+                  content = f.read()
+
+              if not content.startswith('---'):
+                  continue
+
+              parts = content.split('---', 2)
+              if len(parts) < 3:
+                  continue
+
+              try:
+                  meta = yaml.safe_load(parts[1]) or {}
+              except yaml.YAMLError:
+                  continue
+
+              tags = meta.get('tags')
+              if not tags:
+                  continue
+
+              # Tags may be a list or a comma-separated string
+              if isinstance(tags, str):
+                  tag_list = [t.strip() for t in tags.split(',') if t.strip()]
+              elif isinstance(tags, list):
+                  tag_list = [str(t).strip() for t in tags if t]
+              else:
+                  tag_list = []
+
+              for tag in tag_list:
+                  if tag.lower() not in canonical:
+                      unknown.setdefault(filepath, []).append(tag)
+
+          if unknown:
+              print('::error::The following files contain tags not listed in .github/tags.yml:')
+              for filepath, tags in unknown.items():
+                  print(f'  {filepath}: {", ".join(tags)}')
+              print()
+              print('To fix this, either:')
+              print('  1. Correct the tag spelling/capitalisation to match a canonical tag in .github/tags.yml.')
+              print('  2. Add the new tag to .github/tags.yml (in the correct canonical form) in this PR.')
+              sys.exit(1)
+
+          print(f'All tags in {len(changed_files)} changed file(s) are valid.')
+          PYEOF
