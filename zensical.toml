@@ -61,7 +61,7 @@ Copyright &copy; Fusion CDT 2026
 #
 # Read more: https://zensical.org/docs/customization/#additional-css
 #
-extra_css = ["stylesheets/reference.css"]
+extra_css = ["stylesheets/reference.css", "stylesheets/theme.css"]
 
 # With the `extra_javascript` option you can add your own JavaScript to your
 # project to customize the behavior according to your needs.
@@ -302,11 +302,13 @@ features = [
 # ----------------------------------------------------------------------------
 [[project.theme.palette]]
 scheme = "default"
+primary = "custom"
 toggle.icon = "lucide/sun"
 toggle.name = "Switch to dark mode"
 
 [[project.theme.palette]]
 scheme = "slate"
+primary = "custom"
 toggle.icon = "lucide/moon"
 toggle.name = "Switch to light mode"
 
