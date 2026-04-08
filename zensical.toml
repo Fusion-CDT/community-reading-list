@@ -61,7 +61,7 @@ Copyright &copy; Fusion CDT 2026
 #
 # Read more: https://zensical.org/docs/customization/#additional-css
 #
-extra_css = ["stylesheets/reference.css", "stylesheets/theme.css", "stylesheets/enhanced.css"]
+extra_css = ["stylesheets/reference.css", "stylesheets/theme.css"]
 
 # With the `extra_javascript` option you can add your own JavaScript to your
 # project to customize the behavior according to your needs.

@@ -11,121 +11,76 @@
   --fusion-green-dark:    #5e8000;
   --fusion-green-darker:  #3d5203;
   --fusion-green-light:   #9ec424;
-  --fusion-green-pale:    #f2f8dc;
-  --fusion-green-pale-2:  #e6f3b8;
+  --fusion-green-pale:    #f8fbef;
 }
 
 /* --------------------------------------------------------------------------
    Light scheme
    -------------------------------------------------------------------------- */
 [data-md-color-scheme="default"] {
-  /* Primary colour drives the header background and active-nav highlight */
-  --md-primary-fg-color:            var(--fusion-green);
-  --md-primary-fg-color--light:     var(--fusion-green-light);
-  --md-primary-fg-color--dark:      var(--fusion-green-dark);
-  --md-primary-bg-color:            #ffffff;
-  --md-primary-bg-color--light:     rgba(255, 255, 255, 0.7);
-
-  /* Accent colour (links, hover, copy buttons) */
-  --md-accent-fg-color:             var(--fusion-green-dark);
+  --md-primary-fg-color:             var(--fusion-green);
+  --md-primary-fg-color--light:      var(--fusion-green-light);
+  --md-primary-fg-color--dark:       var(--fusion-green-dark);
+  --md-primary-bg-color:             #ffffff;
+  --md-primary-bg-color--light:      rgba(255, 255, 255, 0.7);
+  --md-accent-fg-color:              var(--fusion-green-dark);
   --md-accent-fg-color--transparent: rgba(130, 172, 7, 0.1);
-  --md-accent-bg-color:             #ffffff;
+  --md-accent-bg-color:              #ffffff;
 }
 
-/* Header: use the deeper forest-green so white text is readable */
+/* Header: brand green (much lighter than the previous dark forest green) */
 [data-md-color-scheme="default"] .md-header {
-  background-color: var(--fusion-green-darker);
+  background-color: var(--fusion-green);
+}
+
+/* Footer: brand green to match header */
+[data-md-color-scheme="default"] .md-footer,
+[data-md-color-scheme="default"] .md-footer-meta {
+  background-color: var(--fusion-green);
 }
 
 /* Search input in header */
 [data-md-color-scheme="default"] .md-search__input {
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 [data-md-color-scheme="default"] .md-search__input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.65);
 }
 
-/* Navigation sidebar: light green tint to distinguish from white content */
+/* Navigation sidebar: barely-perceptible tint, no additional highlights */
 [data-md-color-scheme="default"] .md-sidebar {
   background-color: var(--fusion-green-pale);
-}
-
-/* Sidebar top-label (site title area in left drawer) */
-[data-md-color-scheme="default"] .md-nav__title[for="__drawer"] {
-  background-color: var(--fusion-green);
-  color: #ffffff;
-}
-
-/* Active nav link */
-[data-md-color-scheme="default"] .md-nav__link--active,
-[data-md-color-scheme="default"] .md-nav__link--active:hover {
-  color: var(--fusion-green-dark);
-  font-weight: 600;
-}
-
-/* Nav link hover */
-[data-md-color-scheme="default"] .md-nav__link:hover {
-  color: var(--fusion-green-dark);
-}
-
-/* Section headings in sidebar (group labels) */
-[data-md-color-scheme="default"] .md-nav__item--section > .md-nav__link {
-  background-color: var(--fusion-green-pale-2);
-  border-left: 3px solid var(--fusion-green);
-  padding-left: 0.5rem;
-  border-radius: 0 4px 4px 0;
-}
-
-/* Main content area: plain white for maximum readability */
-[data-md-color-scheme="default"] .md-content {
-  background-color: #ffffff;
-}
-
-/* Tabs (if used) */
-[data-md-color-scheme="default"] .md-tabs {
-  background-color: var(--fusion-green-dark);
 }
 
 /* --------------------------------------------------------------------------
    Dark scheme (slate)
    -------------------------------------------------------------------------- */
 [data-md-color-scheme="slate"] {
-  --md-primary-fg-color:        var(--fusion-green);
-  --md-primary-fg-color--light: var(--fusion-green-light);
-  --md-primary-fg-color--dark:  var(--fusion-green-dark);
-  --md-accent-fg-color:         var(--fusion-green-light);
+  --md-primary-fg-color:             var(--fusion-green);
+  --md-primary-fg-color--light:      var(--fusion-green-light);
+  --md-primary-fg-color--dark:       var(--fusion-green-dark);
+  --md-accent-fg-color:              var(--fusion-green-light);
   --md-accent-fg-color--transparent: rgba(158, 196, 36, 0.1);
 }
 
 [data-md-color-scheme="slate"] .md-header {
-  background-color: #1a2400;
+  background-color: var(--fusion-green-dark);
+}
+
+[data-md-color-scheme="slate"] .md-footer,
+[data-md-color-scheme="slate"] .md-footer-meta {
+  background-color: var(--fusion-green-dark);
 }
 
 [data-md-color-scheme="slate"] .md-sidebar {
   background-color: #1e2d00;
 }
 
-[data-md-color-scheme="slate"] .md-nav__title[for="__drawer"] {
-  background-color: var(--fusion-green-dark);
-  color: #ffffff;
-}
-
-[data-md-color-scheme="slate"] .md-nav__link--active,
-[data-md-color-scheme="slate"] .md-nav__link--active:hover {
-  color: var(--fusion-green-light);
-  font-weight: 600;
-}
-
-[data-md-color-scheme="slate"] .md-nav__item--section > .md-nav__link {
-  border-left: 3px solid var(--fusion-green);
-  padding-left: 0.5rem;
-}
-
 /* --------------------------------------------------------------------------
    Page heading accent line (both schemes)
    -------------------------------------------------------------------------- */
 .md-content .md-typeset h1 {
-  border-bottom: 3px solid var(--fusion-green);
+  border-bottom: 2px solid var(--fusion-green);
   padding-bottom: 0.3rem;
   color: var(--fusion-green-darker);
 }
