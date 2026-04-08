@@ -61,7 +61,7 @@ Copyright &copy; Fusion CDT 2026
 #
 # Read more: https://zensical.org/docs/customization/#additional-css
 #
-extra_css = ["stylesheets/reference.css", "stylesheets/theme.css", "stylesheets/enhanced.css"]
+extra_css = ["stylesheets/reference.css", "stylesheets/theme.css"]
 
 # With the `extra_javascript` option you can add your own JavaScript to your
 # project to customize the behavior according to your needs.
@@ -318,9 +318,9 @@ toggle.name = "Switch to light mode"
 # of suitably licensed fonts. There are options for a normal text font and for
 # a monospaced font used in code blocks.
 # ----------------------------------------------------------------------------
-[project.theme.font]
-text = "Inter"
-code = "JetBrains Mono"
+#[project.theme.font]
+#text = "Inter"
+#code = "Jetbrains Mono"
 
 # ----------------------------------------------------------------------------
 # You can configure your own logo to be shown in the header using the "logo"
