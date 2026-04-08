@@ -12,6 +12,8 @@ contributors:
 comments: true
 ---
 
+# EPFL Plasma Physics Online Lecture Course
+
 This online lecture course servers as an introduction to plasma physics, starting from the kinetic and working through fluid descriptions of Plasma to MHD. The second part of this course, Plasma Phyiscs: Applications covers space plasma, low temperature plasma, and plasma for fusion in both MCF and ICF contexts.
 
 This is a complete lecture course including online lectures, Problems with example solutions and lecture notes.
