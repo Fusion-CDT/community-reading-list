@@ -21,10 +21,10 @@
 [data-md-color-scheme="default"] {
   --md-primary-fg-color:             var(--fusion-green);
   --md-primary-fg-color--light:      var(--fusion-green-light);
-  --md-primary-fg-color--dark:       var(--fusion-green-dark);
+  --md-primary-fg-color--dark:       var(--fusion-green-darker);
   --md-primary-bg-color:             var(--fusion-green-darker);
   --md-primary-bg-color--light:      rgba(61, 82, 3, 0.7);
-  --md-accent-fg-color:              var(--fusion-green-dark);
+  --md-accent-fg-color:              var(--fusion-green-darker);
   --md-accent-fg-color--transparent: rgba(130, 172, 7, 0.1);
   --md-accent-bg-color:              #ffffff;
 }
@@ -71,18 +71,18 @@
 [data-md-color-scheme="slate"] {
   --md-primary-fg-color:             var(--fusion-green);
   --md-primary-fg-color--light:      var(--fusion-green-light);
-  --md-primary-fg-color--dark:       var(--fusion-green-dark);
+  --md-primary-fg-color--dark:       var(--fusion-green-darker);
   --md-accent-fg-color:              var(--fusion-green-light);
   --md-accent-fg-color--transparent: rgba(158, 196, 36, 0.1);
 }
 
 [data-md-color-scheme="slate"] .md-header {
-  background-color: var(--fusion-green-dark);
+  background-color: var(--fusion-green-darker);
 }
 
 [data-md-color-scheme="slate"] .md-footer,
 [data-md-color-scheme="slate"] .md-footer-meta {
-  background-color: var(--fusion-green-dark);
+  background-color: var(--fusion-green-darker);
 }
 
 [data-md-color-scheme="slate"] .md-main {
