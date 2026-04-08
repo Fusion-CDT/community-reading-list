@@ -1,0 +1,264 @@
+/* ============================================================================
+   Fusion CDT Enhanced Visual Stylesheet (Branch 2)
+   Extends theme.css with improved typography, readability, and polish.
+   ============================================================================ */
+
+/* --------------------------------------------------------------------------
+   Typography — load Inter (body) and Raleway (headings) from Google Fonts
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Raleway:wght@600;700&display=swap');
+
+.md-typeset,
+.md-nav,
+.md-header,
+.md-footer {
+  font-family: 'Inter', 'Roboto', sans-serif;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  font-family: 'Raleway', 'Roboto', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* --------------------------------------------------------------------------
+   Global reading comfort — slightly wider line-height & max content width
+   -------------------------------------------------------------------------- */
+.md-typeset {
+  line-height: 1.75;
+  font-size: 0.95rem;
+}
+
+.md-content__inner {
+  max-width: 860px;
+}
+
+/* --------------------------------------------------------------------------
+   Header refinements
+   -------------------------------------------------------------------------- */
+.md-header {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.md-header__title {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-size: 1rem;
+}
+
+/* Faint bottom border separating header from content */
+.md-header__inner {
+  border-bottom: 2px solid rgba(158, 196, 36, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   Sidebar navigation — better spacing and visual hierarchy
+   -------------------------------------------------------------------------- */
+
+/* Indent nested nav items */
+.md-nav--secondary .md-nav__list {
+  padding-left: 0.5rem;
+}
+
+/* Nav items — tighter padding for dense but readable lists */
+.md-nav__item {
+  padding: 0.05rem 0;
+}
+
+.md-nav__link {
+  padding: 0.28rem 0.6rem;
+  border-radius: 4px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Hover — subtle background tint */
+[data-md-color-scheme="default"] .md-nav__link:hover {
+  background-color: rgba(130, 172, 7, 0.12);
+}
+
+/* Active page — green pill */
+[data-md-color-scheme="default"] .md-nav__link--active {
+  background-color: rgba(130, 172, 7, 0.18);
+  border-left: 3px solid var(--fusion-green);
+  padding-left: 0.45rem;
+}
+
+/* Dark mode nav hover */
+[data-md-color-scheme="slate"] .md-nav__link:hover {
+  background-color: rgba(158, 196, 36, 0.12);
+}
+
+[data-md-color-scheme="slate"] .md-nav__link--active {
+  background-color: rgba(158, 196, 36, 0.15);
+  border-left: 3px solid var(--fusion-green-light);
+  padding-left: 0.45rem;
+}
+
+/* Section group labels — small caps, muted */
+.md-nav__item--section > .md-nav__link {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-top: 0.6rem;
+}
+
+/* --------------------------------------------------------------------------
+   Heading hierarchy in content
+   -------------------------------------------------------------------------- */
+.md-typeset h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.md-typeset h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--fusion-green-pale-2, #e6f3b8);
+}
+
+[data-md-color-scheme="slate"] .md-typeset h2 {
+  border-top-color: rgba(130, 172, 7, 0.25);
+}
+
+.md-typeset h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Reference page metadata (authors, journal, DOI) — already in reference.css,
+   but add a visual card wrapper around the block
+   -------------------------------------------------------------------------- */
+.ref-authors,
+.ref-journal,
+.ref-doi {
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Admonitions — rounded, slightly larger padding
+   -------------------------------------------------------------------------- */
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   Code blocks — subtle Fusion CDT tint on the title bar
+   -------------------------------------------------------------------------- */
+[data-md-color-scheme="default"] .md-typeset .highlight > .filename {
+  background-color: var(--fusion-green-pale);
+  color: var(--fusion-green-darker);
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   Tables — zebra striping for readability
+   -------------------------------------------------------------------------- */
+[data-md-color-scheme="default"] .md-typeset table:not([class]) tr:nth-child(even) {
+  background-color: var(--fusion-green-pale);
+}
+
+/* --------------------------------------------------------------------------
+   Footer — darker green base
+   -------------------------------------------------------------------------- */
+[data-md-color-scheme="default"] .md-footer {
+  background-color: var(--fusion-green-darker);
+}
+
+[data-md-color-scheme="default"] .md-footer-meta {
+  background-color: #2a3800;
+}
+
+/* --------------------------------------------------------------------------
+   Tags — Fusion CDT green pill style
+   -------------------------------------------------------------------------- */
+[data-md-color-scheme="default"] .md-tag {
+  background-color: var(--fusion-green-pale-2);
+  color: var(--fusion-green-darker);
+  border: 1px solid var(--fusion-green);
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.1em 0.65em;
+}
+
+[data-md-color-scheme="slate"] .md-tag {
+  background-color: rgba(130, 172, 7, 0.15);
+  color: var(--fusion-green-light);
+  border: 1px solid var(--fusion-green);
+}
+
+/* --------------------------------------------------------------------------
+   Back-to-top button — match brand colour
+   -------------------------------------------------------------------------- */
+[data-md-color-scheme="default"] .md-top {
+  background-color: var(--fusion-green);
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Search bar — crisper outline when focused
+   -------------------------------------------------------------------------- */
+.md-search__form {
+  border-radius: 6px;
+}
+
+[data-md-color-scheme="default"] .md-search__input:focus {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* --------------------------------------------------------------------------
+   Section index landing pages — card grid for child links
+   -------------------------------------------------------------------------- */
+[data-md-color-scheme="default"] .md-typeset a.md-content__card {
+  background-color: var(--fusion-green-pale);
+  border: 1px solid var(--fusion-green-pale-2);
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  text-decoration: none;
+  color: var(--fusion-green-darker);
+  transition: box-shadow 0.18s ease, transform 0.18s ease;
+  display: block;
+}
+
+[data-md-color-scheme="default"] .md-typeset a.md-content__card:hover {
+  box-shadow: 0 4px 14px rgba(94, 128, 0, 0.18);
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   Breadcrumb path — subtle weight difference
+   -------------------------------------------------------------------------- */
+.md-path {
+  font-size: 0.75rem;
+  opacity: 0.75;
+}
+
+/* --------------------------------------------------------------------------
+   Scrollbar (webkit) — branded thin scrollbar
+   -------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+[data-md-color-scheme="default"] ::-webkit-scrollbar-thumb {
+  background-color: var(--fusion-green-pale-2);
+  border-radius: 3px;
+}
+
+[data-md-color-scheme="default"] ::-webkit-scrollbar-thumb:hover {
+  background-color: var(--fusion-green);
+}
