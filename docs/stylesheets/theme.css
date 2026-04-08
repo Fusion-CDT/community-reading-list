@@ -12,6 +12,7 @@
   --fusion-green-darker:  #3d5203;
   --fusion-green-light:   #9ec424;
   --fusion-green-pale:    #f8fbef;
+  --fusion-sidebar-width: 12.1rem;
 }
 
 /* --------------------------------------------------------------------------
@@ -21,40 +22,47 @@
   --md-primary-fg-color:             var(--fusion-green);
   --md-primary-fg-color--light:      var(--fusion-green-light);
   --md-primary-fg-color--dark:       var(--fusion-green-dark);
-  --md-primary-bg-color:             #ffffff;
-  --md-primary-bg-color--light:      rgba(255, 255, 255, 0.7);
+  --md-primary-bg-color:             var(--fusion-green-darker);
+  --md-primary-bg-color--light:      rgba(61, 82, 3, 0.7);
   --md-accent-fg-color:              var(--fusion-green-dark);
   --md-accent-fg-color--transparent: rgba(130, 172, 7, 0.1);
   --md-accent-bg-color:              #ffffff;
 }
 
-/* Header: brand green (much lighter than the previous dark forest green) */
+/* Header: very light subtle tint */
 [data-md-color-scheme="default"] .md-header {
-  background-color: var(--fusion-green);
-}
-
-/* Footer: brand green to match header */
-[data-md-color-scheme="default"] .md-footer,
-[data-md-color-scheme="default"] .md-footer-meta {
-  background-color: var(--fusion-green);
-}
-
-/* Search input in header */
-[data-md-color-scheme="default"] .md-search__input {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-[data-md-color-scheme="default"] .md-search__input::placeholder {
-  color: rgba(255, 255, 255, 0.65);
-}
-
-/* Navigation sidebar: barely-perceptible tint across the full column height */
-[data-md-color-scheme="default"] .md-sidebar,
-[data-md-color-scheme="default"] .md-sidebar__scrollwrap {
   background-color: var(--fusion-green-pale);
 }
 
-[data-md-color-scheme="default"] .md-sidebar {
-  min-height: 100%;
+/* Footer: very light subtle tint to match header */
+[data-md-color-scheme="default"] .md-footer,
+[data-md-color-scheme="default"] .md-footer-meta {
+  background-color: var(--fusion-green-pale);
+  color: var(--fusion-green-darker);
+}
+
+/* Search input on light header */
+[data-md-color-scheme="default"] .md-search__input {
+  background-color: rgba(61, 82, 3, 0.1);
+}
+[data-md-color-scheme="default"] .md-search__input::placeholder {
+  color: rgba(61, 82, 3, 0.5);
+}
+
+/* Navigation sidebar: faux full-height column background on the main wrapper,
+   covering the margin-top gap above md-main__inner, plus sidebar element itself */
+[data-md-color-scheme="default"] .md-main {
+  background: linear-gradient(
+    to right,
+    var(--fusion-green-pale) 0,
+    var(--fusion-green-pale) var(--fusion-sidebar-width),
+    transparent var(--fusion-sidebar-width)
+  );
+}
+
+[data-md-color-scheme="default"] .md-sidebar,
+[data-md-color-scheme="default"] .md-sidebar__scrollwrap {
+  background-color: var(--fusion-green-pale);
 }
 
 /* --------------------------------------------------------------------------
@@ -77,13 +85,18 @@
   background-color: var(--fusion-green-dark);
 }
 
+[data-md-color-scheme="slate"] .md-main {
+  background: linear-gradient(
+    to right,
+    #1e2d00 0,
+    #1e2d00 var(--fusion-sidebar-width),
+    transparent var(--fusion-sidebar-width)
+  );
+}
+
 [data-md-color-scheme="slate"] .md-sidebar,
 [data-md-color-scheme="slate"] .md-sidebar__scrollwrap {
   background-color: #1e2d00;
-}
-
-[data-md-color-scheme="slate"] .md-sidebar {
-  min-height: 100%;
 }
 
 /* --------------------------------------------------------------------------
