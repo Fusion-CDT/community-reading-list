@@ -1,14 +1,14 @@
 ---
 tags:
-  - Plasma Physics
-  - Theory
-  - MHD
-  - MCF
-  - ICF
-doi: 
+- Plasma Physics
+- Theory
+- Mhd
+- MCF
+- ICF
+doi: null
 contributors:
-  - name: "Felix Watts"
-    github: "FelixWattsYork"
+- name: Felix Watts
+  github: FelixWattsYork
 comments: true
 ---
 
