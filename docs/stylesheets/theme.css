@@ -47,9 +47,14 @@
   color: rgba(255, 255, 255, 0.65);
 }
 
-/* Navigation sidebar: barely-perceptible tint, no additional highlights */
-[data-md-color-scheme="default"] .md-sidebar {
+/* Navigation sidebar: barely-perceptible tint across the full column height */
+[data-md-color-scheme="default"] .md-sidebar,
+[data-md-color-scheme="default"] .md-sidebar__scrollwrap {
   background-color: var(--fusion-green-pale);
+}
+
+[data-md-color-scheme="default"] .md-sidebar {
+  min-height: 100%;
 }
 
 /* --------------------------------------------------------------------------
@@ -72,8 +77,13 @@
   background-color: var(--fusion-green-dark);
 }
 
-[data-md-color-scheme="slate"] .md-sidebar {
+[data-md-color-scheme="slate"] .md-sidebar,
+[data-md-color-scheme="slate"] .md-sidebar__scrollwrap {
   background-color: #1e2d00;
+}
+
+[data-md-color-scheme="slate"] .md-sidebar {
+  min-height: 100%;
 }
 
 /* --------------------------------------------------------------------------
