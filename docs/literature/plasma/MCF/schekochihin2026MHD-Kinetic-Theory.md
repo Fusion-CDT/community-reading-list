@@ -1,13 +1,13 @@
 ---
 tags:
-  - MCF
-  - MHD
-  - Kinetic Theory
-  - Theory
-doi: 
+- MCF
+- Mhd
+- Kinetic Theory
+- Theory
+doi: null
 contributors:
-  - name: "Zheyuan Chen"
-    github: "ZheyuanChen"
+- name: Zheyuan Chen
+  github: ZheyuanChen
 comments: true
 ---
 
