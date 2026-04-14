@@ -1,14 +1,14 @@
 ---
 tags:
-  - EPOCH
-  - PIC
-  - Laser Plasma
-  - Simulation
-  - QED
+- Epoch
+- Pic
+- Laser Plasma
+- Simulation
+- QED
 doi: 10.1088/0741-3335/57/11/113001
 contributors:
-  - name: "Zheyuan Chen"
-    github: "ZheyuanChen"
+- name: Zheyuan Chen
+  github: ZheyuanChen
 comments: true
 ---
 
