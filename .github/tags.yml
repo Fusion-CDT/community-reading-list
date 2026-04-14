@@ -2,7 +2,7 @@
 #
 # When a PR touches a docs/*.md file the 'Normalise tags' workflow rewrites
 # any tags to their canonical spelling (case-insensitive match). Tags not
-# found here are title-cased automatically as a fallback.
+# found here are left unchanged but trigger a warning in CI.
 #
 # To register a new canonical tag, append it to the list in the correct form
 # and open a pull request.
@@ -16,17 +16,30 @@ tags:
   - GS2
   - TGLF
   - ELM
+  - EPOCH
   - ITER
   - JET
   - MAST
   - ASDEX-Upgrade
+  - MHD
+  - PIC
   - QED
+
+  # Materials & engineering acronyms
+  - FW/B
+  - HTS
+  - ODS
+  - RAFM
 
   # Physics areas
   - gyrokinetics
   - gyrofluid
-  - zonal-flows
+  - irradiation
+  - structural
+  - superconductors
+  - steel
   - turbulence
+  - zonal-flows
   - SOL-turbulence
   - divertor
 
@@ -43,7 +56,20 @@ tags:
   - small-device
   - low-power
 
-  # Multi-word topics (title-cased)
-  - Laser Plasma Interaction
+  # Multi-word topics
+  - Braginskii
+  - Cold Plasma
   - Exhaust Modelling
   - Fluid Code
+  - Fusion Plasma
+  - Hot Plasma
+  - Kinetic Theory
+  - Laser Plasma
+  - Laser Plasma Interaction
+  - Pfirsch Schluter
+  - Plasma Physics
+  - Resistive MHD
+  - Simulation
+  - Theory
+  - Tokamak Physics
+  - Waves

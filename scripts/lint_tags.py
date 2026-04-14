@@ -54,10 +54,26 @@ def main():
         if not tags or not isinstance(tags, list):
             continue
 
-        # normalise tags to match canonical form (case-insensitive), fall back to str.title()
-        normalised = [
-            lookup.get(t.lower(), t.title()) for t in tags if isinstance(t, str) and t
-        ]
+        # normalise tags to match canonical form (case-insensitive), leave unknown tags unchanged
+        normalised = []
+        unknown = []
+        for t in tags:
+            if not (isinstance(t, str) and t):
+                continue
+            canonical = lookup.get(t.lower())
+            if canonical is not None:
+                normalised.append(canonical)
+            else:
+                normalised.append(t)
+                unknown.append(t)
+
+        if unknown:
+            print(
+                f"Warning: {filepath} contains tag(s) not in tags.yml: "
+                + ", ".join(f"'{u}'" for u in unknown)
+                + " — consider adding them to .github/tags.yml"
+            )
+
         if normalised == tags:
             continue
 
