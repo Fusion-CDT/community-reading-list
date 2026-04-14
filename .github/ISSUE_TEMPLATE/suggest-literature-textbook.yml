@@ -1,0 +1,82 @@
+name: "Suggest literature: textbook"
+description: Suggest a textbook to add to the reading list.
+title: "Add suggested literature: "
+labels: ["textbook-suggestion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing to the Fusion CDT Community Reading List!
+        Please fill in as much detail as you can below.
+
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      description: The full title of the textbook.
+      placeholder: "e.g. Plasma Physics and Fusion Energy"
+    validations:
+      required: true
+
+  - type: input
+    id: authors
+    attributes:
+      label: Authors
+      description: The author(s) of the textbook.
+      placeholder: "e.g. Jeffrey P. Freidberg"
+    validations:
+      required: true
+
+  - type: input
+    id: isbn
+    attributes:
+      label: ISBN
+      description: The ISBN of the textbook, if known.
+      placeholder: "e.g. 978-0-521-73317-5"
+    validations:
+      required: false
+
+  - type: input
+    id: url
+    attributes:
+      label: URL
+      description: A link to the textbook (e.g. publisher page or open-access version), if available.
+      placeholder: "e.g. https://example.com/book"
+    validations:
+      required: false
+
+  - type: input
+    id: filepath
+    attributes:
+      label: Location and filename
+      description: Where in the reading list should this live and what should it be called? Follow the format `<AUTHOR>_<YEAR>_<SHORT-TITLE>`.
+      placeholder: "e.g. plasma/MCF/freidberg_2007_plasma-physics-and-fusion-energy"
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Comma-separated tags. See the existing tag list for canonical spellings.
+      placeholder: "e.g. MCF, Theory, Plasma Physics"
+    validations:
+      required: false
+
+  - type: textarea
+    id: content
+    attributes:
+      label: Content
+      description: Why this is useful and what you'd like to highlight. Please use Markdown and LaTeX for maths (e.g. `$\chi_e$`).
+      placeholder: "e.g. Excellent introductory textbook covering both plasma physics fundamentals and fusion engineering."
+    validations:
+      required: true
+
+  - type: input
+    id: contributor_name
+    attributes:
+      label: Your name (optional)
+      description: Your full name, to be credited as a contributor to this note.
+      placeholder: "e.g. Bailey Cook"
+    validations:
+      required: false

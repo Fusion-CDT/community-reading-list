@@ -1,0 +1,108 @@
+name: Convert suggested textbook to PR
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+    create-contribution:
+        if: contains(github.event.issue.labels.*.name, 'textbook-suggestion')
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            pull-requests: write
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Check if PR branch already exists
+              id: check-branch
+              run: |
+                if git ls-remote --heads origin "add-suggested-textbook-${{ github.event.issue.number }}" | grep -q .; then
+                  echo "exists=true" >> $GITHUB_OUTPUT
+                else
+                  echo "exists=false" >> $GITHUB_OUTPUT
+                fi
+
+            - name: Parse issue
+              if: steps.check-branch.outputs.exists == 'false'
+              id: parser
+              uses: issue-ops/parser@v5.0.0
+              with:
+                body: ${{ github.event.issue.body }}
+                issue-form-template: suggest-literature-textbook.yml
+
+            - name: Generate markdown file
+              if: steps.check-branch.outputs.exists == 'false'
+              shell: bash
+              env:
+                TITLE: ${{ steps.parser.outputs.parsed_title }}
+                AUTHORS: ${{ steps.parser.outputs.parsed_authors }}
+                ISBN: ${{ steps.parser.outputs.parsed_isbn }}
+                URL: ${{ steps.parser.outputs.parsed_url }}
+                FILEPATH: ${{ steps.parser.outputs.parsed_filepath }}
+                TAGS: ${{ steps.parser.outputs.parsed_tags }}
+                CONTENT: ${{ steps.parser.outputs.parsed_content }}
+                CONTRIBUTOR_NAME: ${{ steps.parser.outputs.parsed_contributor_name }}
+                GITHUB_USERNAME: ${{ github.event.issue.user.login }}
+              run: |
+
+                # Strip any trailing .md the user may have included to avoid .md.md
+                FILEPATH="${FILEPATH%.md}"
+                FULL_PATH="docs/literature/${FILEPATH}.md"
+                DIR_PATH=$(dirname "$FULL_PATH")
+                mkdir -p "$DIR_PATH"
+
+                # Convert comma-separated tags to YAML list format
+                if [ -n "$TAGS" ]; then
+                    TAGS_LIST=$(echo "$TAGS" | tr ',' '\n' | sed 's/^[[:space:]]*//; s/[[:space:]]*$//' | grep -v '^$' | sed 's/^/  - /')
+                    TAGS_YAML="tags:
+                ${TAGS_LIST}"
+                else
+                    TAGS_YAML="tags:"
+                fi
+
+                # Build optional contributors block
+                if [ -n "$CONTRIBUTOR_NAME" ]; then
+                    CONTRIBUTORS_YAML="contributors:
+                  - name: \"${CONTRIBUTOR_NAME}\"
+                    github: \"${GITHUB_USERNAME}\""
+                else
+                    CONTRIBUTORS_YAML=""
+                fi
+
+                {
+                  echo "---"
+                  echo "${TAGS_YAML}"
+                  echo "title: \"$TITLE\""
+                  echo "authors: \"$AUTHORS\""
+                  if [ -n "$ISBN" ]; then
+                    echo "isbn: \"$ISBN\""
+                  fi
+                  if [ -n "$URL" ]; then
+                    echo "url: \"$URL\""
+                  fi
+                  if [ -n "$CONTRIBUTORS_YAML" ]; then
+                    echo "${CONTRIBUTORS_YAML}"
+                  fi
+                  echo "comments: true"
+                  echo "---"
+                  echo ""
+                  echo "$CONTENT"
+                } > "$FULL_PATH"
+
+            - name: Create PR
+              if: steps.check-branch.outputs.exists == 'false'
+              uses: peter-evans/create-pull-request@v6
+              with:
+                base: main
+                commit-message: "${{ github.event.issue.title }}"
+                title: "${{ github.event.issue.title }}"
+                body: |
+                    Auto-generated PR for adding the suggested textbook.
+
+                    Suggested by @${{ github.event.issue.user.login }}
+
+                    Closes #${{ github.event.issue.number }}
+                branch: "add-suggested-textbook-${{ github.event.issue.number }}"
+                delete-branch: true

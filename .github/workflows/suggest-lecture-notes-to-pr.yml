@@ -1,31 +1,43 @@
-name: Convert suggested literature to PR
+name: Convert suggested lecture notes to PR
 on:
   issues:
     types: [opened, edited]
 
 jobs:
     create-contribution:
-        if: contains(github.event.issue.labels.*.name, 'literature-suggestion')
+        if: contains(github.event.issue.labels.*.name, 'lecture-notes-suggestion')
         runs-on: ubuntu-latest
         permissions:
             contents: write
             pull-requests: write
-        
+
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
-            
+
+            - name: Check if PR branch already exists
+              id: check-branch
+              run: |
+                if git ls-remote --heads origin "add-suggested-lecture-notes-${{ github.event.issue.number }}" | grep -q .; then
+                  echo "exists=true" >> $GITHUB_OUTPUT
+                else
+                  echo "exists=false" >> $GITHUB_OUTPUT
+                fi
+
             - name: Parse issue
+              if: steps.check-branch.outputs.exists == 'false'
               id: parser
               uses: issue-ops/parser@v5.0.0
               with:
                 body: ${{ github.event.issue.body }}
-                issue-form-template: suggest-literature.yml
+                issue-form-template: suggest-literature-lecture-notes.yml
 
             - name: Generate markdown file
+              if: steps.check-branch.outputs.exists == 'false'
               shell: bash
               env:
-                DOI: ${{ steps.parser.outputs.parsed_doi }}
+                TITLE: ${{ steps.parser.outputs.parsed_title }}
+                URL: ${{ steps.parser.outputs.parsed_url }}
                 FILEPATH: ${{ steps.parser.outputs.parsed_filepath }}
                 TAGS: ${{ steps.parser.outputs.parsed_tags }}
                 CONTENT: ${{ steps.parser.outputs.parsed_content }}
@@ -33,8 +45,9 @@ jobs:
                 GITHUB_USERNAME: ${{ github.event.issue.user.login }}
               run: |
 
+                # Strip any trailing .md the user may have included to avoid .md.md
+                FILEPATH="${FILEPATH%.md}"
                 FULL_PATH="docs/literature/${FILEPATH}.md"
-                # Extract the directory the file needs to go in and make the folder
                 DIR_PATH=$(dirname "$FULL_PATH")
                 mkdir -p "$DIR_PATH"
 
@@ -59,7 +72,10 @@ jobs:
                 {
                   echo "---"
                   echo "${TAGS_YAML}"
-                  echo "doi: $DOI"
+                  echo "title: \"$TITLE\""
+                  if [ -n "$URL" ]; then
+                    echo "url: \"$URL\""
+                  fi
                   if [ -n "$CONTRIBUTORS_YAML" ]; then
                     echo "${CONTRIBUTORS_YAML}"
                   fi
@@ -68,18 +84,19 @@ jobs:
                   echo ""
                   echo "$CONTENT"
                 } > "$FULL_PATH"
-            
+
             - name: Create PR
+              if: steps.check-branch.outputs.exists == 'false'
               uses: peter-evans/create-pull-request@v6
               with:
                 base: main
                 commit-message: "${{ github.event.issue.title }}"
                 title: "${{ github.event.issue.title }}"
                 body: |
-                    Auto-generated PR for adding the suggested literature.
-                    
+                    Auto-generated PR for adding the suggested lecture notes.
+
                     Suggested by @${{ github.event.issue.user.login }}
 
                     Closes #${{ github.event.issue.number }}
-                branch: "add-suggested-literature-${{ github.event.issue.number }}" 
+                branch: "add-suggested-lecture-notes-${{ github.event.issue.number }}"
                 delete-branch: true
