@@ -37,6 +37,7 @@ jobs:
               shell: bash
               env:
                 TITLE: ${{ steps.parser.outputs.parsed_title }}
+                AUTHORS: ${{ steps.parser.outputs.parsed_authors }}
                 URL: ${{ steps.parser.outputs.parsed_url }}
                 FILEPATH: ${{ steps.parser.outputs.parsed_filepath }}
                 TAGS: ${{ steps.parser.outputs.parsed_tags }}
@@ -73,6 +74,9 @@ jobs:
                   echo "---"
                   echo "${TAGS_YAML}"
                   echo "title: \"$TITLE\""
+                  if [ -n "$AUTHORS" ]; then
+                    echo "authors: \"$AUTHORS\""
+                  fi
                   if [ -n "$URL" ]; then
                     echo "url: \"$URL\""
                   fi

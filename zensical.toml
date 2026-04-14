@@ -92,6 +92,10 @@ generic = true
 # title/authors/journal header on pages that have a `doi` frontmatter field.
 [project.markdown_extensions.doi_reference]
 
+# Load the custom title reference extension (scripts/title_reference.py).
+# Handles pages with a `title` frontmatter field but no `doi` (lecture notes, textbooks).
+[project.markdown_extensions.title_reference]
+
 # Load the custom contributors extension (scripts/contributors.py)
 [project.markdown_extensions.contributors]
 

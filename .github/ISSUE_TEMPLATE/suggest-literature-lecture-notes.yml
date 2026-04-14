@@ -19,6 +19,15 @@ body:
       required: true
 
   - type: input
+    id: authors
+    attributes:
+      label: Author(s) (optional)
+      description: The author(s) of the lecture notes or slides, if known.
+      placeholder: "e.g. Felix Parra Diaz"
+    validations:
+      required: false
+
+  - type: input
     id: url
     attributes:
       label: URL
