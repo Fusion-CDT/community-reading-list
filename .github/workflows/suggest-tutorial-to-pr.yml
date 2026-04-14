@@ -15,7 +15,17 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v4
 
+            - name: Check if PR branch already exists
+              id: check-branch
+              run: |
+                if git ls-remote --heads origin "add-suggested-tutorial-${{ github.event.issue.number }}" | grep -q .; then
+                  echo "exists=true" >> $GITHUB_OUTPUT
+                else
+                  echo "exists=false" >> $GITHUB_OUTPUT
+                fi
+
             - name: Parse issue
+              if: steps.check-branch.outputs.exists == 'false'
               id: parser
               uses: issue-ops/parser@v5.0.0
               with:
@@ -23,6 +33,7 @@ jobs:
                 issue-form-template: suggest-tutorial.yml
 
             - name: Generate markdown file
+              if: steps.check-branch.outputs.exists == 'false'
               shell: bash
               env:
                 FILEPATH: ${{ steps.parser.outputs.parsed_filepath }}
@@ -68,6 +79,7 @@ jobs:
                 } > "$FULL_PATH"
 
             - name: Create PR
+              if: steps.check-branch.outputs.exists == 'false'
               uses: peter-evans/create-pull-request@v6
               with:
                 base: main
