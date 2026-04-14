@@ -13,5 +13,3 @@ comments: true
 ---
 
 This paper introduces several QED effects in laser-plasma interactions and demonstrates how the QED module is implemented in EPOCH with Monte Carlo methods. 
-
-https://www.sciencedirect.com/science/article/pii/S0021999113008061
