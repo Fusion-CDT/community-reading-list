@@ -24,7 +24,9 @@ Documentation: [https://pyrokinetics.readthedocs.io/en/latest/](https://pyrokine
 
 GitHub repository: [https://github.com/pyro-kinetics/pyrokinetics](https://github.com/pyro-kinetics/pyrokinetics)
 
-Pyrokinetics is in active development with new features and improvements added constantly. There is a monthly Pyrokinetics users and developers meeting where recommendations are taken, new features are demonstrated and design goals are discussed. Link to join:
+Pyrokinetics is in active development with new features and improvements added constantly. There is a monthly Pyrokinetics users and developers meeting where recommendations are taken, new features are demonstrated and design goals are discussed. 
+The first meeting is on Monday the 20th of April at 3pm. 
+Link to join:
 [https://teams.microsoft.com/meet/34783083564582?p=DryIUXHKtk0Cxg63zi](https://teams.microsoft.com/meet/34783083564582?p=DryIUXHKtk0Cxg63zi)
 
 The development of Pyrokinetics is actively supported by both the University of York and UKAEA, and we welcome new contributors.
