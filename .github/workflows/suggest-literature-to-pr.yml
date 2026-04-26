@@ -34,6 +34,7 @@ jobs:
 
             - name: Generate markdown file
               if: steps.check-branch.outputs.exists == 'false'
+              id: generate-markdown-file
               shell: bash
               env:
                 DOI: ${{ steps.parser.outputs.parsed_doi }}
@@ -79,7 +80,8 @@ jobs:
                   echo ""
                   echo "$CONTENT"
                 } > "$FULL_PATH"
-            
+                echo "$FULL_PATH" >> $GITHUB_OUTPUT
+
             - name: Create PR
               if: steps.check-branch.outputs.exists == 'false'
               uses: peter-evans/create-pull-request@v6
@@ -88,7 +90,9 @@ jobs:
                 commit-message: "${{ github.event.issue.title }}"
                 title: "${{ github.event.issue.title }}"
                 body: |
-                    Auto-generated PR for adding the suggested literature.
+                    Auto-generated PR for adding the suggested literature. 
+                    
+                    To edit the content of this suggested literature [click here](https://github.com/Fusion-CDT/community-reading-list/edit/add-suggested-literature-${{ github.event.issue.number }}/${{ steps.generate-markdown-file.outputs.FULL_PATH }})
                     
                     Suggested by @${{ github.event.issue.user.login }}
 
