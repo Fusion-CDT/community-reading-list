@@ -1,13 +1,13 @@
 ---
 tags:
-  - Laser-Plasma
-  - QED
-  - Lasers
-  - PIC
-  - High Intensity
+- Laser-Plasma
+- QED
+- Lasers
+- Pic
+- High Intensity
 contributors:
-  - name: "Zheyuan Chen"
-    github: "ZheyuanChen"
+- name: Zheyuan Chen
+  github: ZheyuanChen
 comments: true
 ---
 
