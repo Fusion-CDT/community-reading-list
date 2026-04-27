@@ -30,9 +30,9 @@ body:
   - type: input
     id: url
     attributes:
-      label: URL
-      description: A link to the notes or slides, if publicly available.
-      placeholder: "e.g. https://example.com/notes.pdf"
+      label: URL(s)
+      description: Link(s) to the notes or slides, if publicly available. Separate multiple URLs with commas.
+      placeholder: "e.g. https://example.com/part1.pdf, https://example.com/part2.pdf"
     validations:
       required: false
 

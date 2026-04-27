@@ -79,7 +79,13 @@ jobs:
                     echo "authors: \"$AUTHORS\""
                   fi
                   if [ -n "$URL" ]; then
-                    echo "url: \"$URL\""
+                    URL_COUNT=$(echo "$URL" | tr ',' '\n' | grep -cv '^[[:space:]]*$')
+                    if [ "$URL_COUNT" -eq 1 ]; then
+                      echo "url: \"$(echo "$URL" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')\""
+                    else
+                      echo "url:"
+                      echo "$URL" | tr ',' '\n' | sed 's/^[[:space:]]*//; s/[[:space:]]*$//' | grep -v '^$' | sed 's/^/  - "/' | sed 's/$/"/'
+                    fi
                   fi
                   if [ -n "$CONTRIBUTORS_YAML" ]; then
                     echo "${CONTRIBUTORS_YAML}"

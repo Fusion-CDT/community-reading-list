@@ -55,7 +55,9 @@ class TitleReferencePreprocessor(Preprocessor):
             header.append(f"<p class='ref-isbn'><b>ISBN:</b> {isbn}</p>")
 
         if url:
-            header.append(f"<p class='ref-url'><b>URL:</b> <a href='{url}'>{url}</a></p>")
+            urls = url if isinstance(url, list) else [url]
+            for u in urls:
+                header.append(f"<p class='ref-url'><b>URL:</b> <a href='{u}'>{u}</a></p>")
 
         header += ["", "---", ""]
 
