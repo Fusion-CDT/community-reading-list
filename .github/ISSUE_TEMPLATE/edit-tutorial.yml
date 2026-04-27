@@ -1,6 +1,6 @@
 name: Edit existing tutorial
 description: Propose a correction or improvement to an existing tutorial page.
-title: "Edit: "
+title: ""
 labels: ["edit-tutorial"]
 body:
   - type: markdown
