@@ -1,6 +1,6 @@
 name: "Suggest literature: lecture notes or slides"
 description: Suggest a set of lecture notes or slides to add to the reading list.
-title: "Add suggested literature: "
+title: ""
 labels: ["lecture-notes-suggestion"]
 body:
   - type: markdown

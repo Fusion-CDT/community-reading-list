@@ -1,6 +1,6 @@
 name: "Suggest literature: textbook"
 description: Suggest a textbook to add to the reading list.
-title: "Add suggested literature: "
+title: ""
 labels: ["textbook-suggestion"]
 body:
   - type: markdown
