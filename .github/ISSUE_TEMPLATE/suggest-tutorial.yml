@@ -1,6 +1,5 @@
 name: Suggest tutorial
 description: Suggest a tutorial to add to the reading list.
-title: ""
 labels: ["tutorial-suggestion"]
 body:
   - type: markdown

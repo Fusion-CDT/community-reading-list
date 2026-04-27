@@ -1,6 +1,5 @@
 name: "Suggest literature: paper"
 description: Suggest a journal article or preprint to add to the reading list.
-title: ""
 labels: ["paper-suggestion"]
 body:
   - type: markdown

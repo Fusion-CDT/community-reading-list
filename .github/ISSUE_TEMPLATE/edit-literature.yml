@@ -1,6 +1,5 @@
 name: Edit existing literature entry
 description: Propose a correction or improvement to an existing literature entry.
-title: ""
 labels: ["edit-literature"]
 body:
   - type: markdown
