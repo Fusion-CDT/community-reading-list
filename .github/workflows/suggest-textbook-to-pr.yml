@@ -1,0 +1,13 @@
+name: Convert suggested textbook to PR
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+    create-contribution:
+        if: contains(github.event.issue.labels.*.name, 'textbook-suggestion')
+        uses: ./.github/workflows/_suggest-literature-to-pr.yml
+        with:
+            branch_prefix: add-suggested-textbook
+            issue_form_template: suggest-literature-textbook.yml
+            type_name: textbook

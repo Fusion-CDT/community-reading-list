@@ -1,0 +1,13 @@
+name: Convert suggested paper to PR
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+    create-contribution:
+        if: contains(github.event.issue.labels.*.name, 'paper-suggestion')
+        uses: ./.github/workflows/_suggest-literature-to-pr.yml
+        with:
+            branch_prefix: add-suggested-paper
+            issue_form_template: suggest-literature-paper.yml
+            type_name: paper
