@@ -34,6 +34,7 @@ jobs:
 
             - name: Generate markdown file
               if: steps.check-branch.outputs.exists == 'false'
+              id: generate-markdown-file
               shell: bash
               env:
                 TITLE: ${{ steps.parser.outputs.parsed_title }}
@@ -88,6 +89,7 @@ jobs:
                   echo ""
                   echo "$CONTENT"
                 } > "$FULL_PATH"
+                echo "$FULL_PATH" >> $GITHUB_OUTPUT
 
             - name: Create PR
               if: steps.check-branch.outputs.exists == 'false'
@@ -98,6 +100,8 @@ jobs:
                 title: "${{ github.event.issue.title }}"
                 body: |
                     Auto-generated PR for adding the suggested lecture notes.
+
+                    To edit the content of these suggested lecture notes [click here](https://github.com/Fusion-CDT/community-reading-list/edit/add-suggested-lecture-notes-${{ github.event.issue.number }}/${{ steps.generate-markdown-file.outputs.FULL_PATH }})
 
                     Suggested by @${{ github.event.issue.user.login }}
 
