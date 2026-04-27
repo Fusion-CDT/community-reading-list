@@ -33,8 +33,11 @@ def get_changed_docs(base_sha: str):
     return changed_files
 
 
-def lint_tags(changed_files: list[Path], existing_tags: dict[str, str]):
+def lint_tags(
+    changed_files: list[Path], existing_tags: dict[str, str]
+) -> tuple[list[Path], list[str]]:
     modified_files: list[Path] = []
+    all_unknown: list[str] = []
     for filepath in changed_files:
         with filepath.open(encoding="utf-8") as f:
             content = f.read()
@@ -70,8 +73,8 @@ def lint_tags(changed_files: list[Path], existing_tags: dict[str, str]):
             print(
                 f"Warning: {filepath} contains tag(s) not in tags.yml: "
                 + ", ".join(f"'{u}'" for u in unknown)
-                + " — consider adding them to .github/tags.yml"
             )
+            all_unknown.extend(u for u in unknown if u not in all_unknown)
 
         if normalised == tags:
             continue
@@ -92,14 +95,28 @@ def lint_tags(changed_files: list[Path], existing_tags: dict[str, str]):
 
         modified_files.append(filepath)
 
-    return modified_files
+    return modified_files, all_unknown
+
+
+def append_unknown_tags(tags_path: Path, unknown_tags: list[str]) -> list[str]:
+    """Append unknown tags to tags.yml; returns the tags actually added (duplicates skipped)."""
+    with tags_path.open(encoding="utf-8") as f:
+        existing = yaml.safe_load(f).get("tags", [])
+    existing_lower = {t.lower() for t in existing}
+    new_tags = [t for t in unknown_tags if t.lower() not in existing_lower]
+    if new_tags:
+        with tags_path.open("a", encoding="utf-8") as f:
+            for tag in new_tags:
+                f.write(f"  - {tag}\n")
+    return new_tags
 
 
 def main(
     base_sha: str | None = None,
     tags_path: str | Path = Path(".github/tags.yml"),
 ) -> int:
-    canonical_tags = load_canonical_tags(Path(tags_path))
+    tags_path = Path(tags_path)
+    canonical_tags = load_canonical_tags(tags_path)
 
     # Find .md files added or modified in this PR
     if base_sha is None:
@@ -111,7 +128,15 @@ def main(
         print("No changed documentation files to check.")
         return 0
 
-    modified_files = lint_tags(changed_files, canonical_tags)
+    modified_files, unknown_tags = lint_tags(changed_files, canonical_tags)
+
+    if unknown_tags:
+        added = append_unknown_tags(tags_path, unknown_tags)
+        if added:
+            print(
+                f"Added {len(added)} unknown tag(s) to {tags_path} for review: "
+                + ", ".join(f"'{t}'" for t in added)
+            )
 
     if modified_files:
         print(f"Normalised tags in: {[f.as_posix() for f in modified_files]}")

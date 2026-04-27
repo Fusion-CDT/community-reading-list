@@ -31,10 +31,13 @@ def mock_write_repo_files(
     (tmp_path / ".github").mkdir(parents=True, exist_ok=True)
     (tmp_path / "docs").mkdir(parents=True, exist_ok=True)
 
-    # Create a new tags file with the canonical_tags
+    # Create a new tags file with the canonical_tags, using the same 2-space-indented
+    # block-sequence format as the real .github/tags.yml so appended items parse correctly.
     tmp_tags = tmp_path / ".github" / "tags.yml"
     with tmp_tags.open("w", encoding="utf-8") as f:
-        yaml.safe_dump({"tags": canonical_tags}, f, sort_keys=False)
+        f.write("tags:\n")
+        for tag in canonical_tags:
+            f.write(f"  - {tag}\n")
 
     # Create a new MarkDown file with the frontmatter_tags
     tmp_file = tmp_path / "docs" / "fake.md"
@@ -68,8 +71,56 @@ def test_normalises_known_tags_and_keeps_unknown(
     rewritten = yaml.safe_load(
         doc_path.read_text(encoding="utf-8").split("---\n", 2)[1]
     )
-
     assert rewritten["tags"] == ["EPFL", "MCF", "unknownTag"]
+
+    tags_in_file = yaml.safe_load(tags_path.read_text(encoding="utf-8")).get("tags", [])
+    assert "unknownTag" in tags_in_file
+    assert "Added" in output
+
+
+def test_unknown_tag_not_duplicated_in_tags_file(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+):
+    """An unknown tag that appears in two docs should only be added to tags.yml once."""
+    (tmp_path / ".github").mkdir(parents=True, exist_ok=True)
+    (tmp_path / "docs").mkdir(parents=True, exist_ok=True)
+
+    tags_path = tmp_path / ".github" / "tags.yml"
+    with tags_path.open("w", encoding="utf-8") as f:
+        f.write("tags:\n  - MCF\n")
+
+    doc_paths = []
+    for name in ("a.md", "b.md"):
+        p = tmp_path / "docs" / name
+        with p.open("w", encoding="utf-8") as f:
+            f.write("---\n")
+            yaml.safe_dump({"tags": ["newTag"]}, f)
+            f.write("---\n\nBody\n")
+        doc_paths.append(p)
+
+    module = load_lint_module(monkeypatch, changed_docs=doc_paths)
+    module.main(base_sha="abc123", tags_path=tags_path)
+
+    tags_in_file = yaml.safe_load(tags_path.read_text(encoding="utf-8")).get("tags", [])
+    assert tags_in_file.count("newTag") == 1
+
+
+def test_existing_unknown_tag_not_re_added(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+):
+    """A tag already in tags.yml (but not matching any doc tag by case) is not added again."""
+    tags_path, doc_path = mock_write_repo_files(
+        tmp_path,
+        canonical_tags=["MCF", "AlreadyThere"],
+        frontmatter_tags=["alreadythere"],
+    )
+
+    module = load_lint_module(monkeypatch, changed_docs=[doc_path])
+    module.main(base_sha="abc123", tags_path=tags_path)
+
+    tags_in_file = yaml.safe_load(tags_path.read_text(encoding="utf-8")).get("tags", [])
+    assert tags_in_file.count("AlreadyThere") == 1
+    assert tags_in_file.count("alreadythere") == 0
 
 
 def test_no_changed_docs_exits_cleanly(
