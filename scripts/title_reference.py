@@ -14,6 +14,7 @@ Follows the same stack-inspection pattern as `doi_reference.py` and
 """
 
 import inspect
+from itertools import zip_longest
 
 from markdown import Extension
 from markdown.preprocessors import Preprocessor
@@ -21,6 +22,11 @@ from markdown.preprocessors import Preprocessor
 
 class TitleReferencePreprocessor(Preprocessor):
     """Inject a formatted reference header for pages with a frontmatter title but no doi."""
+
+    def _as_list(self, value):
+        if not value:
+            return []
+        return value if isinstance(value, list) else [value]
 
     def _meta_from_render_frame(self):
         """Read frontmatter meta dict from Zensical's `render()` frame."""
@@ -45,6 +51,7 @@ class TitleReferencePreprocessor(Preprocessor):
         authors = meta.get("authors")
         isbn = meta.get("isbn")
         url = meta.get("url")
+        url_name = meta.get("url_name")
 
         header = [f"# {title}"]
 
@@ -54,10 +61,18 @@ class TitleReferencePreprocessor(Preprocessor):
         if isbn:
             header.append(f"<p class='ref-isbn'><b>ISBN:</b> {isbn}</p>")
 
+        url_frontmatter = []
         if url:
-            urls = url if isinstance(url, list) else [url]
-            for u in urls:
-                header.append(f"<p class='ref-url'><b>URL:</b> <a href='{u}'>{u}</a></p>")
+            urls = self._as_list(url)
+            url_names = self._as_list(url_name)
+            url_frontmatter = []
+            for url, url_name in zip_longest(urls, url_names):
+                label = url_name if url_name is not None else url
+                url_frontmatter.append(f"<a href='{url}'>{label}</a>")
+
+            header.append(
+                f"<p class='ref-url'><b>URL(s):</b> {', '.join(url_frontmatter)}</p>"
+            )
 
         header += ["", "---", ""]
 
@@ -74,9 +89,7 @@ class TitleReferenceExtension(Extension):
     """
 
     def extendMarkdown(self, md):
-        md.preprocessors.register(
-            TitleReferencePreprocessor(md), "title_reference", 30
-        )
+        md.preprocessors.register(TitleReferencePreprocessor(md), "title_reference", 30)
 
 
 def makeExtension(**kwargs):
