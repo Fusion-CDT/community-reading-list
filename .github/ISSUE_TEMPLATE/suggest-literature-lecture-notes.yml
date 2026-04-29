@@ -36,6 +36,15 @@ body:
       required: false
 
   - type: input
+    id: url_name
+    attributes:
+      label: URL name(s)
+      description: Replace the raw URLs with specific names, if unspecified then the raw links are rendered. Separate multiple URL names with commas.
+      placeholder: "e.g. Plasma Physics 1, Plasma Physics 2"
+    validations:
+      required: false
+
+  - type: input
     id: filepath
     attributes:
       label: Location and filename

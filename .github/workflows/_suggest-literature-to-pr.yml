@@ -50,6 +50,7 @@ jobs:
                 AUTHORS: ${{ steps.parser.outputs.parsed_authors }}
                 ISBN: ${{ steps.parser.outputs.parsed_isbn }}
                 URL: ${{ steps.parser.outputs.parsed_url }}
+                URL_NAME: ${{ steps.parser.outputs.parsed_url_name }}
                 FILEPATH: ${{ steps.parser.outputs.parsed_filepath }}
                 TAGS: ${{ steps.parser.outputs.parsed_tags }}
                 CONTENT: ${{ steps.parser.outputs.parsed_content }}
@@ -85,6 +86,16 @@ jobs:
                     else
                       echo "url:"
                       echo "$URL" | tr ',' '\n' | sed 's/^[[:space:]]*//; s/[[:space:]]*$//' | grep -v '^$' | sed 's/^/  - "/' | sed 's/$/"/'
+                    fi
+                  fi
+
+                  if [ -n "$URL_NAME" ]; then
+                    URL_NAME_COUNT=$(echo "$URL_NAME" | tr ',' '\n' | grep -cv '^[[:space:]]*$')
+                    if [ "$URL_NAME_COUNT" -eq 1 ]; then
+                      echo "url_name: \"$(echo "$URL_NAME" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')\""
+                    else
+                      echo "url_name:"
+                      echo "$URL_NAME" | tr ',' '\n' | sed 's/^[[:space:]]*//; s/[[:space:]]*$//' | grep -v '^$' | sed 's/^/  - "/' | sed 's/$/"/'
                     fi
                   fi
 

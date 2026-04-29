@@ -14,6 +14,7 @@ Follows the same stack-inspection pattern as `doi_reference.py` and
 """
 
 import inspect
+from itertools import zip_longest
 
 from markdown import Extension
 from markdown.preprocessors import Preprocessor
@@ -45,6 +46,7 @@ class TitleReferencePreprocessor(Preprocessor):
         authors = meta.get("authors")
         isbn = meta.get("isbn")
         url = meta.get("url")
+        url_name = meta.get("url_name")
 
         header = [f"# {title}"]
 
@@ -54,11 +56,20 @@ class TitleReferencePreprocessor(Preprocessor):
         if isbn:
             header.append(f"<p class='ref-isbn'><b>ISBN:</b> {isbn}</p>")
 
+        url_frontmatter = []
         if url:
             urls = url if isinstance(url, list) else [url]
-            for u in urls:
-                header.append(f"<p class='ref-url'><b>URL:</b> <a href='{u}'>{u}</a></p>")
+            if url_name:
+                url_names = url_name if isinstance(url_name, list) else [url_name]
+            elif url_name is None:
+                url_names = []
+            for u, u_name in zip_longest(urls, url_names):
+                name = u_name if u_name is not None else u
+                url_frontmatter.append(f"<a href='{u}'>{name}</a>")
 
+        header.append(
+            f"<p class='ref-url'><b>URL(s):</b> {', '.join(url_frontmatter)}</p>"
+        )
         header += ["", "---", ""]
 
         return header + lines
@@ -74,9 +85,7 @@ class TitleReferenceExtension(Extension):
     """
 
     def extendMarkdown(self, md):
-        md.preprocessors.register(
-            TitleReferencePreprocessor(md), "title_reference", 30
-        )
+        md.preprocessors.register(TitleReferencePreprocessor(md), "title_reference", 30)
 
 
 def makeExtension(**kwargs):
