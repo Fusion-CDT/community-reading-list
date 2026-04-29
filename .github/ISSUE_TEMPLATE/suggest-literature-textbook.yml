@@ -38,9 +38,18 @@ body:
   - type: input
     id: url
     attributes:
-      label: URL
-      description: A link to the textbook (e.g. publisher page or open-access version), if available.
-      placeholder: "e.g. https://example.com/book"
+      label: URL(s)
+      description: A link to the textbook (e.g. publisher page or open-access version), if available. Additional links to other material. Separate multiple URLs with commas.
+      placeholder: "e.g. https://example.com/book, https://example.com/book/lecture"
+    validations:
+      required: false
+
+  - type: input
+    id: url_name
+    attributes:
+      label: URL name(s)
+      description: Replace the raw URLs with specific names, if unspecified then the raw links are rendered. Separate multiple URL names with commas.
+      placeholder: "e.g. Book, Accompanying lecture slides"
     validations:
       required: false
 
