@@ -1,0 +1,13 @@
+name: Convert suggested lecture notes to PR
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+    create-contribution:
+        if: contains(github.event.issue.labels.*.name, 'lecture-notes-suggestion')
+        uses: ./.github/workflows/_suggest-literature-to-pr.yml
+        with:
+            branch_prefix: add-suggested-lecture-notes
+            issue_form_template: suggest-literature-lecture-notes.yml
+            type_name: lecture notes

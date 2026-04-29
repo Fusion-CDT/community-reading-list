@@ -1,7 +1,6 @@
-name: Suggest literature
-description: Suggest a paper, book, or other resource to add to the reading list.
-title: "Add suggested literature: "
-labels: ["literature-suggestion"]
+name: "Suggest literature: paper"
+description: Suggest a journal article or preprint to add to the reading list.
+labels: ["paper-suggestion"]
 body:
   - type: markdown
     attributes:
@@ -13,7 +12,7 @@ body:
     id: doi
     attributes:
       label: DOI
-      description: The DOI of the paper or resource, if available.
+      description: The DOI of the paper, if available.
       placeholder: "e.g. 10.1063/1.2178779"
     validations:
       required: false
@@ -21,8 +20,8 @@ body:
   - type: input
     id: filepath
     attributes:
-      label: Location and Filename
-      description: Where in the reading list should this live and what should it be called? The article/paper filename should follow the format `<AUTHOR>_<YEAR>_<SHORT-TITLE>`
+      label: Location and filename
+      description: Where in the reading list should this live and what should it be called? Follow the format `<AUTHOR>_<YEAR>_<SHORT-TITLE>`.
       placeholder: "e.g. plasma/MCF/abel_2013_multiscale-gyrokinetics"
     validations:
       required: true
@@ -31,8 +30,8 @@ body:
     id: tags
     attributes:
       label: Tags
-      description: Comma-separated tags (e.g. existing tags or new tags).
-      placeholder: "e.g. ICF, diagnostics, PIC"
+      description: Comma-separated tags. See the existing tag list for canonical spellings.
+      placeholder: "e.g. MCF, gyrokinetics, GS2"
     validations:
       required: false
 
@@ -40,8 +39,8 @@ body:
     id: content
     attributes:
       label: Content
-      description: Why this is useful and some content you wish to highlight about the paper. Please use the Markdown format and format any maths using standard LaTeX format (e.g. `$\chi_e$`).
-      placeholder: "e.g. Essential review paper for anyone starting in machine learning."
+      description: Why this is useful and what you'd like to highlight. Please use Markdown and LaTeX for maths (e.g. `$\chi_e$`).
+      placeholder: "e.g. Essential review paper for anyone starting in gyrokinetics."
     validations:
       required: true
 

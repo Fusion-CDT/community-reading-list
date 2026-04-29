@@ -1,0 +1,120 @@
+name: Suggest literature to PR (reusable)
+on:
+  workflow_call:
+    inputs:
+      branch_prefix:
+        required: true
+        type: string
+      issue_form_template:
+        required: true
+        type: string
+      type_name:
+        required: true
+        type: string
+
+jobs:
+    create-contribution:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            pull-requests: write
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Check if PR branch already exists
+              id: check-branch
+              run: |
+                if git ls-remote --heads origin "${{ inputs.branch_prefix }}-${{ github.event.issue.number }}" | grep -q .; then
+                  echo "exists=true" >> $GITHUB_OUTPUT
+                else
+                  echo "exists=false" >> $GITHUB_OUTPUT
+                fi
+
+            - name: Parse issue
+              if: steps.check-branch.outputs.exists == 'false'
+              id: parser
+              uses: issue-ops/parser@v5.0.0
+              with:
+                body: ${{ github.event.issue.body }}
+                issue-form-template: ${{ inputs.issue_form_template }}
+
+            - name: Generate markdown file
+              if: steps.check-branch.outputs.exists == 'false'
+              id: generate-markdown-file
+              shell: bash
+              env:
+                DOI: ${{ steps.parser.outputs.parsed_doi }}
+                TITLE: ${{ steps.parser.outputs.parsed_title }}
+                AUTHORS: ${{ steps.parser.outputs.parsed_authors }}
+                ISBN: ${{ steps.parser.outputs.parsed_isbn }}
+                URL: ${{ steps.parser.outputs.parsed_url }}
+                FILEPATH: ${{ steps.parser.outputs.parsed_filepath }}
+                TAGS: ${{ steps.parser.outputs.parsed_tags }}
+                CONTENT: ${{ steps.parser.outputs.parsed_content }}
+                CONTRIBUTOR_NAME: ${{ steps.parser.outputs.parsed_contributor_name }}
+                GITHUB_USERNAME: ${{ github.event.issue.user.login }}
+              run: |
+
+                # Strip any trailing .md the user may have included to avoid .md.md
+                FILEPATH="${FILEPATH%.md}"
+                FULL_PATH="docs/literature/${FILEPATH}.md"
+                DIR_PATH=$(dirname "$FULL_PATH")
+                mkdir -p "$DIR_PATH"
+
+                {
+                  echo "---"
+
+                  if [ -n "$TAGS" ]; then
+                    echo "tags:"
+                    echo "$TAGS" | tr ',' '\n' | sed 's/^[[:space:]]*//; s/[[:space:]]*$//' | grep -v '^$' | sed 's/^/  - /'
+                  else
+                    echo "tags:"
+                  fi
+
+                  if [ -n "$DOI" ]; then echo "doi: $DOI"; fi
+                  if [ -n "$TITLE" ]; then echo "title: \"$TITLE\""; fi
+                  if [ -n "$AUTHORS" ]; then echo "authors: \"$AUTHORS\""; fi
+                  if [ -n "$ISBN" ]; then echo "isbn: \"$ISBN\""; fi
+
+                  if [ -n "$URL" ]; then
+                    URL_COUNT=$(echo "$URL" | tr ',' '\n' | grep -cv '^[[:space:]]*$')
+                    if [ "$URL_COUNT" -eq 1 ]; then
+                      echo "url: \"$(echo "$URL" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')\""
+                    else
+                      echo "url:"
+                      echo "$URL" | tr ',' '\n' | sed 's/^[[:space:]]*//; s/[[:space:]]*$//' | grep -v '^$' | sed 's/^/  - "/' | sed 's/$/"/'
+                    fi
+                  fi
+
+                  if [ -n "$CONTRIBUTOR_NAME" ]; then
+                    echo "contributors:"
+                    echo "  - name: \"${CONTRIBUTOR_NAME}\""
+                    echo "    github: \"${GITHUB_USERNAME}\""
+                  fi
+
+                  echo "comments: true"
+                  echo "---"
+                  echo ""
+                  echo "$CONTENT"
+                } > "$FULL_PATH"
+                echo "FULL_PATH=$FULL_PATH" >> $GITHUB_OUTPUT
+
+            - name: Create PR
+              if: steps.check-branch.outputs.exists == 'false'
+              uses: peter-evans/create-pull-request@v6
+              with:
+                base: main
+                commit-message: "${{ github.event.issue.title }}"
+                title: "${{ github.event.issue.title }}"
+                body: |
+                    Auto-generated PR for adding the suggested ${{ inputs.type_name }}.
+
+                    To edit the content of this suggested ${{ inputs.type_name }} [click here](https://github.com/Fusion-CDT/community-reading-list/edit/${{ inputs.branch_prefix }}-${{ github.event.issue.number }}/${{ steps.generate-markdown-file.outputs.FULL_PATH }})
+
+                    Suggested by @${{ github.event.issue.user.login }}
+
+                    Closes #${{ github.event.issue.number }}
+                branch: "${{ inputs.branch_prefix }}-${{ github.event.issue.number }}"
+                delete-branch: true
