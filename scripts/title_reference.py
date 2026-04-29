@@ -23,6 +23,11 @@ from markdown.preprocessors import Preprocessor
 class TitleReferencePreprocessor(Preprocessor):
     """Inject a formatted reference header for pages with a frontmatter title but no doi."""
 
+    def _as_list(self, value):
+        if not value:
+            return []
+        return value if isinstance(value, list) else [value]
+
     def _meta_from_render_frame(self):
         """Read frontmatter meta dict from Zensical's `render()` frame."""
         for frame_info in inspect.stack():
@@ -58,18 +63,17 @@ class TitleReferencePreprocessor(Preprocessor):
 
         url_frontmatter = []
         if url:
-            urls = url if isinstance(url, list) else [url]
-            if url_name:
-                url_names = url_name if isinstance(url_name, list) else [url_name]
-            elif url_name is None:
-                url_names = []
-            for u, u_name in zip_longest(urls, url_names):
-                name = u_name if u_name is not None else u
-                url_frontmatter.append(f"<a href='{u}'>{name}</a>")
+            urls = self._as_list(url)
+            url_names = self._as_list(url_name)
+            url_frontmatter = []
+            for url, url_name in zip_longest(urls, url_names):
+                label = url_name if url_name is not None else url
+                url_frontmatter.append(f"<a href='{url}'>{label}</a>")
 
-        header.append(
-            f"<p class='ref-url'><b>URL(s):</b> {', '.join(url_frontmatter)}</p>"
-        )
+            header.append(
+                f"<p class='ref-url'><b>URL(s):</b> {', '.join(url_frontmatter)}</p>"
+            )
+
         header += ["", "---", ""]
 
         return header + lines
