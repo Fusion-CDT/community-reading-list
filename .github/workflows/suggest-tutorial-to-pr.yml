@@ -78,7 +78,7 @@ jobs:
                   echo ""
                   echo "$CONTENT"
                 } > "$FULL_PATH"
-                echo "$FULL_PATH" >> $GITHUB_OUTPUT
+                echo "filepath=$FULL_PATH" >> $GITHUB_OUTPUT
 
             - name: Create PR
               if: steps.check-branch.outputs.exists == 'false'
@@ -90,7 +90,7 @@ jobs:
                 body: |
                     Auto-generated PR for adding the suggested tutorial.
 
-                    To edit the content of this suggested literature [click here](https://github.com/Fusion-CDT/community-reading-list/edit/add-suggested-tutorial-${{ github.event.issue.number }}/${{ steps.generate-markdown-file.outputs.FULL_PATH }})
+                    To edit the content of this suggested literature [click here](https://github.com/Fusion-CDT/community-reading-list/edit/add-suggested-tutorial-${{ github.event.issue.number }}/${{ steps.generate-markdown-file.outputs.filepath }})
                     
 
                     Suggested by @${{ github.event.issue.user.login }}
