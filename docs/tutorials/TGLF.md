@@ -17,11 +17,11 @@ TGLF is a Gyrofluid qausilinear model of turbulent fluxes. It exists in a class 
 ## Useful Links
 
 Documentation:
-https://gafusion.github.io/doc/tglf.html
-https://gacode.io/
 
-Github:
-https://github.com/gafusion/gacode/
+- <https://gafusion.github.io/doc/tglf.html>
+- <https://gacode.io/>
+
+Github: <https://github.com/gafusion/gacode/>
 
 
 ## Physics background
@@ -32,28 +32,23 @@ The growth rate is calculated via constructing the linearized gyrofluid equation
 
 There are 3 Saturation rules in use in TGLF, with more in development. They work independently of the linear solver, although their validity does depend on the linear solvers accuracy. The Saturation rules used in TGLF will be carried over to its successor GFTM
 
-The best source on workings of TGLF can be found in its original papers:
-https://pubs.aip.org/aip/pop/article/14/5/055909/929642/A-theory-based-transport-model-with-comprehensive
-with this second paper having the best explanation of the effects of numerical parameters of TGLF results
-https://pubs.aip.org/aip/pop/article/12/10/102508/316815/Gyro-Landau-fluid-equations-for-trapped-and
+The best source on workings of TGLF can be found in its original papers: <https://pubs.aip.org/aip/pop/article/14/5/055909/929642/A-theory-based-transport-model-with-comprehensive>
+with this second paper having the best explanation of the effects of numerical parameters of TGLF results <https://pubs.aip.org/aip/pop/article/12/10/102508/316815/Gyro-Landau-fluid-equations-for-trapped-and>
 
-However it's shortfalls are best high lighted in the paper on its sequel GFS, which explicitly points out its failures in high beta regions;
-https://pubs.aip.org/aip/pop/article/30/10/102501/2914182/A-flexible-gyro-fluid-system-of-equations
+However it's shortfalls are best high lighted in the paper on its sequel GFS, which explicitly points out its failures in high beta regions; <https://pubs.aip.org/aip/pop/article/30/10/102501/2914182/A-flexible-gyro-fluid-system-of-equations>
 
  For its saturation rules, the best introduction to both the theory of saturation rules and their specific implementation is Harry Dudding's thesis, specifically chapter 4. This thesis also contains the methodology for the development of the latest saturation rule for TGLF, sat 3
 
-https://etheses.whiterose.ac.uk/id/eprint/32664/
+<https://etheses.whiterose.ac.uk/id/eprint/32664/>
 
 However, For a more in depth explanation of methodology behind the original saturation rule development, here are the original papers for Sat 1 and Sat 2. The original Sat 0 paper is also useful as an introduction to the mixing length approximation 
 
-Sat 1:
-https://iopscience.iop.org/article/10.1088/0029-5515/53/11/113017
+Sat 1: <https://iopscience.iop.org/article/10.1088/0029-5515/53/11/113017>
 
-Sat 2:
-https://iopscience.iop.org/article/10.1088/1741-4326/ac243a/pdf
+Sat 2: <https://iopscience.iop.org/article/10.1088/1741-4326/ac243a/pdf>
 
-Sat 0:
-https://pubs.aip.org/aip/pop/article/15/5/055908/1015727/The-first-transport-code-simulations-using-the
+Sat 0: <https://pubs.aip.org/aip/pop/article/15/5/055908/1015727/The-first-transport-code-simulations-using-the>
 
 ## Running TGLF
+
 TGLF can be downloaded from the GA code GitHub repository. For a specific machine an environment file will need to be specified before the code can be compiled and run. TGLF inputs and outputs are well documented on the gacode website, however it is recommended to use the python package Pyrokinetics (see associated tutorial), for reading outputs.
