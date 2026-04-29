@@ -1,7 +1,10 @@
 ---
 tags:
-  - Laser-plasma
+  - Laser Plasma
+  - Laser Plasma Interaction
   - PIC
+  - QED
+  - Simulation
 contributors:
   - name: "Chris Herdman"
     github: "Chrimspie"
