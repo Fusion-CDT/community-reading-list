@@ -62,3 +62,22 @@
 .ref-contributors a:hover {
   text-decoration: underline;
 }
+
+.md-header {
+  background-color: #277cb3;
+  color: #ffffff;
+  padding: 10px 2rem;
+}
+
+.md-header__title {
+  font-size: 1.2rem;
+}
+
+.md-header__button.md-logo img, .md-header__button.md-logo svg {
+  width: 2rem;
+  height: auto;
+}
+
+.md-search__button {
+  color: #ffffff;
+}
