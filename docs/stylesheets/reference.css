@@ -69,15 +69,15 @@
   padding: 10px 2rem;
 }
 
+/* ====================== */
+
 .md-header__title {
   font-size: 1.2rem;
 }
 
 .md-header__button.md-logo img, .md-header__button.md-logo svg {
-  width: 2rem;
+  width: 1.5rem;
   height: auto;
 }
 
-.md-search__button {
-  color: #ffffff;
-}
+
