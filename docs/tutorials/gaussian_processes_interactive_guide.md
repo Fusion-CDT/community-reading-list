@@ -28,7 +28,7 @@ such as the mean, variance, covariance kernel, training data and hyperparameters
 affect the resulting Gaussian Process Regression.
 
 **Interactive tutorial:**  
-https://gaussianprocesses.streamlit.app/
+<https://gaussianprocesses.streamlit.app/>
 
 **Source code:**  
-https://github.com/thelimelines/Gaussian_Processes
+<https://github.com/thelimelines/Gaussian_Processes>
