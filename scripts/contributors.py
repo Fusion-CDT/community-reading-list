@@ -12,10 +12,9 @@ The `github` field is optional; if absent, the contributor's name is rendered
 as plain text rather than a hyperlink.
 
 Zensical strips front matter before passing content to `md.convert()`, so it is
-not available in the text the preprocessor receives. However, Zensical has
-already parsed it into a `meta` local in its `render()` frame before calling
-`md.convert()`. We read that variable directly via `inspect.stack()`, following
-the same pattern as `doi_reference.py`.
+not available in the text the preprocessor receives. We read the parsed page
+metadata from Zensical's rendering context, with a stack-inspection fallback
+for older releases.
 """
 
 import inspect
@@ -28,11 +27,23 @@ class ContributorsPreprocessor(Preprocessor):
     """Append a formatted 'Contributed by:' line for pages with frontmatter contributors."""
 
     def _contributors_from_render_frame(self):
-        """Read contributors from Zensical's `render()` frame."""
+        """Read contributors from Zensical's current page context."""
+        try:
+            from zensical.extensions.context import ContextPreprocessor
+
+            context = ContextPreprocessor.from_markdown(self.md)
+            if context is not None:
+                return context.page.meta.get("contributors")
+        except ImportError:
+            pass
+
         for frame_info in inspect.stack():
             func = frame_info.function
             name = frame_info.frame.f_globals.get("__name__")
-            if (func == "render") and (name == "zensical.markdown"):
+            if func == "render" and name in {
+                "zensical.markdown",
+                "zensical.markdown.render",
+            }:
                 meta = frame_info.frame.f_locals.get("meta", {})
                 return meta.get("contributors")
         return None

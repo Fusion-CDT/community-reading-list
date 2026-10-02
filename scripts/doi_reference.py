@@ -33,7 +33,17 @@ _DATACITE_PREFIXES = ("10.48550",)
 # ---------------------------------------------------------------------------
 
 
+def _normalise_doi(doi):
+    """Return the DOI identifier from a DOI or doi.org URL."""
+    doi = str(doi).strip()
+    for prefix in ("https://doi.org/", "http://doi.org/"):
+        if doi.lower().startswith(prefix):
+            return doi[len(prefix) :]
+    return doi
+
+
 def _fetch(doi):
+    doi = _normalise_doi(doi)
     if doi in _cache:
         return _cache[doi]
     if doi.startswith(_DATACITE_PREFIXES):
@@ -164,16 +174,28 @@ class DoiReferencePreprocessor(Preprocessor):
     """Inject a formatted reference header for pages with a frontmatter doi."""
 
     def _doi_from_render_frame(self):
-        """Read doi from Zensical's `render()` frame.
+        """Read doi from Zensical's current page context.
 
-        Zensical parses frontmatter into a `meta` local before calling
-        `md.convert()` and therefore before preprocessors run. We walk
-        the call stack to find that frame and read the value directly.
+        Recent Zensical releases expose the page metadata through the
+        rendering context preprocessor. Older releases kept it as a local in
+        the render() frame, so retain that fallback for compatibility.
         """
+        try:
+            from zensical.extensions.context import ContextPreprocessor
+
+            context = ContextPreprocessor.from_markdown(self.md)
+            if context is not None:
+                return context.page.meta.get("doi")
+        except ImportError:
+            pass
+
         for frame_info in inspect.stack():
             func = frame_info.function
             name = frame_info.frame.f_globals.get("__name__")
-            if (func == "render") and (name == "zensical.markdown"):
+            if func == "render" and name in {
+                "zensical.markdown",
+                "zensical.markdown.render",
+            }:
                 meta = frame_info.frame.f_locals.get("meta", {})
                 return meta.get("doi")
         return None
@@ -184,6 +206,7 @@ class DoiReferencePreprocessor(Preprocessor):
             return lines
 
         try:
+            doi = _normalise_doi(doi)
             data = _fetch(doi)
         except Exception:
             return lines
