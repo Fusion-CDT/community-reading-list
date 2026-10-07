@@ -65,8 +65,8 @@ body:
     id: filepath
     attributes:
       label: Location and filename
-      description: Where in the reading list should this live and what should it be called? Follow the format `<AUTHOR>_<YEAR>_<SHORT-TITLE>`.
-      placeholder: "e.g. plasma/MCF/freidberg_2007_plasma-physics-and-fusion-energy"
+      description: Where in the reading list should this live and what should it be called? Give a folder path under `literature/`, then a filename of the form `<firstauthor><year><short-title>` (see the [filename convention](https://github.com/Fusion-CDT/community-reading-list/blob/main/CONTRIBUTING.md#filename-convention-for-literature-notes)).
+      placeholder: "e.g. plasma/MCF/freidberg2007plasma-physics-and-fusion-energy"
     validations:
       required: true
 
@@ -74,8 +74,8 @@ body:
     id: tags
     attributes:
       label: Tags
-      description: Comma-separated tags. See the existing tag list for canonical spellings.
-      placeholder: "e.g. MCF, Theory, Plasma Physics"
+      description: Comma-separated tags. Please reuse tags from the [Tags page](https://fusion-cdt.github.io/community-reading-list/tags/) where possible.
+      placeholder: "e.g. MCF, MHD, Tokamak physics"
     validations:
       required: false
 
@@ -83,7 +83,7 @@ body:
     id: content
     attributes:
       label: Content
-      description: Why this is useful and what you'd like to highlight. Please use Markdown and LaTeX for maths (e.g. `$\chi_e$`).
+      description: Why this is useful and what you'd like to highlight. Please use Markdown ([cheat sheet](https://www.markdownguide.org/cheat-sheet/)) and LaTeX for maths (e.g. `$\chi_e$`).
       placeholder: "e.g. Excellent introductory textbook covering both plasma physics fundamentals and fusion engineering."
     validations:
       required: true
