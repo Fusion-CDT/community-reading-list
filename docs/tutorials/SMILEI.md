@@ -1,6 +1,6 @@
 ---
 tags:
-  - Laser-plasma interaction
+  - Laser-plasma interactions
   - PIC
   - QED
 contributors:

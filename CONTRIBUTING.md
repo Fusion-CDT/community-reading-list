@@ -42,7 +42,7 @@ Tags help readers find related notes, so a few well-chosen tags are better than 
 | Confinement | `MCF`, `ICF` |
 | Theory and modelling | `Gyrokinetics`, `Gyrofluid`, `Kinetic theory`, `MHD`, `Resistive MHD`, `Turbulence`, `Zonal flows`, `Waves`, `PIC` |
 | Exhaust and edge | `Divertor`, `ELMs`, `SOL turbulence`, `Heat flux`, `Exhaust modelling` |
-| Laser-plasma | `Laser-plasma interaction`, `High-intensity lasers`, `QED` |
+| Laser-plasma | `Laser-plasma interactions`, `High-intensity lasers`, `QED` |
 | Materials | `Irradiation`, `Structural materials`, `Steels`, `Superconductors`, `HTS`, `Blankets`, `Tritium`, `TBR` |
 | Diagnostics | `Diagnostics`, `Reflectometry` |
 | Codes | `GS2`, `TGLF`, `GENE`, `CGYRO`, `stella`, `GKW`, `GX`, `EPOCH` |

@@ -2,7 +2,7 @@
 tags:
   - EPOCH
   - PIC
-  - Laser-plasma interaction
+  - Laser-plasma interactions
   - QED
 doi: 10.1088/0741-3335/57/11/113001
 contributors:
