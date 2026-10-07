@@ -1,9 +1,9 @@
 """
 Title Reference — a Python Markdown preprocessor extension.
 
-Reads `title`, `authors`, `isbn`, and `url` fields from a Markdown page's YAML
-front matter and inserts a formatted reference header at build time without
-modifying source (Markdown) files.
+Reads `title`, `authors`, `isbn`, `availability`, and `url` fields from a
+Markdown page's YAML front matter and inserts a formatted reference header at
+build time without modifying source (Markdown) files.
 
 This extension handles pages that have a `title` field but no `doi` — i.e.
 lecture notes, slides, and textbooks. Pages with a `doi` field are handled
@@ -62,6 +62,7 @@ class TitleReferencePreprocessor(Preprocessor):
 
         authors = meta.get("authors")
         isbn = meta.get("isbn")
+        availability = meta.get("availability")
         url = meta.get("url")
         url_name = meta.get("url_name")
 
@@ -72,6 +73,11 @@ class TitleReferencePreprocessor(Preprocessor):
 
         if isbn:
             header.append(f"<p class='ref-isbn'><b>ISBN:</b> {isbn}</p>")
+
+        if availability:
+            header.append(
+                f"<p class='ref-availability'><b>Availability:</b> {availability}</p>"
+            )
 
         url_frontmatter = []
         if url:

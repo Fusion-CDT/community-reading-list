@@ -36,6 +36,15 @@ body:
       required: false
 
   - type: input
+    id: availability
+    attributes:
+      label: Availability (optional)
+      description: Where the textbook can be accessed, e.g. online, in the YPI library, etc. This is especially useful for books that are available but not listed on the library website.
+      placeholder: "e.g. YPI library"
+    validations:
+      required: false
+
+  - type: input
     id: url
     attributes:
       label: URL(s)

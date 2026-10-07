@@ -28,11 +28,17 @@
   text-decoration: underline;
 }
 
-.ref-isbn {
+.ref-isbn,
+.ref-availability {
   font-size: 0.75rem;
   color: var(--md-default-fg-color--light);
   margin-top: -0.6rem;
   margin-bottom: -1.0rem;
+}
+
+/* Both have negative margins, which would overlap when stacked */
+.ref-isbn + .ref-availability {
+  margin-top: 0.75rem;
 }
 
 .ref-url {

@@ -49,6 +49,7 @@ jobs:
                 TITLE: ${{ steps.parser.outputs.parsed_title }}
                 AUTHORS: ${{ steps.parser.outputs.parsed_authors }}
                 ISBN: ${{ steps.parser.outputs.parsed_isbn }}
+                AVAILABILITY: ${{ steps.parser.outputs.parsed_availability }}
                 URL: ${{ steps.parser.outputs.parsed_url }}
                 URL_NAME: ${{ steps.parser.outputs.parsed_url_name }}
                 FILEPATH: ${{ steps.parser.outputs.parsed_filepath }}
@@ -78,6 +79,7 @@ jobs:
                   if [ -n "$TITLE" ]; then echo "title: \"$TITLE\""; fi
                   if [ -n "$AUTHORS" ]; then echo "authors: \"$AUTHORS\""; fi
                   if [ -n "$ISBN" ]; then echo "isbn: \"$ISBN\""; fi
+                  if [ -n "$AVAILABILITY" ]; then echo "availability: \"$AVAILABILITY\""; fi
 
                   if [ -n "$URL" ]; then
                     URL_COUNT=$(echo "$URL" | tr ',' '\n' | grep -cv '^[[:space:]]*$')
