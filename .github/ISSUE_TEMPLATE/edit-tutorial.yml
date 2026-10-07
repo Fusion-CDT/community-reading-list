@@ -31,6 +31,17 @@ body:
     validations:
       required: true
 
+  - type: upload
+    id: user_images
+    attributes:
+      label: Images (optional)
+      description: |
+        Upload one or more images, then reference each image in your Proposed content using its
+        original filename and this exact Markdown format:
+        `![Short Description of image](filename.png)`
+        Replace `filename.png` with the uploaded filename. The image will be stored beside the
+        page, so use only the filename and do not use the GitHub attachment URL.
+
   - type: input
     id: contributor_name
     attributes:

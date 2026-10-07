@@ -96,3 +96,20 @@ If you are comfortable with Git and want to contribute changes directly:
    git push -u origin <your-branch-name>
    ```
 6. Open a pull request on GitHub from your branch into `main`.
+
+#### Adding images with Git
+
+Images used by reading-list pages should be committed in the same directory as the
+Markdown page that uses them. Use a descriptive filename with no spaces, for example
+`gyrokinetic-geometry.png`.
+
+Reference the image using its filename relative to the Markdown page:
+
+```markdown
+![Diagram of the gyrokinetic geometry](gyrokinetic-geometry.png)
+```
+
+Replace the filename and alt text with the values for your image. Check that the
+filename in the Markdown matches the committed file exactly, including its
+capitalisation, and verify the image renders in the built site before opening the
+pull request.

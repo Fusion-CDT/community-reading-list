@@ -50,6 +50,27 @@ jobs:
             exit 1
           fi
 
+      - name: Download user images
+        env:
+          USER_IMAGES: ${{ steps.parser.outputs.parsed_user_images }}
+          FILEPATH: ${{ steps.extract.outputs.filepath }}
+        run: |
+          set -euo pipefail
+          IMAGE_DIRECTORY="$(dirname "$FILEPATH")"
+          mkdir -p "$IMAGE_DIRECTORY"
+          while IFS=$'\t' read -r filename url; do
+            [ -z "$filename" ] && continue
+            if [[ "$filename" == */* || "$filename" == "." || "$filename" == ".." ]]; then
+              echo "::error::Invalid image filename: $filename"
+              exit 1
+            fi
+            if [[ "$url" != https://* ]]; then
+              echo "::error::Image URL must use HTTPS: $url"
+              exit 1
+            fi
+            curl --fail --location --retry 3 --output "$IMAGE_DIRECTORY/$filename" "$url"
+          done < <(jq -r '.[] | [.name, .url] | @tsv' <<< "${USER_IMAGES:-[]}")
+
       - name: Apply edit to file
         env:
           FILEPATH: ${{ steps.extract.outputs.filepath }}
