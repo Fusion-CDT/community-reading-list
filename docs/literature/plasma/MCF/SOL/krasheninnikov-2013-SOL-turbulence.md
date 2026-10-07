@@ -1,5 +1,7 @@
 ---
-tags: SOL-turbulence, turbulence
+tags:
+  - SOL turbulence
+  - Turbulence
 doi: 10.1017/S0022377807006940
 comments: true
 contributors: 

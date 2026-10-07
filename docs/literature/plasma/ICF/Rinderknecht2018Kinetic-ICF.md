@@ -1,9 +1,7 @@
 ---
 tags:
   - ICF
-  - Kinetic
-  - Theory
-  - Simulation
+  - Kinetic theory
 doi: 10.1088/1361-6587/aab79f
 contributors:
   - name: "Tom Hipgrave"

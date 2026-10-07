@@ -1,7 +1,5 @@
 ---
 tags:
-- Plasma physics
-- Theory
 - MHD
 - MCF
 - ICF

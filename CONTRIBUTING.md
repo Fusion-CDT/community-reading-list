@@ -6,7 +6,7 @@ New literature notes can be contributed by [creating a GitHub Issue](https://git
 
 - **DOI** — the DOI of the paper or resource, if available (e.g. `10.1063/1.2178779`)
 - **Location and filename** — where in the reading list it should live and what to call it, following the [filename convention](#filename-convention-for-literature-notes) above (e.g. `plasma/MCF/gyrokinetics/howes2006astro-gyrokinetics`)
-- **Tags** — comma-separated tags to aid discoverability (e.g. `gyrokinetics, MCF`)
+- **Tags** — comma-separated tags to aid discoverability (e.g. `Gyrokinetics, MCF`). See [Choosing tags](#choosing-tags).
 - **Content** — a brief description of why the resource is useful, written in Markdown
 
 Once you submit the issue, a pull request will be automatically created and a maintainer will review it.
@@ -28,12 +28,35 @@ Examples from the repository:
 | `highcock2012zero-turbulence.md` | Highcock | 2012 | zero-turbulence |
 | `kotschenreuther1995gs2.md` | Kotschenreuther | 1995 | gs2 |
 
+### Choosing tags
+
+Tags help readers find related notes, so a few well-chosen tags are better than many generic ones.
+
+- **Reuse existing tags where possible.** The commonly used tags are listed below.
+- **Use sentence case with spaces**, e.g. `Zonal flows`, not `zonal-flows` or `Zonal Flows`.
+- **Keep the official spelling of acronyms and code names**, e.g. `MCF`, `GS2`, `CGYRO`, `stella`.
+- **Avoid tags that apply to almost everything**, such as `Theory`, `Simulation` or `Plasma physics`.
+
+| Area | Tags |
+|------|------|
+| Confinement | `MCF`, `ICF` |
+| Theory and modelling | `Gyrokinetics`, `Gyrofluid`, `Kinetic theory`, `MHD`, `Resistive MHD`, `Turbulence`, `Zonal flows`, `Waves`, `PIC` |
+| Exhaust and edge | `Divertor`, `ELMs`, `SOL turbulence`, `Heat flux`, `Exhaust modelling` |
+| Laser-plasma | `Laser-plasma interactions`, `High-intensity lasers`, `QED` |
+| Materials | `Irradiation`, `Structural materials`, `Steels`, `Superconductors`, `HTS`, `Blankets`, `Tritium`, `TBR` |
+| Diagnostics | `Diagnostics`, `Reflectometry` |
+| Codes | `GS2`, `TGLF`, `GENE`, `CGYRO`, `stella`, `GKW`, `GX`, `EPOCH` |
+| Devices | `ITER`, `JET`, `MAST`, `ASDEX-Upgrade` |
+| Machine learning | `Machine learning`, `Gaussian processes`, `Regression` |
+
+New tags are welcome when none of these fit; a maintainer will check them when reviewing your pull request.
+
 ## How do I contribute new tutorials?
 
 New tutorial notes can be contributed by [creating a GitHub Issue](https://github.com/Fusion-CDT/community-reading-list/issues/new/choose) and selecting the **"Suggest tutorial"** template. Fill in as many fields as you can:
 
 - **Location and filename** — where in the reading list it should live and what to call it (e.g. `docs/tutorials/gyrokinetic-theory.md`)
-- **Tags** — comma-separated tags to aid discoverability (e.g. `gyrokinetics, MCF`)
+- **Tags** — comma-separated tags to aid discoverability (e.g. `Gyrokinetics, MCF`). See [Choosing tags](#choosing-tags).
 - **Content** — the body of your tutorial, written in Markdown
 
 Once you submit the issue, a pull request will be automatically created and a maintainer will review it.

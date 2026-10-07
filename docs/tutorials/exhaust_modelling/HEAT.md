@@ -1,8 +1,8 @@
 ---
 tags:
   - MCF
-  - Heat Flux
-  - Exhaust Modelling
+  - Heat flux
+  - Exhaust modelling
 contributors:
   - name: "Michael I. Battye"
     github: "mbattye"
