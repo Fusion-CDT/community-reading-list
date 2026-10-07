@@ -1,0 +1,20 @@
+{#-
+  Layout for the tag listing on docs/tags.md (`layout: collapsible`): each tag
+  is a chip that expands to show the pages using it. Adapted from Zensical's
+  default listing; styled by docs/stylesheets/tags.css and opened from links by
+  docs/javascripts/tags.js.
+-#}
+{% macro render(listing) %}
+<details class="tag-listing">
+  <summary>{{ listing.content }} <span class="tag-count">{{ listing.mappings | length }}</span></summary>
+  <ul>
+    {% for mapping in listing.mappings %}
+      <li><a href="{{ mapping.item.url | url }}">{{ mapping.item.title }}</a></li>
+    {% endfor %}
+    {% for child in listing %}
+      <li style="list-style-type:none">{{ render(child) }}</li>
+    {% endfor %}
+  </ul>
+</details>
+{% endmacro %}
+{{ render(listing) }}
