@@ -1,5 +1,5 @@
 name: Edit existing tutorial
-description: Propose a correction or improvement to an existing tutorial page.
+description: Propose a correction or improvement to an existing tutorial page. Please start from the edit button on the page itself.
 labels: ["edit-tutorial"]
 body:
   - type: markdown
@@ -7,9 +7,11 @@ body:
       value: |
         Thanks for helping improve the Fusion CDT Community Reading List!
 
-        Before filling in the form below, navigate to the page on the
-        [reading list site](https://fusion-cdt.github.io/community-reading-list/)
-        so you can view and copy its current content.
+        This form should be opened from the ✏️ edit button at the top of the page
+        you want to change on the
+        [reading list site](https://fusion-cdt.github.io/community-reading-list/),
+        so that the page's path is in the title above. If you opened it from the
+        list of issue templates instead, please go back and use the edit button.
 
   - type: textarea
     id: description
@@ -25,8 +27,13 @@ body:
     attributes:
       label: Proposed content
       description: |
-        The new markdown content for the page body (everything after the opening `---` frontmatter block).
-        Copy the existing content from the page, make your changes, and paste the result here.
+        This box is pre-filled with the page's current text, so make your changes here.
+        If it's empty (very long pages can't be pre-filled), copy the page's text from its
+        source on [GitHub](https://github.com/Fusion-CDT/community-reading-list/tree/main/docs),
+        at the path shown in the title above.
+
+        Tags, DOI, title and links can't be changed here. Please describe those changes under
+        *What needs changing?* instead.
       placeholder: "Your improved content here..."
     validations:
       required: true
