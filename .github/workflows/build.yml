@@ -1,0 +1,49 @@
+name: Build site
+on:
+  push:
+    branches:
+      - main
+  # Build (but don't deploy) every pull request so broken pages are caught
+  # before they are merged.
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Never run two deployments at once; a newer push cancels an older PR build.
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      # Installs the exact versions in uv.lock, so a new Zensical release
+      # can't break the site without a pull request updating the lockfile.
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+      - run: uv sync --locked
+      - run: uv run zensical build --clean
+
+      - if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - uses: actions/deploy-pages@v4
+        id: deployment
