@@ -36,10 +36,12 @@ jobs:
 
       - name: Parse issue
         id: parser
-        uses: issue-ops/parser@v5.0.0
-        with:
-          body: ${{ github.event.issue.body }}
-          issue-form-template: ${{ steps.template.outputs.file }}
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          TEMPLATE: ${{ steps.template.outputs.file }}
+        run: |
+          pip install pyyaml -q
+          python3 scripts/parse_issue.py "$TEMPLATE"
 
       - name: Validate filepath
         env:
@@ -49,27 +51,6 @@ jobs:
             echo "::error::File '${FILEPATH}' not found in repository."
             exit 1
           fi
-
-      - name: Download user images
-        env:
-          USER_IMAGES: ${{ steps.parser.outputs.parsed_user_images }}
-          FILEPATH: ${{ steps.extract.outputs.filepath }}
-        run: |
-          set -euo pipefail
-          IMAGE_DIRECTORY="$(dirname "$FILEPATH")"
-          mkdir -p "$IMAGE_DIRECTORY"
-          while IFS=$'\t' read -r filename url; do
-            [ -z "$filename" ] && continue
-            if [[ "$filename" == */* || "$filename" == "." || "$filename" == ".." ]]; then
-              echo "::error::Invalid image filename: $filename"
-              exit 1
-            fi
-            if [[ "$url" != https://* ]]; then
-              echo "::error::Image URL must use HTTPS: $url"
-              exit 1
-            fi
-            curl --fail --location --retry 3 --output "$IMAGE_DIRECTORY/$filename" "$url"
-          done < <(jq -r '.[] | [.name, .url] | @tsv' <<< "${USER_IMAGES:-[]}")
 
       - name: Apply edit to file
         env:
@@ -121,6 +102,12 @@ jobs:
 
           print(f"Updated {filepath}")
           PYEOF
+
+      - name: Store images in the repository
+        env:
+          NOTE: ${{ steps.extract.outputs.filepath }}
+          UPLOADS: ${{ steps.parser.outputs.parsed_user_images }}
+        run: python3 scripts/localise_images.py "$NOTE" "$UPLOADS"
 
       - name: Create PR
         uses: peter-evans/create-pull-request@v6

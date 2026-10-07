@@ -27,32 +27,12 @@ jobs:
             - name: Parse issue
               if: steps.check-branch.outputs.exists == 'false'
               id: parser
-              uses: issue-ops/parser@v5.0.0
-              with:
-                body: ${{ github.event.issue.body }}
-                issue-form-template: suggest-tutorial.yml
-
-            - name: Download user images
-              if: steps.check-branch.outputs.exists == 'false'
               env:
-                USER_IMAGES: ${{ steps.parser.outputs.parsed_user_images }}
-                FILEPATH: ${{ steps.parser.outputs.parsed_filepath }}
+                ISSUE_BODY: ${{ github.event.issue.body }}
+                TEMPLATE: suggest-tutorial.yml
               run: |
-                set -euo pipefail
-                IMAGE_DIRECTORY="$(dirname "$FILEPATH")"
-                mkdir -p "$IMAGE_DIRECTORY"
-                while IFS=$'\t' read -r filename url; do
-                  [ -z "$filename" ] && continue
-                  if [[ "$filename" == */* || "$filename" == "." || "$filename" == ".." ]]; then
-                    echo "::error::Invalid image filename: $filename"
-                    exit 1
-                  fi
-                  if [[ "$url" != https://* ]]; then
-                    echo "::error::Image URL must use HTTPS: $url"
-                    exit 1
-                  fi
-                  curl --fail --location --retry 3 --output "$IMAGE_DIRECTORY/$filename" "$url"
-                done < <(jq -r '.[] | [.name, .url] | @tsv' <<< "${USER_IMAGES:-[]}")
+                pip install pyyaml -q
+                python3 scripts/parse_issue.py "$TEMPLATE"
 
             - name: Generate markdown file
               if: steps.check-branch.outputs.exists == 'false'
@@ -101,6 +81,13 @@ jobs:
                   echo "$CONTENT"
                 } > "$FULL_PATH"
                 echo "filepath=$FULL_PATH" >> $GITHUB_OUTPUT
+
+            - name: Store images in the repository
+              if: steps.check-branch.outputs.exists == 'false'
+              env:
+                NOTE: ${{ steps.generate-markdown-file.outputs.filepath }}
+                UPLOADS: ${{ steps.parser.outputs.parsed_user_images }}
+              run: python3 scripts/localise_images.py "$NOTE" "$UPLOADS"
 
             - name: Create PR
               if: steps.check-branch.outputs.exists == 'false'
