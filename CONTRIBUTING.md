@@ -94,10 +94,3 @@ If you are comfortable with Git and want to contribute changes directly:
    git push -u origin <your-branch-name>
    ```
 6. Open a pull request on GitHub from your branch into `main`.
-
-## Adding images
-
-- **In an issue form**, paste or drag an image into the **Content** (or **Proposed content**) box. GitHub uploads it and inserts a link like `![image](https://github.com/user-attachments/assets/...)`, which also displays on the site.
-- **Using Git**, put the image in the same folder as the note and link to it by filename, e.g. `![Tokamak cross-section](tokamak-cross-section.png)`.
-
-Please only add images you have the right to share, and say where they come from.
