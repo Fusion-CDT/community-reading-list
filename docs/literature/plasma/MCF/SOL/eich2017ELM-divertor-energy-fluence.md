@@ -1,8 +1,8 @@
 ---
-tags: 
+tags:
   - MCF
-  - divertor
-  - ELM
+  - Divertor
+  - ELMs
   - ITER
   - JET
   - MAST

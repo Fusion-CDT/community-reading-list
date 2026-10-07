@@ -2,9 +2,9 @@
 tags:
   - RAFM
   - ODS
-  - steel
-  - irradiation
-  - structural
+  - Steels
+  - Irradiation
+  - Structural materials
   - FW/B
 doi: 10.1088/2515-7655/ac6f7f
 contributors:

@@ -1,9 +1,9 @@
 ---
 tags:
-  - Machine Learning
-  - Gaussian Processes
+  - Machine learning
+  - Gaussian processes
   - Regression
-  - Probabilistic Modelling
+  - Probabilistic modelling
 contributors:
   - name: "Brodie Rolph"
     github: "thelimelines"

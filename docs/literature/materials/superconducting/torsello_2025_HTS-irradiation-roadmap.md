@@ -1,8 +1,8 @@
 ---
 tags:
   - HTS
-  - superconductors
-  - irradiation
+  - Superconductors
+  - Irradiation
 doi: 10.1088/1361-6668/adce40
 contributors:
   - name: "Q"

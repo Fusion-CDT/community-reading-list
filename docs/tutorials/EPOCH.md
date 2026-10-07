@@ -1,10 +1,9 @@
 ---
 tags:
-  - Laser-Plasma
+  - Laser-plasma interaction
   - QED
-  - Lasers
+  - High-intensity lasers
   - PIC
-  - High Intensity
 contributors:
   - name: "Zheyuan Chen"
     github: "ZheyuanChen"

@@ -1,7 +1,7 @@
 ---
 tags:
   - MCF
-  - gyrokinetics
+  - Gyrokinetics
   - GS2
 doi: 10.1016/0010-4655(95)00035-E
 comments: true

@@ -1,11 +1,11 @@
 ---
 tags:
-  - Machine Learning
-  - Neural Networks
-  - Decision Trees
-  - Bayesian Learning
-  - Genetic Algorithms
-  - Reinforcement Learning
+  - Machine learning
+  - Neural networks
+  - Decision trees
+  - Bayesian learning
+  - Genetic algorithms
+  - Reinforcement learning
   - Backpropagation
 title: Machine learning (Book)
 authors: Tom Mitchell, McGraw Hill

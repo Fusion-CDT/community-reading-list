@@ -1,7 +1,7 @@
 ---
 tags:
   - Tritium
-  - Blanket
+  - Blankets
   - TBR
 doi: https://doi.org/10.3390/en14206640
 contributors:

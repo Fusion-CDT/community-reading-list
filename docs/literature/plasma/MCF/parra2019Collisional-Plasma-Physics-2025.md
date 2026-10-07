@@ -1,12 +1,10 @@
 ---
 tags:
   - MCF
-  - Plasma Physics
-  - Theory
-  - Tokamak Physics
+  - Tokamak physics
   - Resistive MHD
   - Braginskii
-  - Pfirsch Schluter
+  - Pfirsch-Schlüter
 title: Collisional Plasma Physics (2025 Oxford MMathPhys Course)
 url: https://www-thphys.physics.ox.ac.uk/people/FelixParra/CollisionalPlasmaPhysics/CollisionalPlasmaPhysics.html
 authors: Sarah Newton (2025), Plamen Ivanov (2026)

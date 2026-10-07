@@ -1,14 +1,14 @@
 ---
 tags:
 - MCF
-- gyrokinetics
+- Gyrokinetics
 - GS2
 - TGLF
-- Gene
-- Cgyro
-- Stella
-- Gkw
-- Gx
+- GENE
+- CGYRO
+- stella
+- GKW
+- GX
 contributors:
 - name: Felix Watts
   github: FelixWattsYork

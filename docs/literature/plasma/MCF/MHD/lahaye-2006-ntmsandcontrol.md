@@ -1,7 +1,7 @@
 ---
 tags:
   - MCF
-  - stability
+  - Stability
   - MHD
 doi: 10.1063/1.2180747
 contributors:

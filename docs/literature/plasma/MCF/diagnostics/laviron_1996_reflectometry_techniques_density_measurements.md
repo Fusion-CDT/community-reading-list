@@ -1,10 +1,10 @@
 ---
 tags:
   - MCF
-  - diagnostics
-  - reflectometry
-  - microwaves
-  - density
+  - Diagnostics
+  - Reflectometry
+  - Microwaves
+  - Density
 doi: 10.1088/0741-3335/38/7/002
 comments: true
 contributors:

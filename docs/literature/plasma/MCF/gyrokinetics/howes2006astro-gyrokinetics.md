@@ -1,6 +1,6 @@
 ---
 tags:
-  - gyrokinetics
+  - Gyrokinetics
   - MCF
 doi: 10.1086/506172
 comments: true

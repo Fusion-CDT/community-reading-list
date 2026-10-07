@@ -1,6 +1,6 @@
 ---
 tags:
-  - Laser Plasma Interaction
+  - Laser-plasma interaction
   - QED
 doi: 10.3390/physics8010026
 contributors:
