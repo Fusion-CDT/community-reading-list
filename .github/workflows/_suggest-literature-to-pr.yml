@@ -71,7 +71,8 @@ jobs:
                     echo "tags:"
                     echo "$TAGS" | tr ',' '\n' | sed 's/^[[:space:]]*//; s/[[:space:]]*$//' | grep -v '^$' | sed 's/^/  - /'
                   else
-                    echo "tags:"
+                    # An empty list, not a bare `tags:` (null), which fails the build
+                    echo "tags: []"
                   fi
 
                   if [ -n "$DOI" ]; then echo "doi: $DOI"; fi

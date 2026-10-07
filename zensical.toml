@@ -81,6 +81,11 @@ extra_javascript = [
 ]
 
 
+# Enable tags. Each page's tags link to docs/tags.md, which lists every tag
+# with the pages that use it.
+# See: https://zensical.org/docs/setup/tags/
+[project.plugins.tags]
+
 # Enable Arithmatex, which stops the Markdone engine from messing with LaTeX expressions.
 # See: https://zensical.org/docs/setup/extensions/python-markdown-extensions/?h=arith#arithmatex
 [project.markdown_extensions.pymdownx.arithmatex]
