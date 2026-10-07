@@ -24,7 +24,7 @@ jobs:
 
       # Installs the exact versions in uv.lock, so a new Zensical release
       # can't break the site without a pull request updating the lockfile.
-      - uses: astral-sh/setup-uv@v10
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
       - run: uv sync --locked
       - run: uv run zensical build --clean
 
