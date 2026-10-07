@@ -55,6 +55,10 @@ New tutorial notes can be contributed by [creating a GitHub Issue](https://githu
 
 Once you submit the issue, a pull request will be automatically created and a maintainer will review it.
 
+## How do I suggest other resources?
+
+For tools, code, datasets or anything else that isn't a paper, textbook, set of lecture notes or tutorial, [open a blank issue](https://github.com/Fusion-CDT/community-reading-list/issues/new) with a link and a sentence or two on why it's useful, and a maintainer will add it to the [Resources](https://fusion-cdt.github.io/community-reading-list/resources/) section. Or, if you're comfortable with Git, add a page under `docs/resources/` yourself.
+
 ## How do I edit an existing literature or tutorial note?
 
 ### Using the edit button (recommended)
