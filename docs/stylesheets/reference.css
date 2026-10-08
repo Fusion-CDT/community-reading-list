@@ -37,7 +37,7 @@
 }
 
 /* Both have negative margins, which would overlap when stacked */
-.ref-isbn + .ref-availability {
+.ref-isbn+.ref-availability {
   margin-top: 0.75rem;
 }
 
@@ -67,4 +67,14 @@
 
 .ref-contributors a:hover {
   text-decoration: underline;
+}
+
+/* Use the dark-background logo when the slate scheme is active */
+body[data-md-color-scheme="slate"] .md-logo img {
+  content: url("../images/Fusion_CDT_logo_dark.png");
+}
+
+.md-header {
+  background-color: #277cb3;
+  color: #ffffff;
 }
