@@ -1,15 +1,15 @@
 ---
 tags:
-  - Machine Learning
-  - Neural Networks
-  - Decision Trees
-  - Bayesian Learning
-  - Genetic Algorithms
-  - Reinforcement Learning
+  - Machine learning
+  - Neural networks
+  - Decision trees
+  - Bayesian learning
+  - Genetic algorithms
+  - Reinforcement learning
   - Backpropagation
 title: Machine learning (Book)
 authors: Tom Mitchell, McGraw Hill
-isbn: 0070428077
+isbn: "0070428077"
 url: 
   - https://www.cs.cmu.edu/~tom/mlbook.html
   - https://www.cs.cmu.edu/%7Etom/10701_sp11/lectures.shtml

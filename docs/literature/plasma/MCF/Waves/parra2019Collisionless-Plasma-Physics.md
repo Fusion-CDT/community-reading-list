@@ -2,10 +2,8 @@
 tags:
   - MCF
   - Waves
-  - Fusion Plasma
-  - Theory
-  - Cold Plasma
-  - Hot Plasma
+  - Cold plasma
+  - Hot plasma
 title: Collisionless Plasma Physics (Waves in Plasmas)
 url: 
   - https://github.com/user-attachments/files/26439914/ClPP.Lecture.Notes.1.pdf

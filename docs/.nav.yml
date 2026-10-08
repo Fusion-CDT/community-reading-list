@@ -1,0 +1,7 @@
+# Sidebar order. "*" means every other page and folder, sorted alphabetically,
+# so new pages appear automatically without editing this file.
+nav:
+  - index.md
+  - tags.md
+  - "*"
+  - fun_stuff

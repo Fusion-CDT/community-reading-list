@@ -35,10 +35,12 @@ jobs:
             - name: Parse issue
               if: steps.check-branch.outputs.exists == 'false'
               id: parser
-              uses: issue-ops/parser@v5.0.0
-              with:
-                body: ${{ github.event.issue.body }}
-                issue-form-template: ${{ inputs.issue_form_template }}
+              env:
+                ISSUE_BODY: ${{ github.event.issue.body }}
+                TEMPLATE: ${{ inputs.issue_form_template }}
+              run: |
+                pip install pyyaml -q
+                python3 scripts/parse_issue.py "$TEMPLATE"
 
             - name: Generate markdown file
               if: steps.check-branch.outputs.exists == 'false'
@@ -49,6 +51,7 @@ jobs:
                 TITLE: ${{ steps.parser.outputs.parsed_title }}
                 AUTHORS: ${{ steps.parser.outputs.parsed_authors }}
                 ISBN: ${{ steps.parser.outputs.parsed_isbn }}
+                AVAILABILITY: ${{ steps.parser.outputs.parsed_availability }}
                 URL: ${{ steps.parser.outputs.parsed_url }}
                 URL_NAME: ${{ steps.parser.outputs.parsed_url_name }}
                 FILEPATH: ${{ steps.parser.outputs.parsed_filepath }}
@@ -71,13 +74,15 @@ jobs:
                     echo "tags:"
                     echo "$TAGS" | tr ',' '\n' | sed 's/^[[:space:]]*//; s/[[:space:]]*$//' | grep -v '^$' | sed 's/^/  - /'
                   else
-                    echo "tags:"
+                    # An empty list, not a bare `tags:` (null), which fails the build
+                    echo "tags: []"
                   fi
 
                   if [ -n "$DOI" ]; then echo "doi: $DOI"; fi
                   if [ -n "$TITLE" ]; then echo "title: \"$TITLE\""; fi
                   if [ -n "$AUTHORS" ]; then echo "authors: \"$AUTHORS\""; fi
                   if [ -n "$ISBN" ]; then echo "isbn: \"$ISBN\""; fi
+                  if [ -n "$AVAILABILITY" ]; then echo "availability: \"$AVAILABILITY\""; fi
 
                   if [ -n "$URL" ]; then
                     URL_COUNT=$(echo "$URL" | tr ',' '\n' | grep -cv '^[[:space:]]*$')
@@ -111,6 +116,13 @@ jobs:
                   echo "$CONTENT"
                 } > "$FULL_PATH"
                 echo "filepath=$FULL_PATH" >> $GITHUB_OUTPUT
+
+            - name: Store images in the repository
+              if: steps.check-branch.outputs.exists == 'false'
+              env:
+                NOTE: ${{ steps.generate-markdown-file.outputs.filepath }}
+                UPLOADS: ${{ steps.parser.outputs.parsed_user_images }}
+              run: python3 scripts/localise_images.py "$NOTE" "$UPLOADS"
 
             - name: Create PR
               if: steps.check-branch.outputs.exists == 'false'

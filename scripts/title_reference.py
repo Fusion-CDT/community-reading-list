@@ -1,16 +1,16 @@
 """
 Title Reference — a Python Markdown preprocessor extension.
 
-Reads `title`, `authors`, `isbn`, and `url` fields from a Markdown page's YAML
-front matter and inserts a formatted reference header at build time without
-modifying source (Markdown) files.
+Reads `title`, `authors`, `isbn`, `availability`, and `url` fields from a
+Markdown page's YAML front matter and inserts a formatted reference header at
+build time without modifying source (Markdown) files.
 
 This extension handles pages that have a `title` field but no `doi` — i.e.
 lecture notes, slides, and textbooks. Pages with a `doi` field are handled
 by `doi_reference.py` instead; this extension skips them.
 
-Follows the same stack-inspection pattern as `doi_reference.py` and
-`contributors.py` to read frontmatter from Zensical's `render()` frame.
+Uses Zensical's rendering context to read frontmatter, with a stack-inspection
+fallback for older Zensical releases.
 """
 
 import inspect
@@ -29,11 +29,23 @@ class TitleReferencePreprocessor(Preprocessor):
         return value if isinstance(value, list) else [value]
 
     def _meta_from_render_frame(self):
-        """Read frontmatter meta dict from Zensical's `render()` frame."""
+        """Read frontmatter from Zensical's current page context."""
+        try:
+            from zensical.extensions.context import ContextPreprocessor
+
+            context = ContextPreprocessor.from_markdown(self.md)
+            if context is not None:
+                return context.page.meta
+        except ImportError:
+            pass
+
         for frame_info in inspect.stack():
             func = frame_info.function
             name = frame_info.frame.f_globals.get("__name__")
-            if (func == "render") and (name == "zensical.markdown"):
+            if func == "render" and name in {
+                "zensical.markdown",
+                "zensical.markdown.render",
+            }:
                 return frame_info.frame.f_locals.get("meta", {})
         return {}
 
@@ -50,6 +62,7 @@ class TitleReferencePreprocessor(Preprocessor):
 
         authors = meta.get("authors")
         isbn = meta.get("isbn")
+        availability = meta.get("availability")
         url = meta.get("url")
         url_name = meta.get("url_name")
 
@@ -60,6 +73,11 @@ class TitleReferencePreprocessor(Preprocessor):
 
         if isbn:
             header.append(f"<p class='ref-isbn'><b>ISBN:</b> {isbn}</p>")
+
+        if availability:
+            header.append(
+                f"<p class='ref-availability'><b>Availability:</b> {availability}</p>"
+            )
 
         url_frontmatter = []
         if url:

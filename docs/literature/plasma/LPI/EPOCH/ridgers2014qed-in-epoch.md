@@ -3,8 +3,7 @@ tags:
   - QED
   - EPOCH
   - PIC
-  - Simulation
-  - Laser Plasma
+  - Laser-plasma interactions
 doi: 10.1016/j.jcp.2013.12.007
 contributors:
   - name: "Zheyuan Chen"

@@ -1,6 +1,6 @@
 ---
 tags:
-  - gyrokinetics
+  - Gyrokinetics
   - MCF
 comments: true
 contributors: [{name: "Bailey Cook", github: "baiway"}]

@@ -36,15 +36,23 @@ jobs:
 
       - name: Parse issue
         id: parser
-        uses: issue-ops/parser@v5.0.0
-        with:
-          body: ${{ github.event.issue.body }}
-          issue-form-template: ${{ steps.template.outputs.file }}
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          TEMPLATE: ${{ steps.template.outputs.file }}
+        run: |
+          pip install pyyaml -q
+          python3 scripts/parse_issue.py "$TEMPLATE"
 
       - name: Validate filepath
         env:
           FILEPATH: ${{ steps.extract.outputs.filepath }}
         run: |
+          # Only allow edits to existing Markdown pages under docs/. The path
+          # comes from the issue title, which anyone can edit.
+          if [[ "${FILEPATH}" != docs/*.md || "${FILEPATH}" == *..* ]]; then
+            echo "::error::'${FILEPATH}' is not a Markdown page under docs/."
+            exit 1
+          fi
           if [ ! -f "${FILEPATH}" ]; then
             echo "::error::File '${FILEPATH}' not found in repository."
             exit 1
@@ -79,27 +87,37 @@ jobs:
               frontmatter_text = None
               meta = {}
 
-          if contributor_name:
-              contributors = meta.get('contributors') or []
-              # Avoid adding duplicate entries
-              if not any(c.get('github') == github_username for c in contributors):
-                  contributors.append({'name': contributor_name, 'github': github_username})
-              meta['contributors'] = contributors
+          contributors = meta.get('contributors') or []
+          # Only add the contributor if they aren't already credited
+          add_contributor = contributor_name and not any(
+              c.get('github') == github_username for c in contributors
+          )
 
-          if frontmatter_text is not None:
-              # Re-serialise frontmatter, preserving key order (tags, doi, contributors, comments)
-              key_order = ['tags', 'doi', 'contributors', 'comments']
-              ordered = {k: meta[k] for k in key_order if k in meta}
-              ordered.update({k: v for k, v in meta.items() if k not in ordered})
-              frontmatter = '---\n' + yaml.dump(ordered, default_flow_style=False, allow_unicode=True) + '---\n'
-          else:
+          if frontmatter_text is None:
               frontmatter = ''
+          elif add_contributor:
+              contributors.append({'name': contributor_name, 'github': github_username})
+              meta['contributors'] = contributors
+              # Re-serialise, keeping the existing key order
+              frontmatter = '---\n' + yaml.dump(
+                  meta, default_flow_style=False, allow_unicode=True,
+                  sort_keys=False, width=float('inf'),
+              ) + '---\n'
+          else:
+              # Nothing to change, so keep the frontmatter exactly as written
+              frontmatter = '---' + frontmatter_text + '---\n'
 
           with open(filepath, 'w') as f:
               f.write(frontmatter + '\n' + proposed_content.strip() + '\n')
 
           print(f"Updated {filepath}")
           PYEOF
+
+      - name: Store images in the repository
+        env:
+          NOTE: ${{ steps.extract.outputs.filepath }}
+          UPLOADS: ${{ steps.parser.outputs.parsed_user_images }}
+        run: python3 scripts/localise_images.py "$NOTE" "$UPLOADS"
 
       - name: Create PR
         uses: peter-evans/create-pull-request@v6

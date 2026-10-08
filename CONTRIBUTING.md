@@ -2,12 +2,18 @@
 
 ## How do I contribute new literature?
 
-New literature notes can be contributed by [creating a GitHub Issue](https://github.com/Fusion-CDT/community-reading-list/issues/new/choose) and selecting the **"Suggest literature"** template. Fill in as many fields as you can:
+New literature notes can be contributed by [creating a GitHub Issue](https://github.com/Fusion-CDT/community-reading-list/issues/new/choose) and choosing the template that matches what you're suggesting:
 
-- **DOI** — the DOI of the paper or resource, if available (e.g. `10.1063/1.2178779`)
-- **Location and filename** — where in the reading list it should live and what to call it, following the [filename convention](#filename-convention-for-literature-notes) above (e.g. `plasma/MCF/gyrokinetics/howes2006astro-gyrokinetics`)
-- **Tags** — comma-separated tags to aid discoverability (e.g. `gyrokinetics, MCF`)
-- **Content** — a brief description of why the resource is useful, written in Markdown
+- **Suggest literature: paper** — journal articles and preprints. Give the **DOI**, and the title, authors and journal are filled in automatically on the site.
+- **Suggest literature: textbook** — give the **title**, **authors**, **ISBN**, optionally where the book is **available** (e.g. "YPI library"), and any links.
+- **Suggest literature: lecture notes or slides** — give the **title**, **authors** (if known) and links to the notes.
+
+All three also ask for:
+
+- **Location and filename** — a folder under `literature/` and a filename following the [filename convention](#filename-convention-for-literature-notes) below (e.g. `plasma/MCF/gyrokinetics/howes2006astro-gyrokinetics`)
+- **Tags** — comma-separated tags to aid discoverability (e.g. `Gyrokinetics, MCF`). See [Choosing tags](#choosing-tags).
+- **Content** — a brief description of why the resource is useful, written in Markdown (see this [Markdown cheat sheet](https://www.markdownguide.org/cheat-sheet/)). You can add [images](#adding-images) too.
+- **Your name** (optional) — you'll be credited as a contributor at the bottom of the page.
 
 Once you submit the issue, a pull request will be automatically created and a maintainer will review it.
 
@@ -28,13 +34,24 @@ Examples from the repository:
 | `highcock2012zero-turbulence.md` | Highcock | 2012 | zero-turbulence |
 | `kotschenreuther1995gs2.md` | Kotschenreuther | 1995 | gs2 |
 
+### Choosing tags
+
+Tags help readers find related notes, so a few well-chosen tags are better than many generic ones.
+
+- **Reuse existing tags where possible.** The [Tags page](https://fusion-cdt.github.io/community-reading-list/tags/) lists every tag in use, with the pages that use it.
+- **Use sentence case with spaces**, e.g. `Zonal flows`, not `zonal-flows` or `Zonal Flows`.
+- **Keep the official spelling of acronyms and code names**, e.g. `MCF`, `GS2`, `CGYRO`, `stella`.
+- **Avoid tags that apply to almost everything**, such as `Theory`, `Simulation` or `Plasma physics`.
+
+New tags are welcome when none of the existing ones fit; a maintainer will check them when reviewing your pull request.
+
 ## How do I contribute new tutorials?
 
 New tutorial notes can be contributed by [creating a GitHub Issue](https://github.com/Fusion-CDT/community-reading-list/issues/new/choose) and selecting the **"Suggest tutorial"** template. Fill in as many fields as you can:
 
 - **Location and filename** — where in the reading list it should live and what to call it (e.g. `docs/tutorials/gyrokinetic-theory.md`)
-- **Tags** — comma-separated tags to aid discoverability (e.g. `gyrokinetics, MCF`)
-- **Content** — the body of your tutorial, written in Markdown
+- **Tags** — comma-separated tags to aid discoverability (e.g. `Gyrokinetics, MCF`). See [Choosing tags](#choosing-tags).
+- **Content** — the body of your tutorial, written in Markdown (see this [Markdown cheat sheet](https://www.markdownguide.org/cheat-sheet/)). You can add [images](#adding-images) too.
 
 Once you submit the issue, a pull request will be automatically created and a maintainer will review it.
 
@@ -44,11 +61,11 @@ Once you submit the issue, a pull request will be automatically created and a ma
 
 1. Navigate to the page you want to edit on the [reading list site](https://fusion-cdt.github.io/community-reading-list/).
 2. Click the **edit** button at the top of the page (pencil icon).
-3. This will open the **"Edit existing literature entry"** (or equivalent) issue template on GitHub, pre-populated with the current page content.
+3. This will open the **"Edit existing literature entry"** (or equivalent) issue template on GitHub, with the **"Proposed content"** field pre-filled with the page's current text. (Very long pages can't be pre-filled; the form explains what to do.)
 4. Describe what needs changing in the **"What needs changing?"** field.
 5. Make your edits in the **"Proposed content"** field and submit the issue.
 
-A maintainer will review the proposed changes and open a pull request on your behalf.
+A pull request with your changes will be automatically created and a maintainer will review it.
 
 ### Using Git directly
 
@@ -73,3 +90,31 @@ If you are comfortable with Git and want to contribute changes directly:
    git push -u origin <your-branch-name>
    ```
 6. Open a pull request on GitHub from your branch into `main`.
+
+## Adding images
+
+### In an issue form
+
+Upload your images in the **Images** field, then refer to each one by its filename in your text:
+
+```markdown
+![Diagram of the gyrokinetic geometry](gyrokinetic-geometry.png)
+```
+
+You can also paste or drag an image straight into the text box.
+
+Either way, a copy of each image is stored in the repository next to the page, so it doesn't depend on GitHub keeping the attachment. Images are renamed to start with the page's filename (e.g. `howes2006astro-gyrokinetics-gyrokinetic-geometry.png`) so that pages in the same folder can't overwrite each other's images; links in your text are updated to match.
+
+### Using Git
+
+Commit images in the same directory as the Markdown page that uses them. Use a descriptive filename with no spaces, starting with the page's filename, for example `howes2006astro-gyrokinetics-geometry.png`.
+
+Reference the image using its filename relative to the Markdown page:
+
+```markdown
+![Diagram of the gyrokinetic geometry](howes2006astro-gyrokinetics-geometry.png)
+```
+
+Check that the filename in the Markdown matches the committed file exactly, including its capitalisation, and that the image renders in the built site before opening the pull request.
+
+Please only add images you have the right to share, and say where they come from.

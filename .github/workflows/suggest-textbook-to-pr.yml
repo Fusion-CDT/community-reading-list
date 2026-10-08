@@ -6,6 +6,9 @@ on:
 jobs:
     create-contribution:
         if: contains(github.event.issue.labels.*.name, 'textbook-suggestion')
+        permissions:
+            contents: write
+            pull-requests: write
         uses: ./.github/workflows/_suggest-literature-to-pr.yml
         with:
             branch_prefix: add-suggested-textbook

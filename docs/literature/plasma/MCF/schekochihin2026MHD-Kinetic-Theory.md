@@ -2,8 +2,7 @@
 tags:
   - MCF
   - MHD
-  - Kinetic Theory
-  - Theory
+  - Kinetic theory
 title: Lectures on Kinetic Theory and Magnetohydrodynamics of Plasmas
 url: https://www-thphys.physics.ox.ac.uk/people/AlexanderSchekochihin/KT/2015/KTLectureNotes.pdf
 url_name: Lecture notes

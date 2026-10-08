@@ -5,8 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for contributing to the Fusion CDT Community Reading List!
-        Please fill in as much detail as you can below.
+        Thanks for contributing to the Fusion CDT Community Reading List! Please fill in as much detail as you can below.
 
   - type: input
     id: doi
@@ -21,8 +20,8 @@ body:
     id: filepath
     attributes:
       label: Location and filename
-      description: Where in the reading list should this live and what should it be called? Follow the format `<AUTHOR>_<YEAR>_<SHORT-TITLE>`.
-      placeholder: "e.g. plasma/MCF/abel_2013_multiscale-gyrokinetics"
+      description: Where in the reading list should this live and what should it be called? Give a folder path under `literature/`, then a filename of the form `<firstauthor><year><short-title>` (see the [filename convention](https://github.com/Fusion-CDT/community-reading-list/blob/main/CONTRIBUTING.md#filename-convention-for-literature-notes)).
+      placeholder: "e.g. plasma/MCF/gyrokinetics/abel2013multiscale-gyrokinetics"
     validations:
       required: true
 
@@ -30,8 +29,8 @@ body:
     id: tags
     attributes:
       label: Tags
-      description: Comma-separated tags. See the existing tag list for canonical spellings.
-      placeholder: "e.g. MCF, gyrokinetics, GS2"
+      description: Comma-separated tags. Please reuse tags from the [Tags page](https://fusion-cdt.github.io/community-reading-list/tags/) where possible.
+      placeholder: "e.g. MCF, Gyrokinetics, GS2"
     validations:
       required: false
 
@@ -39,10 +38,22 @@ body:
     id: content
     attributes:
       label: Content
-      description: Why this is useful and what you'd like to highlight. Please use Markdown and LaTeX for maths (e.g. `$\chi_e$`).
+      description: Why this is useful and what you'd like to highlight. Please use Markdown ([cheat sheet](https://www.markdownguide.org/cheat-sheet/)) and LaTeX for maths (e.g. `$\chi_e$`).
       placeholder: "e.g. Essential review paper for anyone starting in gyrokinetics."
     validations:
       required: true
+
+  - type: upload
+    id: user_images
+    attributes:
+      label: Images (optional)
+      description: |
+        Upload any images used in your Content, and refer to each one by its filename, e.g.
+        `![Diagram of the experiment](diagram.png)`. They'll be stored next to the page.
+        You can also paste images straight into the Content box; they'll be stored too.
+    validations:
+      required: false
+      accept: ".png,.jpg,.jpeg,.gif,.svg,.webp"
 
   - type: input
     id: contributor_name

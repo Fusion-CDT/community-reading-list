@@ -10,6 +10,9 @@ A collection of useful resources related to plasma physics, material science, fu
 
 The live site is available here: https://fusion-cdt.github.io/community-reading-list/
 
+## Disclaimer
+This reading list is curated by PhD students. Including a resource here means that students found it useful, not that all of its contents are endorsed by the EPSRC CDT in Fusion Power. Review papers in particular can be selective: authors may favour their own work or not fairly represent the range of opinion in a field. Read critically, and ask your supervisor or other students when in doubt.
+
 ## How do I contribute?
 This repository is a community-driven effort and is not actively maintained by a dedicated team. As such, some resources may become outdated. We warmly welcome contributions from the community to keep this list relevant! If you have resources to add or corrections to make, please feel free to do so. For guidance, see [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
@@ -30,7 +33,7 @@ if you have it installed (needs `uv` version 0.8.0 or above):
 uv sync && source .venv/bin/activate
 ```
 
-Otherwise, using `pip` (you will need to have at least Python 3.10 installed for this to work):
+Otherwise, using `pip` (you will need to have at least Python 3.11 installed for this to work):
 ```sh
 python -m venv .venv && source .venv/bin/activate
 pip install .
