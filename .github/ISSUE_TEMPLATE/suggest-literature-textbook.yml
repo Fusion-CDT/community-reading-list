@@ -5,8 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for contributing to the Fusion CDT Community Reading List!
-        Please fill in as much detail as you can below.
+        Thanks for contributing to the Fusion CDT Community Reading List! Please fill in as much detail as you can below.
 
   - type: input
     id: title

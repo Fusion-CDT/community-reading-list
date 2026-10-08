@@ -7,11 +7,7 @@ body:
       value: |
         Thanks for helping improve the Fusion CDT Community Reading List!
 
-        This form should be opened from the ✏️ edit button at the top of the page
-        you want to change on the
-        [reading list site](https://fusion-cdt.github.io/community-reading-list/),
-        so that the page's path is in the title above. If you opened it from the
-        list of issue templates instead, please go back and use the edit button.
+        This form should be opened from the ✏️ edit button at the top of the page you want to change on the [reading list site](https://fusion-cdt.github.io/community-reading-list/), so that the page's path is in the title above. If you opened it from the list of issue templates instead, please go back and use the edit button.
 
   - type: textarea
     id: description
