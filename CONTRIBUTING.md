@@ -2,12 +2,18 @@
 
 ## How do I contribute new literature?
 
-New literature notes can be contributed by [creating a GitHub Issue](https://github.com/Fusion-CDT/community-reading-list/issues/new/choose) and selecting the **"Suggest literature"** template. Fill in as many fields as you can:
+New literature notes can be contributed by [creating a GitHub Issue](https://github.com/Fusion-CDT/community-reading-list/issues/new/choose) and choosing the template that matches what you're suggesting:
 
-- **DOI** — the DOI of the paper or resource, if available (e.g. `10.1063/1.2178779`)
-- **Location and filename** — where in the reading list it should live and what to call it, following the [filename convention](#filename-convention-for-literature-notes) above (e.g. `plasma/MCF/gyrokinetics/howes2006astro-gyrokinetics`)
+- **Suggest literature: paper** — journal articles and preprints. Give the **DOI**, and the title, authors and journal are filled in automatically on the site.
+- **Suggest literature: textbook** — give the **title**, **authors**, **ISBN**, optionally where the book is **available** (e.g. "YPI library"), and any links.
+- **Suggest literature: lecture notes or slides** — give the **title**, **authors** (if known) and links to the notes.
+
+All three also ask for:
+
+- **Location and filename** — a folder under `literature/` and a filename following the [filename convention](#filename-convention-for-literature-notes) below (e.g. `plasma/MCF/gyrokinetics/howes2006astro-gyrokinetics`)
 - **Tags** — comma-separated tags to aid discoverability (e.g. `Gyrokinetics, MCF`). See [Choosing tags](#choosing-tags).
-- **Content** — a brief description of why the resource is useful, written in Markdown
+- **Content** — a brief description of why the resource is useful, written in Markdown (see this [Markdown cheat sheet](https://www.markdownguide.org/cheat-sheet/)). You can add [images](#adding-images) too.
+- **Your name** (optional) — you'll be credited as a contributor at the bottom of the page.
 
 Once you submit the issue, a pull request will be automatically created and a maintainer will review it.
 
@@ -45,7 +51,7 @@ New tutorial notes can be contributed by [creating a GitHub Issue](https://githu
 
 - **Location and filename** — where in the reading list it should live and what to call it (e.g. `docs/tutorials/gyrokinetic-theory.md`)
 - **Tags** — comma-separated tags to aid discoverability (e.g. `Gyrokinetics, MCF`). See [Choosing tags](#choosing-tags).
-- **Content** — the body of your tutorial, written in Markdown
+- **Content** — the body of your tutorial, written in Markdown (see this [Markdown cheat sheet](https://www.markdownguide.org/cheat-sheet/)). You can add [images](#adding-images) too.
 
 Once you submit the issue, a pull request will be automatically created and a maintainer will review it.
 
@@ -55,11 +61,11 @@ Once you submit the issue, a pull request will be automatically created and a ma
 
 1. Navigate to the page you want to edit on the [reading list site](https://fusion-cdt.github.io/community-reading-list/).
 2. Click the **edit** button at the top of the page (pencil icon).
-3. This will open the **"Edit existing literature entry"** (or equivalent) issue template on GitHub, pre-populated with the current page content.
+3. This will open the **"Edit existing literature entry"** (or equivalent) issue template on GitHub, with the **"Proposed content"** field pre-filled with the page's current text. (Very long pages can't be pre-filled; the form explains what to do.)
 4. Describe what needs changing in the **"What needs changing?"** field.
 5. Make your edits in the **"Proposed content"** field and submit the issue.
 
-A maintainer will review the proposed changes and open a pull request on your behalf.
+A pull request with your changes will be automatically created and a maintainer will review it.
 
 ### Using Git directly
 
