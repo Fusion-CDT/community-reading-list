@@ -2,5 +2,5 @@
 # so new pages appear automatically without editing this file.
 nav:
   - index.md
-  - "*"
   - tags.md
+  - "*"
