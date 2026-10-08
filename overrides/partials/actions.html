@@ -8,7 +8,7 @@
         {% include ".icons/" ~ icon ~ ".svg" %}
       </a>
     {% elif "tutorials" in page.edit_url %}
-      <a href="{{ config.repo_url }}/issues/new?template=edit-tutorial.yml&labels=edit-tutorial&title=Edit:%20{{ filepath }}" title="{{ lang.t('action.edit') }}" class="md-content__button md-icon" rel="edit">
+      <a href="{{ config.repo_url }}/issues/new?template=edit-tutorial.yml&labels=edit-tutorial&title=Edit:%20{{ filepath }}" data-raw-url="{{ config.repo_url | replace('https://github.com/', 'https://raw.githubusercontent.com/') }}/main/{{ filepath }}" title="{{ lang.t('action.edit') }}" class="md-content__button md-icon" rel="edit">
         {% set icon = config.theme.icon.edit or "material/file-edit-outline" %}
         {% include ".icons/" ~ icon ~ ".svg" %}
       </a>
