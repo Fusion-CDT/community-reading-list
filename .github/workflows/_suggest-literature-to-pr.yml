@@ -35,10 +35,12 @@ jobs:
             - name: Parse issue
               if: steps.check-branch.outputs.exists == 'false'
               id: parser
-              uses: issue-ops/parser@v5.0.0
-              with:
-                body: ${{ github.event.issue.body }}
-                issue-form-template: ${{ inputs.issue_form_template }}
+              env:
+                ISSUE_BODY: ${{ github.event.issue.body }}
+                TEMPLATE: ${{ inputs.issue_form_template }}
+              run: |
+                pip install pyyaml -q
+                python3 scripts/parse_issue.py "$TEMPLATE"
 
             - name: Generate markdown file
               if: steps.check-branch.outputs.exists == 'false'
@@ -114,6 +116,13 @@ jobs:
                   echo "$CONTENT"
                 } > "$FULL_PATH"
                 echo "filepath=$FULL_PATH" >> $GITHUB_OUTPUT
+
+            - name: Store images in the repository
+              if: steps.check-branch.outputs.exists == 'false'
+              env:
+                NOTE: ${{ steps.generate-markdown-file.outputs.filepath }}
+                UPLOADS: ${{ steps.parser.outputs.parsed_user_images }}
+              run: python3 scripts/localise_images.py "$NOTE" "$UPLOADS"
 
             - name: Create PR
               if: steps.check-branch.outputs.exists == 'false'

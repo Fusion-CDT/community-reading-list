@@ -34,6 +34,18 @@ body:
     validations:
       required: true
 
+  - type: upload
+    id: user_images
+    attributes:
+      label: Images (optional)
+      description: |
+        Upload any images used in your Proposed content, and refer to each one by its filename, e.g.
+        `![Diagram of the experiment](diagram.png)`. They'll be stored next to the page.
+        You can also paste images straight into the Proposed content box; they'll be stored too.
+    validations:
+      required: false
+      accept: ".png,.jpg,.jpeg,.gif,.svg,.webp"
+
   - type: input
     id: contributor_name
     attributes:
