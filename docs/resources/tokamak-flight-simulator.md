@@ -5,11 +5,11 @@ contributors:
 comments: true
 ---
 
-# [☀️ Tokamak Flight Simulator](https://www.fusionsimulator.io/)
+# [Tokamak Flight Simulator](https://www.fusionsimulator.io/)
 
-Try your hand at **JET, DIII-D, or ITER**, and see what fusion power you can achieve!
+Try your hand at **JET**, **DIII-D**, or **ITER**, and see what fusion power you can achieve!
 
-**Post your highest fusion power in the comments below**, along with the settings that you used!
+Post your highest fusion power in the comments below, along with the settings that you used!
 
 ![Fusion Simulator](tokamak-flight-simulator-screenshot.png)
 
