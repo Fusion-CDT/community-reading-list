@@ -20,5 +20,10 @@ Resources on this site fall into two categories:
 
 - **Tutorial notes** — longer walkthroughs on a topic or concept, written by students who recently worked through the material themselves. These are designed to give you the kind of context and signposting that textbooks and papers often skip.
 
+To browse by topic, see the [Tags](tags.md) page.
+
+## Disclaimer
+This reading list is curated by PhD students. Including a resource here means that students found it useful, not that all of its contents are endorsed by the EPSRC CDT in Fusion Power. Review papers in particular can be selective: authors may favour their own work or not fairly represent the range of opinion in a field. Read critically, and ask your supervisor or other students when in doubt.
+
 ## How do I contribute?
 This repository is a community-driven effort and is not actively maintained by a dedicated team. As such, some resources may become outdated. We warmly welcome contributions from the community to keep this list relevant! If you have resources to add or corrections to make, please feel free to do so. For guidance, see [`CONTRIBUTING.md`](https://github.com/Fusion-CDT/community-reading-list/blob/main/CONTRIBUTING.md)

@@ -9,7 +9,7 @@ tags:
   - Backpropagation
 title: Machine learning (Book)
 authors: Tom Mitchell, McGraw Hill
-isbn: 0070428077
+isbn: "0070428077"
 url: 
   - https://www.cs.cmu.edu/~tom/mlbook.html
   - https://www.cs.cmu.edu/%7Etom/10701_sp11/lectures.shtml
