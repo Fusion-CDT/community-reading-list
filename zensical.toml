@@ -153,6 +153,8 @@ custom_dir = "overrides"
 #
 favicon = "images/favicon.png"
 
+logo = "images/Fusion_CDT_logo_light.png"
+
 # Zensical supports more than 60 different languages. This means that the
 # labels and tooltips that Zensical's templates produce are translated.
 # The "language" option allows you to set the language used. This language
