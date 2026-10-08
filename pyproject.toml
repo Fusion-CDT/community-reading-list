@@ -8,14 +8,18 @@ version = "0.1.0"
 description = "A collection of useful resources related to plasma physics, material science, fusion power and machine learning created by students on the EPSRC CDT in Fusion Power."
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = ["zensical>=0.0.68"]
+dependencies = ["zensical>=0.0.68", "pyyaml==6.0.3", "pytest"]
 maintainers = [
     { name = "Bailey Cook", email = "bailey.cook@york.ac.uk" },
     { name = "Joel Adams", email = "joel.adams@york.ac.uk" },
 ]
 
 [tool.hatch.build.targets.wheel]
-include = ["scripts/doi_reference.py", "scripts/contributors.py", "scripts/title_reference.py"]
+include = [
+    "scripts/doi_reference.py",
+    "scripts/contributors.py",
+    "scripts/title_reference.py",
+]
 
 [tool.hatch.build.targets.wheel.sources]
 "scripts" = ""

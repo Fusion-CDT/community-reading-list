@@ -1,0 +1,67 @@
+/* Tags page: a wrapping grid of tag chips; clicking one shows its pages */
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: flex-start;
+}
+
+/* Undo the theme's admonition-style <details> box */
+.md-typeset details.tag-listing {
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+  background: none;
+  overflow: visible;
+}
+
+.md-typeset details.tag-listing > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  list-style: none;
+}
+
+.md-typeset details.tag-listing > summary::before,
+.md-typeset details.tag-listing > summary::after,
+.md-typeset details.tag-listing > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* The tag name is a heading, so it can be linked to from each page's tags */
+.md-typeset .tag-listing summary h2 {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.md-typeset .tag-listing .md-tag {
+  margin: 0;
+}
+
+.tag-listing .tag-count {
+  font-size: 0.6rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.tag-listing[open] .md-tag {
+  background-color: var(--md-accent-fg-color);
+  color: var(--md-accent-bg-color);
+}
+
+/* An open tag takes a full row, so its pages appear underneath */
+.tag-listing[open] {
+  flex-basis: 100%;
+}
+
+.md-typeset .tag-listing ul {
+  margin-top: 0.4rem;
+  margin-bottom: 0.6rem;
+}

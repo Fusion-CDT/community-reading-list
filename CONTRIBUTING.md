@@ -94,3 +94,31 @@ If you are comfortable with Git and want to contribute changes directly:
    git push -u origin <your-branch-name>
    ```
 6. Open a pull request on GitHub from your branch into `main`.
+
+## Adding images
+
+### In an issue form
+
+Upload your images in the **Images** field, then refer to each one by its filename in your text:
+
+```markdown
+![Diagram of the gyrokinetic geometry](gyrokinetic-geometry.png)
+```
+
+You can also paste or drag an image straight into the text box.
+
+Either way, a copy of each image is stored in the repository next to the page, so it doesn't depend on GitHub keeping the attachment. Images are renamed to start with the page's filename (e.g. `howes2006astro-gyrokinetics-gyrokinetic-geometry.png`) so that pages in the same folder can't overwrite each other's images; links in your text are updated to match.
+
+### Using Git
+
+Commit images in the same directory as the Markdown page that uses them. Use a descriptive filename with no spaces, starting with the page's filename, for example `howes2006astro-gyrokinetics-geometry.png`.
+
+Reference the image using its filename relative to the Markdown page:
+
+```markdown
+![Diagram of the gyrokinetic geometry](howes2006astro-gyrokinetics-geometry.png)
+```
+
+Check that the filename in the Markdown matches the committed file exactly, including its capitalisation, and that the image renders in the built site before opening the pull request.
+
+Please only add images you have the right to share, and say where they come from.
