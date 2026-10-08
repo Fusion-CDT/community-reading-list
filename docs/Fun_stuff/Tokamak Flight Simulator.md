@@ -1,12 +1,8 @@
 ---
-
-tags:
 contributors:
-
-- name: "Felix Watts"
-  github: "FelixWattsYork"
-  comments: true
-
+  - name: "Felix Watts"
+    github: "FelixWattsYork"
+comments: true
 ---
 
 # [☀️ Tokamak Flight Simulator](https://www.fusionsimulator.io/)

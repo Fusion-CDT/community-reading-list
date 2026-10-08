@@ -32,24 +32,12 @@ Examples from the repository:
 
 Tags help readers find related notes, so a few well-chosen tags are better than many generic ones.
 
-- **Reuse existing tags where possible.** The commonly used tags are listed below.
+- **Reuse existing tags where possible.** The [Tags page](https://fusion-cdt.github.io/community-reading-list/tags/) lists every tag in use, with the pages that use it.
 - **Use sentence case with spaces**, e.g. `Zonal flows`, not `zonal-flows` or `Zonal Flows`.
 - **Keep the official spelling of acronyms and code names**, e.g. `MCF`, `GS2`, `CGYRO`, `stella`.
 - **Avoid tags that apply to almost everything**, such as `Theory`, `Simulation` or `Plasma physics`.
 
-| Area | Tags |
-|------|------|
-| Confinement | `MCF`, `ICF` |
-| Theory and modelling | `Gyrokinetics`, `Gyrofluid`, `Kinetic theory`, `MHD`, `Resistive MHD`, `Turbulence`, `Zonal flows`, `Waves`, `PIC` |
-| Exhaust and edge | `Divertor`, `ELMs`, `SOL turbulence`, `Heat flux`, `Exhaust modelling` |
-| Laser-plasma | `Laser-plasma interactions`, `High-intensity lasers`, `QED` |
-| Materials | `Irradiation`, `Structural materials`, `Steels`, `Superconductors`, `HTS`, `Blankets`, `Tritium`, `TBR` |
-| Diagnostics | `Diagnostics`, `Reflectometry` |
-| Codes | `GS2`, `TGLF`, `GENE`, `CGYRO`, `stella`, `GKW`, `GX`, `EPOCH` |
-| Devices | `ITER`, `JET`, `MAST`, `ASDEX-Upgrade` |
-| Machine learning | `Machine learning`, `Gaussian processes`, `Regression` |
-
-New tags are welcome when none of these fit; a maintainer will check them when reviewing your pull request.
+New tags are welcome when none of the existing ones fit; a maintainer will check them when reviewing your pull request.
 
 ## How do I contribute new tutorials?
 

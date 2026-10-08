@@ -55,7 +55,8 @@ jobs:
                     TAGS_YAML="tags:
                 ${TAGS_LIST}"
                 else
-                    TAGS_YAML="tags:"
+                    # An empty list, not a bare `tags:` (null), which fails the build
+                    TAGS_YAML="tags: []"
                 fi
 
                 # Build optional contributors block
