@@ -9,115 +9,32 @@ jobs:
       contains(github.event.issue.labels.*.name, 'edit-literature') ||
       contains(github.event.issue.labels.*.name, 'edit-tutorial')
     runs-on: ubuntu-latest
+    # The repository's default token is read-only
     permissions:
       contents: write
       pull-requests: write
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
-      - name: Extract filepath from issue title
-        id: extract
+      # Only the scripts' dependencies (PyYAML), pinned in uv.lock
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+
+      - name: Apply the edit
+        id: edit
         env:
-          TITLE: ${{ github.event.issue.title }}
-        run: |
-          FILEPATH="${TITLE#Edit: }"
-          echo "filepath=${FILEPATH}" >> $GITHUB_OUTPUT
-
-      - name: Determine issue template
-        id: template
-        run: |
-          if [[ "${{ contains(github.event.issue.labels.*.name, 'edit-literature') }}" == "true" ]]; then
-            echo "file=edit-literature.yml" >> $GITHUB_OUTPUT
-          else
-            echo "file=edit-tutorial.yml" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Parse issue
-        id: parser
-        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
           ISSUE_BODY: ${{ github.event.issue.body }}
-          TEMPLATE: ${{ steps.template.outputs.file }}
-        run: |
-          pip install pyyaml -q
-          python3 scripts/parse_issue.py "$TEMPLATE"
-
-      - name: Validate filepath
-        env:
-          FILEPATH: ${{ steps.extract.outputs.filepath }}
-        run: |
-          # Only allow edits to existing Markdown pages under docs/. The path
-          # comes from the issue title, which anyone can edit.
-          if [[ "${FILEPATH}" != docs/*.md || "${FILEPATH}" == *..* ]]; then
-            echo "::error::'${FILEPATH}' is not a Markdown page under docs/."
-            exit 1
-          fi
-          if [ ! -f "${FILEPATH}" ]; then
-            echo "::error::File '${FILEPATH}' not found in repository."
-            exit 1
-          fi
-
-      - name: Apply edit to file
-        env:
-          FILEPATH: ${{ steps.extract.outputs.filepath }}
-          PROPOSED_CONTENT: ${{ steps.parser.outputs.parsed_proposed_content }}
-          CONTRIBUTOR_NAME: ${{ steps.parser.outputs.parsed_contributor_name }}
-          GITHUB_USERNAME: ${{ github.event.issue.user.login }}
-        run: |
-          pip install pyyaml -q
-          python3 << 'PYEOF'
-          import os
-          import yaml
-
-          filepath = os.environ['FILEPATH']
-          proposed_content = os.environ['PROPOSED_CONTENT']
-          contributor_name = os.environ.get('CONTRIBUTOR_NAME', '').strip()
-          github_username = os.environ.get('GITHUB_USERNAME', '').strip()
-
-          with open(filepath, 'r') as f:
-              existing = f.read()
-
-          # Preserve the YAML frontmatter block, updating contributors if needed
-          if existing.startswith('---'):
-              parts = existing.split('---', 2)
-              frontmatter_text = parts[1]
-              meta = yaml.safe_load(frontmatter_text) or {}
-          else:
-              frontmatter_text = None
-              meta = {}
-
-          contributors = meta.get('contributors') or []
-          # Only add the contributor if they aren't already credited
-          add_contributor = contributor_name and not any(
-              c.get('github') == github_username for c in contributors
-          )
-
-          if frontmatter_text is None:
-              frontmatter = ''
-          elif add_contributor:
-              contributors.append({'name': contributor_name, 'github': github_username})
-              meta['contributors'] = contributors
-              # Re-serialise, keeping the existing key order
-              frontmatter = '---\n' + yaml.dump(
-                  meta, default_flow_style=False, allow_unicode=True,
-                  sort_keys=False, width=float('inf'),
-              ) + '---\n'
-          else:
-              # Nothing to change, so keep the frontmatter exactly as written
-              frontmatter = '---' + frontmatter_text + '---\n'
-
-          with open(filepath, 'w') as f:
-              f.write(frontmatter + '\n' + proposed_content.strip() + '\n')
-
-          print(f"Updated {filepath}")
-          PYEOF
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
+          ISSUE_LABELS: ${{ toJSON(github.event.issue.labels.*.name) }}
+        run: uv run --locked --only-group scripts scripts/apply_edit.py
 
       - name: Store images in the repository
         env:
-          NOTE: ${{ steps.extract.outputs.filepath }}
-          UPLOADS: ${{ steps.parser.outputs.parsed_user_images }}
-        run: python3 scripts/localise_images.py "$NOTE" "$UPLOADS"
+          NOTE: ${{ steps.edit.outputs.filepath }}
+          UPLOADS: ${{ steps.edit.outputs.user_images }}
+        run: uv run --locked --only-group scripts scripts/localise_images.py "$NOTE" "$UPLOADS"
 
       - name: Create PR
         uses: peter-evans/create-pull-request@v6

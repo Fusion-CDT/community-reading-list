@@ -59,7 +59,7 @@ body:
       description: Comma-separated tags. Please reuse tags from the [Tags page](https://fusion-cdt.github.io/community-reading-list/tags/) where possible.
       placeholder: "e.g. MCF, Kinetic theory, Braginskii"
     validations:
-      required: false
+      required: true
 
   - type: textarea
     id: content
@@ -86,7 +86,7 @@ body:
     id: contributor_name
     attributes:
       label: Your name (optional)
-      description: Your full name, to be credited as a contributor to this note.
+      description: You'll be credited as a contributor to this note by your GitHub username. Add your full name to be credited by name instead.
       placeholder: "e.g. Bailey Cook"
     validations:
       required: false

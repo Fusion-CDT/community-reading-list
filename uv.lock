@@ -25,17 +25,27 @@ name = "community-reading-list"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
-    { name = "pytest" },
-    { name = "pyyaml" },
     { name = "zensical" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "pytest" },
+    { name = "pyyaml" },
+]
+scripts = [
+    { name = "pyyaml" },
+]
+
 [package.metadata]
-requires-dist = [
+requires-dist = [{ name = "zensical", specifier = ">=0.0.68" }]
+
+[package.metadata.requires-dev]
+dev = [
     { name = "pytest" },
     { name = "pyyaml", specifier = "==6.0.3" },
-    { name = "zensical", specifier = ">=0.0.68" },
 ]
+scripts = [{ name = "pyyaml", specifier = "==6.0.3" }]
 
 [[package]]
 name = "deepmerge"
