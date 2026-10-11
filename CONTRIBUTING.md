@@ -13,7 +13,7 @@ All three also ask for:
 - **Location and filename** — a folder under `literature/` and a filename following the [filename convention](#filename-convention-for-literature-notes) below (e.g. `plasma/MCF/gyrokinetics/howes2006astro-gyrokinetics`)
 - **Tags** — comma-separated tags to aid discoverability (e.g. `Gyrokinetics, MCF`). See [Choosing tags](#choosing-tags).
 - **Content** — a brief description of why the resource is useful, written in Markdown (see this [Markdown cheat sheet](https://www.markdownguide.org/cheat-sheet/)). You can add [images](#adding-images) too.
-- **Your name** (optional) — you'll be credited as a contributor at the bottom of the page.
+- **Your name** (optional) — you'll be credited as a contributor at the bottom of the page, by your GitHub username or, if you give it, your name.
 
 Once you submit the issue, a pull request will be automatically created and a maintainer will review it.
 
@@ -52,6 +52,7 @@ New tutorial notes can be contributed by [creating a GitHub Issue](https://githu
 - **Location and filename** — where in the reading list it should live and what to call it (e.g. `docs/tutorials/gyrokinetic-theory.md`)
 - **Tags** — comma-separated tags to aid discoverability (e.g. `Gyrokinetics, MCF`). See [Choosing tags](#choosing-tags).
 - **Content** — the body of your tutorial, written in Markdown (see this [Markdown cheat sheet](https://www.markdownguide.org/cheat-sheet/)). You can add [images](#adding-images) too.
+- **Your name** (optional) — as for literature notes, you'll be credited by your GitHub username or, if you give it, your name.
 
 Once you submit the issue, a pull request will be automatically created and a maintainer will review it.
 
@@ -65,7 +66,7 @@ Once you submit the issue, a pull request will be automatically created and a ma
 4. Describe what needs changing in the **"What needs changing?"** field.
 5. Make your edits in the **"Proposed content"** field and submit the issue.
 
-A pull request with your changes will be automatically created and a maintainer will review it.
+A pull request with your changes will be automatically created and a maintainer will review it. You'll be added to the page's contributors, by your GitHub username or, if you give it, your name.
 
 ### Using Git directly
 
