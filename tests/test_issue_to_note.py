@@ -22,7 +22,7 @@ def test_textbook_frontmatter():
     come in KEY_ORDER.
     """
     frontmatter = frontmatter_for({
-        "title": 'Tokamaks: "the" book',
+        "resource_title": 'Tokamaks: "the" book',
         "authors": "John Wesson",
         "isbn": "0070428077",
         "availability": "Library: 2 copies",
@@ -59,7 +59,7 @@ def test_frontmatter_reads_back_as_written():
     invalid YAML. Without a name, the contributor is credited by username.
     """
     answers = {
-        "title": 'Turbulence: a "review" \\ ✓',
+        "resource_title": 'Turbulence: a "review" \\ ✓',
         "isbn": "0070428077",
         "doi": "",
         "tags": "MCF",

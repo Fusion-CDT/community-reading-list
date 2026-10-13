@@ -62,9 +62,9 @@ Once you submit the issue, a pull request will be automatically created and a ma
 
 1. Navigate to the page you want to edit on the [reading list site](https://fusion-cdt.github.io/community-reading-list/).
 2. Click the **edit** button at the top of the page (pencil icon).
-3. This will open the **"Edit existing literature entry"** (or equivalent) issue template on GitHub, with the **"Proposed content"** field pre-filled with the page's current text. (Very long pages can't be pre-filled; the form explains what to do.)
+3. This opens the edit form for that kind of page (paper, textbook, lecture notes or tutorial) on GitHub. It's filled in with the page's current details, such as its tags, title and links, and its text in the **"Proposed content"** field. (Very long pages can't have their text filled in; the form explains what to do.)
 4. Describe what needs changing in the **"What needs changing?"** field.
-5. Make your edits in the **"Proposed content"** field and submit the issue.
+5. Make your changes to the details and to the **"Proposed content"** field, then submit the issue.
 
 A pull request with your changes will be automatically created and a maintainer will review it. You'll be added to the page's contributors, by your GitHub username or, if you give it, your name.
 

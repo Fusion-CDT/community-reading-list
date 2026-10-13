@@ -1,14 +1,53 @@
+{#
+  The ✏️ edit button. It opens the edit issue form for the kind of page this
+  is, with the page's path in the issue title and the form's fields filled in
+  from the page's frontmatter (e.g. `tags=MCF, Gyrokinetics`). The page's
+  text is filled in by docs/javascripts/edit-button.js, from `data-raw-url`.
+#}
 {% if page.edit_url %}
   {% if "content.action.edit" in features %}
     {% set edit_prefix = config.repo_url ~ "/edit/main/" %}
     {% set filepath = page.edit_url | replace(edit_prefix, "") %}
+    {% set meta = page.meta %}
+
+    {# Which edit form, e.g. "paper", and the frontmatter keys it asks about #}
+    {% set kind = none %}
     {% if "literature" in page.edit_url %}
-      <a href="{{ config.repo_url }}/issues/new?template=edit-literature.yml&labels=edit-literature&title=Edit:%20{{ filepath }}" data-raw-url="{{ config.repo_url | replace('https://github.com/', 'https://raw.githubusercontent.com/') }}/main/{{ filepath }}" title="{{ lang.t('action.edit') }}" class="md-content__button md-icon" rel="edit">
-        {% set icon = config.theme.icon.edit or "material/file-edit-outline" %}
-        {% include ".icons/" ~ icon ~ ".svg" %}
-      </a>
+      {% if meta.doi %}
+        {% set kind = "paper" %}
+        {% set keys = ["doi", "tags"] %}
+      {% elif meta.isbn %}
+        {% set kind = "textbook" %}
+        {% set keys = ["title", "authors", "isbn", "availability", "url", "url_name", "tags"] %}
+      {% else %}
+        {% set kind = "lecture-notes" %}
+        {% set keys = ["title", "authors", "url", "url_name", "tags"] %}
+      {% endif %}
+      {% set template = "edit-literature-" ~ kind ~ ".yml" %}
     {% elif "tutorials" in page.edit_url %}
-      <a href="{{ config.repo_url }}/issues/new?template=edit-tutorial.yml&labels=edit-tutorial&title=Edit:%20{{ filepath }}" data-raw-url="{{ config.repo_url | replace('https://github.com/', 'https://raw.githubusercontent.com/') }}/main/{{ filepath }}" title="{{ lang.t('action.edit') }}" class="md-content__button md-icon" rel="edit">
+      {% set kind = "tutorial" %}
+      {% set keys = ["tags"] %}
+      {% set template = "edit-tutorial.yml" %}
+    {% endif %}
+
+    {% if kind %}
+      {# Fill in each field from the frontmatter. Lists are comma-separated.
+         The `title` field's id is `resource_title`, as GitHub reads `title=`
+         as the issue's title (see FIELD_IDS in scripts/issue_to_note.py). #}
+      {% set query = namespace(text="") %}
+      {% for key in keys %}
+        {% set field = "resource_title" if key == "title" else key %}
+        {% set value = meta[key] %}
+        {% if value %}
+          {% if value is string or value is number %}
+            {% set value = value | string %}
+          {% else %}
+            {% set value = value | join(", ") %}
+          {% endif %}
+          {% set query.text = query.text ~ "&" ~ field ~ "=" ~ (value | urlencode) %}
+        {% endif %}
+      {% endfor %}
+      <a href="{{ config.repo_url }}/issues/new?template={{ template }}&labels=edit-{{ kind }}&title=Edit:%20{{ filepath | urlencode }}{{ query.text }}" data-raw-url="{{ config.repo_url | replace('https://github.com/', 'https://raw.githubusercontent.com/') }}/main/{{ filepath }}" title="{{ lang.t('action.edit') }}" class="md-content__button md-icon" rel="edit">
         {% set icon = config.theme.icon.edit or "material/file-edit-outline" %}
         {% include ".icons/" ~ icon ~ ".svg" %}
       </a>

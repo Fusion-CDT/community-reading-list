@@ -24,8 +24,10 @@ Each issue form applies a label, and the label decides which workflow runs and w
 | Suggest literature: textbook | `textbook-suggestion` | `suggest-to-pr.yml` | `add-suggested-textbook-<issue>` |
 | Suggest literature: lecture notes or slides | `lecture-notes-suggestion` | `suggest-to-pr.yml` | `add-suggested-lecture-notes-<issue>` |
 | Suggest tutorial | `tutorial-suggestion` | `suggest-to-pr.yml` | `add-suggested-tutorial-<issue>` |
-| Edit existing literature entry | `edit-literature` | `edit-page-to-pr.yml` | `edit-page-<issue>` |
-| Edit existing tutorial | `edit-tutorial` | `edit-page-to-pr.yml` | `edit-page-<issue>` |
+| Edit literature: paper | `edit-paper` | `edit-page-to-pr.yml` | `edit-page-<issue>` |
+| Edit literature: textbook | `edit-textbook` | `edit-page-to-pr.yml` | `edit-page-<issue>` |
+| Edit literature: lecture notes or slides | `edit-lecture-notes` | `edit-page-to-pr.yml` | `edit-page-<issue>` |
+| Edit tutorial | `edit-tutorial` | `edit-page-to-pr.yml` | `edit-page-<issue>` |
 
 The issue forms live in `.github/ISSUE_TEMPLATE/` and the workflows in `.github/workflows/`. The workflows are short: the work is done by Python scripts in `scripts/`, which have tests in `tests/` that run in the build check. Run them locally with `uv run pytest`.
 
@@ -33,10 +35,12 @@ The issue forms live in `.github/ISSUE_TEMPLATE/` and the workflows in `.github/
 |---|---|
 | `parse_issue.py` | Splits an issue body into the form's answers, using the form in `.github/ISSUE_TEMPLATE/`. The other scripts use it. |
 | `issue_to_note.py` | Writes a new note from a suggestion. `TEMPLATES` at the top lists each suggestion label and its form. |
-| `apply_edit.py` | Applies an edit suggestion to an existing page, and writes its frontmatter in the standard layout. |
+| `apply_edit.py` | Applies an edit suggestion to an existing page: the frontmatter fields the form asks about (e.g. tags), and the content. Writes the frontmatter in the standard layout. `TEMPLATES` at the top lists each edit label and its form. |
 | `localise_images.py` | Downloads images uploaded or pasted into the issue, and stores them next to the note. |
 
-To add a new kind of suggestion: create the issue form and its label, add the label and form to `TEMPLATES` in `issue_to_note.py`, and add it to the `if:` at the top of `suggest-to-pr.yml`.
+To add a new kind of suggestion: create the issue form and its label, add the label and form to `TEMPLATES` in `issue_to_note.py`, and add it to the `if:` at the top of `suggest-to-pr.yml`. Add an edit form for it in the same way (`TEMPLATES` in `apply_edit.py`, and the `if:` in `edit-page-to-pr.yml`), and teach the ✏️ button which pages it's for (`overrides/partials/actions.html`).
+
+A form field's id is the frontmatter key it sets (e.g. `tags`), except for `title`, whose field is `resource_title`: GitHub reads `title=` in a link to a form as the issue's title, so the ✏️ button couldn't fill in a field with that id.
 
 The PR closes its issue when it's merged.
 
@@ -116,7 +120,7 @@ They're enabled in `zensical.toml` under `[project.markdown_extensions]`. They'r
 
 Files in `overrides/` replace parts of the Zensical theme:
 
-- `partials/actions.html`: the ✏️ edit button. It links to the edit issue form, with the page's path in the title. `docs/javascripts/edit-button.js` pre-fills the form with the page's current text.
+- `partials/actions.html`: the ✏️ edit button. It links to the edit form for that kind of page (a `doi` means a paper, an `isbn` a textbook, otherwise lecture notes; or a tutorial), with the page's path in the issue title and the form's fields filled in from the page's frontmatter. `docs/javascripts/edit-button.js` fills in the page's current text.
 - `partials/comments.html`: the comments section (see below).
 
 ### Comments

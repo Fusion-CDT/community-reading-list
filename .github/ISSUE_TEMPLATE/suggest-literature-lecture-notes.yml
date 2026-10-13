@@ -7,8 +7,10 @@ body:
       value: |
         Thanks for contributing to the Fusion CDT Community Reading List! Please fill in as much detail as you can below.
 
+        The title at the top of this form is the issue's title, which is only used for the pull request (e.g. "Parra, Collisional plasma physics notes"). Give the title of the notes or slides under **Title** below.
+
   - type: input
-    id: title
+    id: resource_title
     attributes:
       label: Title
       description: The full title of the lecture notes or slides.
@@ -75,9 +77,7 @@ body:
     attributes:
       label: Images (optional)
       description: |
-        Upload any images used in your Content, and refer to each one by its filename, e.g.
-        `![Diagram of the experiment](diagram.png)`. They'll be stored next to the page.
-        You can also paste images straight into the Content box; they'll be stored too.
+        Upload any images used in your Content, and refer to each one by its filename, e.g. `![Diagram of the experiment](diagram.png)`. They'll be stored next to the page. You can also paste images straight into the Content box; they'll be stored too.
     validations:
       required: false
       accept: ".png,.jpg,.jpeg,.gif,.svg,.webp"

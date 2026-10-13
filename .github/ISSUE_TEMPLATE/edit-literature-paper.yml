@@ -1,0 +1,66 @@
+name: "Edit literature: paper"
+description: Propose a correction or improvement to an existing paper's page. Please start from the ✏️ edit button on the page itself.
+labels: ["edit-paper"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the Fusion CDT Community Reading List!
+
+        This form should be opened from the ✏️ edit button at the top of the page you want to change on the [reading list site](https://fusion-cdt.github.io/community-reading-list/), so that the page's path is in the title above and the boxes below are filled in with the page's current details and text. If you opened it from the list of issue templates instead, please go back and use the edit button.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What needs changing?
+      description: Describe what is incorrect or could be improved, and why.
+      placeholder: "e.g. The summary is missing a key point about the gyrokinetic ordering."
+    validations:
+      required: true
+
+  - type: input
+    id: doi
+    attributes:
+      label: DOI
+      description: The DOI of the paper. The title, authors and journal shown on the page are looked up from it.
+      placeholder: "e.g. 10.1063/1.2178779"
+    validations:
+      required: false
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Comma-separated tags. Please reuse tags from the [Tags page](https://fusion-cdt.github.io/community-reading-list/tags/) where possible.
+      placeholder: "e.g. MCF, Gyrokinetics"
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_content
+    attributes:
+      label: Proposed content
+      description: |
+        This box is pre-filled with the page's current text, so make your changes here. If it's empty (very long pages can't be pre-filled), copy the page's text from its source on [GitHub](https://github.com/Fusion-CDT/community-reading-list/tree/main/docs), at the path shown in the title above.
+      placeholder: "Your improved description here..."
+    validations:
+      required: true
+
+  - type: upload
+    id: user_images
+    attributes:
+      label: Images (optional)
+      description: |
+        Upload any images used in your Proposed content, and refer to each one by its filename, e.g. `![Diagram of the experiment](diagram.png)`. They'll be stored next to the page. You can also paste images straight into the Proposed content box; they'll be stored too.
+    validations:
+      required: false
+      accept: ".png,.jpg,.jpeg,.gif,.svg,.webp"
+
+  - type: input
+    id: contributor_name
+    attributes:
+      label: Your name (optional)
+      description: You'll be credited as a contributor to this note by your GitHub username. Add your full name to be credited by name instead.
+      placeholder: "e.g. Bailey Cook"
+    validations:
+      required: false

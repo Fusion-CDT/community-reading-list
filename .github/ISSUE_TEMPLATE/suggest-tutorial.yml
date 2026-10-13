@@ -7,6 +7,8 @@ body:
       value: |
         Thanks for contributing to the Fusion CDT Community Reading List! Please fill in as much detail as you can below.
 
+        The title at the top of this form is the issue's title, which is only used for the pull request. The tutorial page's own title comes from the first heading in **Content** (e.g. `# Gyrokinetic theory`).
+
   - type: input
     id: filepath
     attributes:
@@ -29,7 +31,7 @@ body:
     id: content
     attributes:
       label: Content
-      description: The full content of your tutorial, in Markdown ([cheat sheet](https://www.markdownguide.org/cheat-sheet/)). Use LaTeX for maths (e.g. `$\chi_e$`).
+      description: The full content of your tutorial, in Markdown ([cheat sheet](https://www.markdownguide.org/cheat-sheet/)), starting with its title as a heading (e.g. `# Gyrokinetic theory`). Use LaTeX for maths (e.g. `$\chi_e$`).
       placeholder: 'e.g. Gyrokinetics is a framework used to model micro-turbulence that evolves over timescales $\Omega_i^{-1} \lesssim t \lesssim \tau_E$ and length scales $\rho_i \lesssim L \lesssim L_{T,n}$ where $\Omega_i$ is the ion gyrofrequency, $\tau_E$ is the energy confinement time, $\rho_i$ is the ion gyroradius and $L_{T,n}$ are the length scales associated with the temperature and density gradient...'
     validations:
       required: true
@@ -39,9 +41,7 @@ body:
     attributes:
       label: Images (optional)
       description: |
-        Upload any images used in your Content, and refer to each one by its filename, e.g.
-        `![Diagram of the experiment](diagram.png)`. They'll be stored next to the page.
-        You can also paste images straight into the Content box; they'll be stored too.
+        Upload any images used in your Content, and refer to each one by its filename, e.g. `![Diagram of the experiment](diagram.png)`. They'll be stored next to the page. You can also paste images straight into the Content box; they'll be stored too.
     validations:
       required: false
       accept: ".png,.jpg,.jpeg,.gif,.svg,.webp"

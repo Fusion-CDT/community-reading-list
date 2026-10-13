@@ -7,6 +7,8 @@ body:
       value: |
         Thanks for contributing to the Fusion CDT Community Reading List! Please fill in as much detail as you can below.
 
+        The title at the top of this form is the issue's title, which is only used for the pull request (e.g. "Howes et al. 2006, Astrophysical gyrokinetics"). The paper's title, authors and journal are looked up from its DOI.
+
   - type: input
     id: doi
     attributes:
@@ -48,9 +50,7 @@ body:
     attributes:
       label: Images (optional)
       description: |
-        Upload any images used in your Content, and refer to each one by its filename, e.g.
-        `![Diagram of the experiment](diagram.png)`. They'll be stored next to the page.
-        You can also paste images straight into the Content box; they'll be stored too.
+        Upload any images used in your Content, and refer to each one by its filename, e.g. `![Diagram of the experiment](diagram.png)`. They'll be stored next to the page. You can also paste images straight into the Content box; they'll be stored too.
     validations:
       required: false
       accept: ".png,.jpg,.jpeg,.gif,.svg,.webp"

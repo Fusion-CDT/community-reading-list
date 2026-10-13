@@ -38,6 +38,16 @@ TEXT_KEYS = ["doi", "title", "authors", "isbn", "availability"] # values taken a
 # The order keys are written in. Any other keys (e.g. `icon`) go after these.
 KEY_ORDER = TEXT_KEYS + LIST_KEYS + ["contributors", "comments"]
 
+# The id of each key's form field, where it differs from the key. A field
+# can't have the id `title`: GitHub reads `title=` in a link to the form as
+# the issue's title, so the edit button couldn't fill in the field.
+FIELD_IDS = {"title": "resource_title"}
+
+
+def field_id(key: str) -> str:
+    """Return the form field id for a frontmatter key, e.g. "title" -> "resource_title"."""
+    return FIELD_IDS.get(key, key)
+
 
 def suggestion_label(labels: list[str]) -> str:
     """Return the issue's suggestion label, e.g. "paper-suggestion"."""
@@ -64,15 +74,22 @@ def note_path(filepath: str, kind: str) -> str:
     return f"docs/{folder}/{path}.md"
 
 
-def build_frontmatter(answers: dict[str, Any], contributor: str) -> dict[str, Any]:
-    """Return the note's frontmatter as a dictionary from the form's answers."""
+def answered_keys(answers: dict[str, Any]) -> dict[str, Any]:
+    """Return the frontmatter keys the form's answers give, e.g.
+    {"doi": "10.1063/1.2178779", "tags": ["MCF", "ELMs"]}. Empty answers are left out."""
     meta = {}
     for key in TEXT_KEYS:
-        if answers.get(key):
-            meta[key] = answers[key]
+        if answers.get(field_id(key)):
+            meta[key] = answers[field_id(key)]
     for key in LIST_KEYS:
-        if answers.get(key):
-            meta[key] = split_commas(answers[key])
+        if answers.get(field_id(key)):
+            meta[key] = split_commas(answers[field_id(key)])
+    return meta
+
+
+def build_frontmatter(answers: dict[str, Any], contributor: str) -> dict[str, Any]:
+    """Return the note's frontmatter as a dictionary from the form's answers."""
+    meta = answered_keys(answers)
     # Credit the contributor by name if they gave one, otherwise by GitHub username
     name = answers.get("contributor_name") or contributor
     meta["contributors"] = [{"name": name, "github": contributor}]

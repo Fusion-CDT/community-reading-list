@@ -5,8 +5,12 @@ on:
 
 jobs:
   apply-edit:
+    # One job for every edit form. scripts/apply_edit.py maps each label to
+    # its form.
     if: |
-      contains(github.event.issue.labels.*.name, 'edit-literature') ||
+      contains(github.event.issue.labels.*.name, 'edit-paper') ||
+      contains(github.event.issue.labels.*.name, 'edit-textbook') ||
+      contains(github.event.issue.labels.*.name, 'edit-lecture-notes') ||
       contains(github.event.issue.labels.*.name, 'edit-tutorial')
     runs-on: ubuntu-latest
     # The repository's default token is read-only
