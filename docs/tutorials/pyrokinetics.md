@@ -1,17 +1,16 @@
 ---
 tags:
-- MCF
-- Gyrokinetics
-- GS2
-- TGLF
-- GENE
-- CGYRO
-- stella
-- GKW
-- GX
+  - "MCF"
+  - "Gyrokinetics"
+  - "GS2"
+  - "TGLF"
+  - "GENE"
+  - "CGYRO"
+  - "stella"
+  - "GKW"
+  - "GX"
 contributors:
-- name: Felix Watts
-  github: FelixWattsYork
+  - {"name": "Felix Watts", "github": "FelixWattsYork"}
 comments: true
 ---
 

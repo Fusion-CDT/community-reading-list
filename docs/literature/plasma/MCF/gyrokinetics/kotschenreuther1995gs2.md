@@ -1,13 +1,12 @@
 ---
+doi: "10.1016/0010-4655(95)00035-E"
 tags:
-  - MCF
-  - Gyrokinetics
-  - GS2
-doi: 10.1016/0010-4655(95)00035-E
+  - "MCF"
+  - "Gyrokinetics"
+  - "GS2"
+contributors:
+  - {"name": "Bailey Cook", "github": "baiway"}
 comments: true
-contributors: 
-  - name: "Bailey Cook"
-    github: "baiway"
 ---
 
 OG GS2 paper

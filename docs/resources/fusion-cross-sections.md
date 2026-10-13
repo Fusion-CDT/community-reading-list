@@ -1,14 +1,13 @@
 ---
 tags:
-  - Fusion reactions
-  - Triple product
-  - Nuclear data
-  - Python
-  - MCF
-  - ICF
+  - "Fusion reactions"
+  - "Triple product"
+  - "Nuclear data"
+  - "Python"
+  - "MCF"
+  - "ICF"
 contributors:
-  - name: "Felix Watts"
-    github: "FelixWattsYork"
+  - {"name": "Felix Watts", "github": "FelixWattsYork"}
 comments: true
 ---
 

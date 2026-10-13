@@ -1,22 +1,21 @@
 ---
+title: "Collisionless Plasma Physics (Waves in Plasmas)"
+authors: "Felix I. Parra"
 tags:
-  - MCF
-  - Waves
-  - Cold plasma
-  - Hot plasma
-title: Collisionless Plasma Physics (Waves in Plasmas)
-url: 
-  - https://github.com/user-attachments/files/26439914/ClPP.Lecture.Notes.1.pdf
-  - https://github.com/user-attachments/files/26439914/ClPP.Lecture.Notes.2.pdf
-  - https://github.com/user-attachments/files/26439914/ClPP.Lecture.Notes.3.pdf
-url_name: 
-  - ClPP Lecture Notes 1.pdf
-  - ClPP Lecture Notes 2.pdf
-  - ClPP Lecture Notes 3.pdf
-authors: Felix I. Parra
+  - "MCF"
+  - "Waves"
+  - "Cold plasma"
+  - "Hot plasma"
+url:
+  - "https://github.com/user-attachments/files/26439914/ClPP.Lecture.Notes.1.pdf"
+  - "https://github.com/user-attachments/files/26439914/ClPP.Lecture.Notes.2.pdf"
+  - "https://github.com/user-attachments/files/26439914/ClPP.Lecture.Notes.3.pdf"
+url_name:
+  - "ClPP Lecture Notes 1.pdf"
+  - "ClPP Lecture Notes 2.pdf"
+  - "ClPP Lecture Notes 3.pdf"
 contributors:
-  - name: "Zheyuan Chen"
-    github: "ZheyuanChen"
+  - {"name": "Zheyuan Chen", "github": "ZheyuanChen"}
 comments: true
 ---
 

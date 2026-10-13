@@ -1,9 +1,9 @@
 ---
-tags:
-  - Roadmaps
-  - Policy
-  - Net zero
 title: "Fusion, materials and energy roadmaps"
+tags:
+  - "Roadmaps"
+  - "Policy"
+  - "Net zero"
 url:
   - "https://ccfe.ukaea.uk/wp-content/uploads/2025/09/uk-materials-roadmap-2-0.pdf"
   - "https://www.royce.ac.uk/content/uploads/2021/09/UK_Fusion_Materials_Roadmap_Interactive.pdf"
@@ -17,8 +17,7 @@ url_name:
   - "US Fusion Science & Technology Roadmap (2025)"
   - "UK energy and emissions projections"
 contributors:
-  - name: "Shaokai Tang"
-    github: "AUHAY"
+  - {"name": "Shaokai Tang", "github": "AUHAY"}
 comments: true
 ---
 

@@ -1,6 +1,6 @@
 ---
-icon: lucide/home
 comments: false
+icon: "lucide/home"
 ---
 
 # Get started

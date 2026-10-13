@@ -1,14 +1,13 @@
 ---
+doi: "10.1007/s42864-020-00042-w"
 tags:
-  - Plasma-facing materials
-  - Tungsten
-  - Plasma-wall interactions
-  - Tritium
-  - Irradiation
-doi: 10.1007/s42864-020-00042-w
+  - "Plasma-facing materials"
+  - "Tungsten"
+  - "Plasma-wall interactions"
+  - "Tritium"
+  - "Irradiation"
 contributors:
-  - name: "Shaokai Tang"
-    github: "AUHAY"
+  - {"name": "Shaokai Tang", "github": "AUHAY"}
 comments: true
 ---
 

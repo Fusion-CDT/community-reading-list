@@ -101,6 +101,19 @@ def test_empty_list_written_inline():
     assert format_frontmatter({"tags": []}) == "---\ntags: []\n---\n"
 
 
+def test_single_link_written_as_list():
+    """A single link written by hand, without a list, becomes a list."""
+    meta = {"url": "https://a.example", "url_name": "Notes"}
+    assert format_frontmatter(meta) == (
+        "---\n"
+        "url:\n"
+        '  - "https://a.example"\n'
+        "url_name:\n"
+        '  - "Notes"\n'
+        "---\n"
+    )
+
+
 @pytest.mark.parametrize(
     "given, expected",
     [

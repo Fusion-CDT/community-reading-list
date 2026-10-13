@@ -1,11 +1,10 @@
 ---
 tags:
-  - MCF
-  - Fluid codes
-  - Exhaust modelling
+  - "MCF"
+  - "Fluid codes"
+  - "Exhaust modelling"
 contributors:
-  - name: "John Lloyd Baker"
-    github: "PoloidalLloyd"
+  - {"name": "John Lloyd Baker", "github": "PoloidalLloyd"}
 comments: true
 ---
 

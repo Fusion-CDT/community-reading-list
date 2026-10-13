@@ -37,6 +37,7 @@ The issue forms live in `.github/ISSUE_TEMPLATE/` and the workflows in `.github/
 | `issue_to_note.py` | Writes a new note from a suggestion. `TEMPLATES` at the top lists each suggestion label and its form. |
 | `apply_edit.py` | Applies an edit suggestion to an existing page: the frontmatter fields the form asks about (e.g. tags), and the content. Writes the frontmatter in the standard layout. `TEMPLATES` at the top lists each edit label and its form. |
 | `localise_images.py` | Downloads images uploaded or pasted into the issue, and stores them next to the note. |
+| `format_notes.py` | Writes every page's frontmatter in the standard layout, the one the other scripts write. The build check runs it with `--check`. |
 
 To add a new kind of suggestion: create the issue form and its label, add the label and form to `TEMPLATES` in `issue_to_note.py`, and add it to the `if:` at the top of `suggest-to-pr.yml`. Add an edit form for it in the same way (`TEMPLATES` in `apply_edit.py`, and the `if:` in `edit-page-to-pr.yml`), and teach the ✏️ button which pages it's for (`overrides/partials/actions.html`).
 
@@ -68,7 +69,7 @@ An edit also fails if the issue title doesn't start with `Edit: docs/...`. That 
 
 Every PR needs **one approving review** and a passing **build** check before it can be merged into `main`.
 
-The **build** check (`build.yml`) builds the whole site, so a red check usually means broken frontmatter or Markdown. Open the check's log to see which page failed.
+The **build** check (`build.yml`) runs the scripts' tests, builds the whole site, and checks every page's frontmatter is in the standard layout. A red check usually means broken frontmatter or Markdown; open the check's log to see which page failed. If the log says frontmatter isn't in the standard layout (usually a note written by hand), check out the branch, run `uv run scripts/format_notes.py`, then commit and push.
 
 ### Checklist
 

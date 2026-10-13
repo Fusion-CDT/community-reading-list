@@ -1,14 +1,13 @@
 ---
+doi: "10.1088/1741-4326/aa4feb"
 tags:
-  - Plasma-facing materials
-  - Plasma-wall interactions
-  - Heat flux
-  - Divertor
-  - Irradiation
-doi: 10.1088/1741-4326/aa4feb
+  - "Plasma-facing materials"
+  - "Plasma-wall interactions"
+  - "Heat flux"
+  - "Divertor"
+  - "Irradiation"
 contributors:
-  - name: "Shaokai Tang"
-    github: "AUHAY"
+  - {"name": "Shaokai Tang", "github": "AUHAY"}
 comments: true
 ---
 

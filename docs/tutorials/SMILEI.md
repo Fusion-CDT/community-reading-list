@@ -1,11 +1,10 @@
 ---
 tags:
-  - Laser-plasma interactions
-  - PIC
-  - QED
+  - "Laser-plasma interactions"
+  - "PIC"
+  - "QED"
 contributors:
-  - name: "Chris Herdman"
-    github: "Chrimspie"
+  - {"name": "Chris Herdman", "github": "Chrimspie"}
 comments: true
 ---
 

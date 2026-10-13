@@ -1,9 +1,10 @@
 ---
 tags:
-  - Gyrokinetics
-  - MCF
+  - "Gyrokinetics"
+  - "MCF"
+contributors:
+  - {"name": "Bailey Cook", "github": "baiway"}
 comments: true
-contributors: [{name: "Bailey Cook", github: "baiway"}]
 ---
 # Gyrokinetic theory
 Start with [Howe et al. (2006)](../literature/plasma/MCF/gyrokinetics/howes2006astro-gyrokinetics.md). Appendix A is particularly useful. You may wish to read this in conjuction with [Abel et al. (2013)](../literature/plasma/MCF/gyrokinetics/abel2013multiscale-gyrokinetics.md).

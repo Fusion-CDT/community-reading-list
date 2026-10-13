@@ -1,12 +1,11 @@
 ---
+doi: "10.1088/1361-6668/adce40"
 tags:
-  - HTS
-  - Superconductors
-  - Irradiation
-doi: 10.1088/1361-6668/adce40
+  - "HTS"
+  - "Superconductors"
+  - "Irradiation"
 contributors:
-  - name: "Q"
-    github: "Qboidal"
+  - {"name": "Q", "github": "Qboidal"}
 comments: true
 ---
 

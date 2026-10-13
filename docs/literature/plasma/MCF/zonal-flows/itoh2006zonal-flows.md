@@ -1,12 +1,11 @@
 ---
+doi: "10.1063/1.2178779"
 tags:
-  - Zonal flows
-  - MCF
-doi: 10.1063/1.2178779
-comments: true
+  - "Zonal flows"
+  - "MCF"
 contributors:
-  - name: "Bailey Cook"
-    github: "baiway"
+  - {"name": "Bailey Cook", "github": "baiway"}
+comments: true
 ---
 
 Excellent review paper.

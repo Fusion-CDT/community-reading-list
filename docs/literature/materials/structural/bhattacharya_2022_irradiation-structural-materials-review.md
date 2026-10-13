@@ -1,15 +1,14 @@
 ---
+doi: "10.1088/2515-7655/ac6f7f"
 tags:
-  - RAFM
-  - ODS
-  - Steels
-  - Irradiation
-  - Structural materials
-  - FW/B
-doi: 10.1088/2515-7655/ac6f7f
+  - "RAFM"
+  - "ODS"
+  - "Steels"
+  - "Irradiation"
+  - "Structural materials"
+  - "FW/B"
 contributors:
-  - name: "Q"
-    github: "Qboidal"
+  - {"name": "Q", "github": "Qboidal"}
 comments: true
 ---
 

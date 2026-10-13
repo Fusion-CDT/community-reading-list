@@ -1,12 +1,14 @@
 ---
+doi: "10.1016/j.nme.2022.101308"
 tags:
-  - MCF
-  - ELMs
-  - I-mode
-  - H-mode
-  - QCE
-  - confinement regimes
-doi: 10.1016/j.nme.2022.101308
+  - "MCF"
+  - "ELMs"
+  - "I-mode"
+  - "H-mode"
+  - "QCE"
+  - "confinement regimes"
+contributors:
+  - {"name": "vspeake", "github": "vspeake"}
 comments: true
 ---
 

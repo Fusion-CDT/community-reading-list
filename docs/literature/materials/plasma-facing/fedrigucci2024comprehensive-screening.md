@@ -1,14 +1,13 @@
 ---
+doi: "10.1103/PRXEnergy.3.043002"
 tags:
-  - Plasma-facing materials
-  - Tungsten
-  - Divertor
-  - Heat flux
-  - DFT
-doi: 10.1103/PRXEnergy.3.043002
+  - "Plasma-facing materials"
+  - "Tungsten"
+  - "Divertor"
+  - "Heat flux"
+  - "DFT"
 contributors:
-  - name: "Shaokai Tang"
-    github: "AUHAY"
+  - {"name": "Shaokai Tang", "github": "AUHAY"}
 comments: true
 ---
 

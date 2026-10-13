@@ -1,13 +1,12 @@
 ---
+doi: "10.1016/j.jcp.2013.12.007"
 tags:
-  - QED
-  - EPOCH
-  - PIC
-  - Laser-plasma interactions
-doi: 10.1016/j.jcp.2013.12.007
+  - "QED"
+  - "EPOCH"
+  - "PIC"
+  - "Laser-plasma interactions"
 contributors:
-  - name: "Zheyuan Chen"
-    github: "ZheyuanChen"
+  - {"name": "Zheyuan Chen", "github": "ZheyuanChen"}
 comments: true
 ---
 

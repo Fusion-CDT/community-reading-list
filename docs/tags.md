@@ -1,6 +1,6 @@
 ---
-icon: lucide/tags
 comments: false
+icon: "lucide/tags"
 ---
 
 # Tags
