@@ -19,6 +19,8 @@ url_name:
 contributors:
   - name: "Joe Umpleby-Thorp"
     github: "JoeUT"
+  - name: "Ethan Attwood"
+    github: "era-23"
 comments: true
 ---
 
