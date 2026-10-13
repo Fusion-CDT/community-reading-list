@@ -13,7 +13,7 @@ All three also ask for:
 - **Location and filename** — a folder under `literature/` and a filename following the [filename convention](#filename-convention-for-literature-notes) below (e.g. `plasma/MCF/gyrokinetics/howes2006astro-gyrokinetics`)
 - **Tags** — comma-separated tags to aid discoverability (e.g. `Gyrokinetics, MCF`). See [Choosing tags](#choosing-tags).
 - **Content** — a brief description of why the resource is useful, written in Markdown (see this [Markdown cheat sheet](https://www.markdownguide.org/cheat-sheet/)). You can add [images](#adding-images) too.
-- **Your name** (optional) — you'll be credited as a contributor at the bottom of the page.
+- **Your name** (optional) — you'll be credited as a contributor at the bottom of the page by your GitHub username, linked to your GitHub profile (e.g. [baiway](https://github.com/baiway)). If you give your full name, you're credited by name instead, still linked to your profile (e.g. [Bailey Cook](https://github.com/baiway)).
 
 Once you submit the issue, a pull request will be automatically created and a maintainer will review it.
 
@@ -47,11 +47,10 @@ New tags are welcome when none of the existing ones fit; a maintainer will check
 
 ## How do I contribute new tutorials?
 
-New tutorial notes can be contributed by [creating a GitHub Issue](https://github.com/Fusion-CDT/community-reading-list/issues/new/choose) and selecting the **"Suggest tutorial"** template. Fill in as many fields as you can:
+New tutorial notes can be contributed by [creating a GitHub Issue](https://github.com/Fusion-CDT/community-reading-list/issues/new/choose) and selecting the **"Suggest tutorial"** template. Like the [literature forms](#how-do-i-contribute-new-literature), it asks for a **location and filename**, **tags**, **content** and, optionally, **your name**. The differences:
 
-- **Location and filename** — where in the reading list it should live and what to call it (e.g. `docs/tutorials/gyrokinetic-theory.md`)
-- **Tags** — comma-separated tags to aid discoverability (e.g. `Gyrokinetics, MCF`). See [Choosing tags](#choosing-tags).
-- **Content** — the body of your tutorial, written in Markdown (see this [Markdown cheat sheet](https://www.markdownguide.org/cheat-sheet/)). You can add [images](#adding-images) too.
+- **Location and filename** is a path under `docs/tutorials/` (e.g. `docs/tutorials/gyrokinetic-theory.md`).
+- **Content** is the whole tutorial, starting with its title as a heading (e.g. `# Gyrokinetic theory`).
 
 Once you submit the issue, a pull request will be automatically created and a maintainer will review it.
 
@@ -65,11 +64,11 @@ For tools, code, datasets or anything else that isn't a paper, textbook, set of 
 
 1. Navigate to the page you want to edit on the [reading list site](https://fusion-cdt.github.io/community-reading-list/).
 2. Click the **edit** button at the top of the page (pencil icon).
-3. This will open the **"Edit existing literature entry"** (or equivalent) issue template on GitHub, with the **"Proposed content"** field pre-filled with the page's current text. (Very long pages can't be pre-filled; the form explains what to do.)
+3. This opens the edit form for that kind of page (paper, textbook, lecture notes or tutorial) on GitHub. It's filled in with the page's current details, such as its tags, title and links, and its text in the **"Proposed content"** field. (Very long pages can't have their text filled in; the form explains what to do.)
 4. Describe what needs changing in the **"What needs changing?"** field.
-5. Make your edits in the **"Proposed content"** field and submit the issue.
+5. Make your changes to the details and to the **"Proposed content"** field, then submit the issue.
 
-A pull request with your changes will be automatically created and a maintainer will review it.
+A pull request with your changes will be automatically created and a maintainer will review it. You'll be added to the page's contributors, credited in the same way as [new notes](#how-do-i-contribute-new-literature).
 
 ### Using Git directly
 

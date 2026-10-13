@@ -1,5 +1,5 @@
-name: Edit existing tutorial
-description: Propose a correction or improvement to an existing tutorial page. Please start from the edit button on the page itself.
+name: "Edit tutorial"
+description: Propose a correction or improvement to an existing tutorial page. Please start from the ✏️ edit button on the page itself.
 labels: ["edit-tutorial"]
 body:
   - type: markdown
@@ -7,7 +7,7 @@ body:
       value: |
         Thanks for helping improve the Fusion CDT Community Reading List!
 
-        This form should be opened from the ✏️ edit button at the top of the page you want to change on the [reading list site](https://fusion-cdt.github.io/community-reading-list/), so that the page's path is in the title above. If you opened it from the list of issue templates instead, please go back and use the edit button.
+        This form should be opened from the ✏️ edit button at the top of the page you want to change on the [reading list site](https://fusion-cdt.github.io/community-reading-list/), so that the page's path is in the title above and the boxes below are filled in with the page's current details and text. If you opened it from the list of issue templates instead, please go back and use the edit button.
 
   - type: textarea
     id: description
@@ -18,18 +18,21 @@ body:
     validations:
       required: true
 
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Comma-separated tags. Please reuse tags from the [Tags page](https://fusion-cdt.github.io/community-reading-list/tags/) where possible.
+      placeholder: "e.g. ICF, Diagnostics, PIC"
+    validations:
+      required: true
+
   - type: textarea
     id: proposed_content
     attributes:
       label: Proposed content
       description: |
-        This box is pre-filled with the page's current text, so make your changes here.
-        If it's empty (very long pages can't be pre-filled), copy the page's text from its
-        source on [GitHub](https://github.com/Fusion-CDT/community-reading-list/tree/main/docs),
-        at the path shown in the title above.
-
-        Tags, DOI, title and links can't be changed here. Please describe those changes under
-        *What needs changing?* instead.
+        This box is pre-filled with the page's current text, so make your changes here. If it's empty (very long pages can't be pre-filled), copy the page's text from its source on [GitHub](https://github.com/Fusion-CDT/community-reading-list/tree/main/docs), at the path shown in the title above.
       placeholder: "Your improved content here..."
     validations:
       required: true
@@ -39,9 +42,7 @@ body:
     attributes:
       label: Images (optional)
       description: |
-        Upload any images used in your Proposed content, and refer to each one by its filename, e.g.
-        `![Diagram of the experiment](diagram.png)`. They'll be stored next to the page.
-        You can also paste images straight into the Proposed content box; they'll be stored too.
+        Upload any images used in your Proposed content, and refer to each one by its filename, e.g. `![Diagram of the experiment](diagram.png)`. They'll be stored next to the page. You can also paste images straight into the Proposed content box; they'll be stored too.
     validations:
       required: false
       accept: ".png,.jpg,.jpeg,.gif,.svg,.webp"
@@ -50,7 +51,7 @@ body:
     id: contributor_name
     attributes:
       label: Your name (optional)
-      description: Your full name, to be credited as a contributor to this note.
+      description: You'll be credited as a contributor at the bottom of the page by your GitHub username, linked to your GitHub profile, e.g. [baiway](https://github.com/baiway). Add your full name to be credited by name instead, still linked to your profile, e.g. [Bailey Cook](https://github.com/baiway).
       placeholder: "e.g. Bailey Cook"
     validations:
       required: false

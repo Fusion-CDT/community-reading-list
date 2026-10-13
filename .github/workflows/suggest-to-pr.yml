@@ -1,0 +1,76 @@
+name: Convert suggestion to PR
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  create-contribution:
+    # One job for every suggestion form. scripts/issue_to_note.py maps each
+    # label to its form, branch name and folder.
+    if: |
+      github.event.issue.state == 'open' && (
+        contains(github.event.issue.labels.*.name, 'paper-suggestion') ||
+        contains(github.event.issue.labels.*.name, 'textbook-suggestion') ||
+        contains(github.event.issue.labels.*.name, 'lecture-notes-suggestion') ||
+        contains(github.event.issue.labels.*.name, 'tutorial-suggestion')
+      )
+    runs-on: ubuntu-latest
+    # The repository's default token is read-only
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      # Only the scripts' dependencies (PyYAML), pinned in uv.lock
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+
+      - name: Write the note
+        id: note
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
+          ISSUE_LABELS: ${{ toJSON(github.event.issue.labels.*.name) }}
+        run: uv run --locked --only-group scripts scripts/issue_to_note.py
+
+      # Editing the issue runs this workflow again. Once the PR exists,
+      # leave it alone, so changes made to it in review aren't overwritten.
+      - name: Check if PR branch already exists
+        id: check-branch
+        env:
+          BRANCH: ${{ steps.note.outputs.branch }}
+        run: |
+          if git ls-remote --heads origin "$BRANCH" | grep -q .; then
+            echo "::notice::$BRANCH already exists, so this edit is ignored."
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Store images in the repository
+        if: steps.check-branch.outputs.exists == 'false'
+        env:
+          NOTE: ${{ steps.note.outputs.filepath }}
+          UPLOADS: ${{ steps.note.outputs.user_images }}
+        run: uv run --locked --only-group scripts scripts/localise_images.py "$NOTE" "$UPLOADS"
+
+      - name: Create PR
+        if: steps.check-branch.outputs.exists == 'false'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          base: main
+          commit-message: "${{ github.event.issue.title }}"
+          title: "${{ github.event.issue.title }}"
+          body: |
+            Auto-generated PR for adding the suggested ${{ steps.note.outputs.kind }}.
+
+            To edit the content of this suggested ${{ steps.note.outputs.kind }} [click here](https://github.com/${{ github.repository }}/edit/${{ steps.note.outputs.branch }}/${{ steps.note.outputs.filepath }})
+
+            Suggested by @${{ github.event.issue.user.login }}
+
+            Closes #${{ github.event.issue.number }}
+          branch: ${{ steps.note.outputs.branch }}
+          delete-branch: true

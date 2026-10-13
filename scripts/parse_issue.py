@@ -1,108 +1,163 @@
 """
-Parse an issue created from one of our issue forms into its fields.
+Split an issue created from one of our issue forms into the form's answers.
 
-GitHub writes each issue form field into the issue body as a `### <label>`
-heading followed by the answer. This script reads the form template from
-`.github/ISSUE_TEMPLATE/`, splits the body on those headings, and writes each
-answer to `$GITHUB_OUTPUT` as `parsed_<field id>`, plus all of them as `json`.
+When someone submits an issue form, GitHub writes each field into the issue
+body as a `### <label>` heading followed by the answer. For example, a paper
+suggestion looks like this:
 
-We used to use the `issue-ops/parser` action for this, but it rejects forms
-containing an `upload` field. Upload fields are returned here as a JSON list
-of `{"name": ..., "url": ...}`, one per uploaded file.
+    ### DOI
 
-Usage (in a workflow step, with the issue body in the ISSUE_BODY variable):
+    10.1063/1.2178779
 
-    python3 scripts/parse_issue.py <template filename>
+    ### Location and filename
+
+    plasma/MCF/abel2013multiscale
+
+    ### Tags
+
+    MCF, Gyrokinetics
+
+    ### Content
+
+    A clear introduction to multiscale gyrokinetics.
+
+    ### Images (optional)
+
+    [figure 1.png](https://github.com/user-attachments/assets/1a2b3c)
+
+    ### Your name (optional)
+
+    _No response_
+
+`load_fields` reads the form the issue was submitted with (for a paper, this
+is `.github/ISSUE_TEMPLATE/suggest-literature-paper.yml`), which gives each
+field's label and id.
+
+`parse_body` then matches each `### <label>` heading to its field's id, and
+returns:
+
+    {
+        "doi": "10.1063/1.2178779",
+        "filepath": "plasma/MCF/abel2013multiscale",
+        "tags": "MCF, Gyrokinetics",
+        "content": "A clear introduction to multiscale gyrokinetics.",
+        "user_images": [{"name": "figure 1.png",
+                         "url": "https://github.com/user-attachments/assets/1a2b3c"}],
+        "contributor_name": "",
+    }
+
+Fields left empty become "", and each uploaded file becomes a {"name", "url"}
+dictionary.
 """
 
 import json
-import os
-import re
-import sys
 import uuid
 from pathlib import Path
+from typing import Any
 
 import yaml
 
 TEMPLATE_DIR = Path(".github/ISSUE_TEMPLATE")
 
-# GitHub writes this for fields left empty
-NO_RESPONSE = "_No response_"
 
-# An uploaded file, e.g. [figure.png](https://github.com/user-attachments/assets/...)
-UPLOAD_LINK = re.compile(r"\[(?P<name>[^\]]+)\]\((?P<url>https://[^)\s]+)\)")
-
-
-def load_fields(template_path):
+def load_fields(template_path: Path) -> dict[str, tuple[str, str]]:
     """Return {label: (id, type)} for every answerable field in the template."""
-    template = yaml.safe_load(Path(template_path).read_text(encoding="utf-8"))
+    with template_path.open(encoding="utf-8") as f:
+        template = yaml.safe_load(f)
     fields = {}
-    for item in template.get("body", []):
-        if item.get("type") == "markdown":
+    for item in template["body"]:
+        if item["type"] == "markdown": # skip this (part of the form)
             continue
         label = item["attributes"]["label"]
-        fields[label] = (item.get("id"), item["type"])
+        fields[label] = (item["id"], item["type"])
     return fields
 
 
-def parse_body(body, fields):
-    """Split the issue body into {field id: answer}.
+def parse_body(body: str, fields: dict[str, tuple[str, str]]) -> dict[str, Any]:
+    """Split the issue body (example at top of file) into {field id: answer}.
+
+    `fields` comes from `load_fields`: {label: (id, type)}. Each `### <label>`
+    heading in the body is matched against those labels, and each answer is
+    returned under the field's id, e.g. the answer under `### DOI` as "doi".
 
     Only headings matching a field label start a new field, so a `###`
     heading written inside an answer stays part of that answer.
     """
-    answers = {}
-    current = None
-    lines = []
+    # Pass 1: collect the lines under each field's `### <label>` heading
+    sections: dict[str, list[str]] = {} # {"DOI": ..., "Tags": ..., }
+    current: str | None = None  # section we're in
+    for line in body.splitlines():
+        heading = line.removeprefix("### ").strip() if line.startswith("### ") else None
+        if heading in fields: # new field starts here
+            current = heading
+            sections[current] = []
+        elif current is not None:  # H3 (`###`) heading in answer; keep this line
+            sections[current].append(line)
 
-    def finish():
-        if current is not None:
-            answers[current] = "\n".join(lines)
-
-    for line in body.replace("\r\n", "\n").split("\n"):
-        heading = line[4:].strip() if line.startswith("### ") else None
-        if heading in fields:
-            finish()
-            current, lines = heading, []
-        elif current is not None:
-            lines.append(line)
-    finish()
-
-    parsed = {}
+    # Pass 2: clean up each answer, and key it by the field's id.
+    # Each section is still the raw lines under its heading, including the
+    # blank lines GitHub puts around each answer, e.g.
+    #     {
+    #         "DOI": ["", "10.1063/1.2178779", ""],
+    #         "Location and filename": ["", "plasma/MCF/abel2013multiscale", ""],
+    #         "Tags": ["", "MCF, Gyrokinetics", ""],
+    #     }
+    # Joining the lines and stripping the result removes those blank lines,
+    # but keeps any inside the answer (e.g. between paragraphs).
+    parsed: dict[str, Any] = {}
     for label, (field_id, field_type) in fields.items():
-        value = answers.get(label, "").strip()
-        if value == NO_RESPONSE:
+        value = "\n".join(sections.get(label, [])).strip()
+        if value == "_No response_": # GitHub writes this for fields left empty
             value = ""
-        if field_type == "upload":
-            parsed[field_id] = [m.groupdict() for m in UPLOAD_LINK.finditer(value)]
+        if field_type == "upload": # image
+            parsed[field_id] = parse_uploads(value)
         else:
             parsed[field_id] = value
     return parsed
 
 
-def write_outputs(parsed, output_path):
-    """Append the parsed fields to a GitHub Actions output file."""
+def parse_uploads(answer: str) -> list[dict[str, str]]:
+    """Return image uploads as [{"name": ..., "url": ...}].
+
+    GitHub writes each uploaded file as a Markdown link on its own line. For
+    example, an answer with two images:
+
+        [figure 1.png](https://github.com/user-attachments/assets/1a2b3c)
+        [convergence.png](https://github.com/user-attachments/assets/4d5e6f)
+
+    becomes:
+
+        [
+            {"name": "figure 1.png", "url": "https://github.com/user-attachments/assets/1a2b3c"},
+            {"name": "convergence.png", "url": "https://github.com/user-attachments/assets/4d5e6f"},
+        ]
+    """
+    uploads = []
+    for line in answer.splitlines():
+        # "[figure 1.png](https://...)" -> "figure 1.png", "](", "https://..."
+        name, separator, url = line.strip().removeprefix("[").removesuffix(")").partition("](")
+        if separator:
+            uploads.append({"name": name, "url": url})
+    return uploads
+
+
+def set_outputs(outputs: dict[str, Any], output_path: str | Path) -> None:
+    """Append {name: value} to a GitHub Actions output file.
+
+    Each value is written in GitHub's format for values that may span several
+    lines, between two copies of a marker:
+
+        name<<EOF_3f9c2a71
+        value
+        EOF_3f9c2a71
+
+    Values that aren't strings are written as JSON.
+    """
     with open(output_path, "a", encoding="utf-8") as f:
-        items = {f"parsed_{k}": v for k, v in parsed.items()}
-        items["json"] = parsed
-        for name, value in items.items():
+        for name, value in outputs.items():
             if not isinstance(value, str):
                 value = json.dumps(value)
-            # Multi-line values need a delimiter that can't appear in the value
-            delimiter = f"EOF_{uuid.uuid4().hex}"
-            f.write(f"{name}<<{delimiter}\n{value}\n{delimiter}\n")
+            # The marker must not appear in the value, so use a random one
+            marker = f"EOF_{uuid.uuid4().hex}"
+            f.write(f"{name}<<{marker}\n{value}\n{marker}\n")
 
-
-def main(argv):
-    if len(argv) != 2:
-        print(__doc__)
-        return 2
-    fields = load_fields(TEMPLATE_DIR / argv[1])
-    parsed = parse_body(os.environ.get("ISSUE_BODY", ""), fields)
-    print(json.dumps(parsed, indent=2))
-    write_outputs(parsed, os.environ["GITHUB_OUTPUT"])
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main(sys.argv))

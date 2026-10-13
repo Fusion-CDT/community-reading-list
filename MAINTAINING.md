@@ -9,25 +9,38 @@ Most of the work is reviewing pull requests. Contributors suggest notes through 
 ```mermaid
 flowchart LR
     A[Contributor fills in<br/>an issue form] --> B[Form adds a label,<br/>e.g. paper-suggestion]
-    B --> C[Workflow for that label<br/>writes the Markdown file]
+    B --> C[The workflow<br/>writes the Markdown file]
     C --> D[Pull request opened<br/>on its own branch]
     D --> E[Build check runs]
     E --> F[Maintainer reviews<br/>and merges]
     F --> G[Site rebuilt and<br/>deployed from main]
 ```
 
-Each issue form applies a label, and each label triggers a workflow:
+Each issue form applies a label, and the label decides which workflow runs and what it does:
 
 | Issue form | Label | Workflow | PR branch |
 |---|---|---|---|
-| Suggest literature: paper | `paper-suggestion` | `suggest-paper-to-pr.yml` | `add-suggested-paper-<issue>` |
-| Suggest literature: textbook | `textbook-suggestion` | `suggest-textbook-to-pr.yml` | `add-suggested-textbook-<issue>` |
-| Suggest literature: lecture notes or slides | `lecture-notes-suggestion` | `suggest-lecture-notes-to-pr.yml` | `add-suggested-lecture-notes-<issue>` |
-| Suggest tutorial | `tutorial-suggestion` | `suggest-tutorial-to-pr.yml` | `add-suggested-tutorial-<issue>` |
-| Edit existing literature entry | `edit-literature` | `edit-page-to-pr.yml` | `edit-page-<issue>` |
-| Edit existing tutorial | `edit-tutorial` | `edit-page-to-pr.yml` | `edit-page-<issue>` |
+| Suggest literature: paper | `paper-suggestion` | `suggest-to-pr.yml` | `add-suggested-paper-<issue>` |
+| Suggest literature: textbook | `textbook-suggestion` | `suggest-to-pr.yml` | `add-suggested-textbook-<issue>` |
+| Suggest literature: lecture notes or slides | `lecture-notes-suggestion` | `suggest-to-pr.yml` | `add-suggested-lecture-notes-<issue>` |
+| Suggest tutorial | `tutorial-suggestion` | `suggest-to-pr.yml` | `add-suggested-tutorial-<issue>` |
+| Edit literature: paper | `edit-paper` | `edit-page-to-pr.yml` | `edit-page-<issue>` |
+| Edit literature: textbook | `edit-textbook` | `edit-page-to-pr.yml` | `edit-page-<issue>` |
+| Edit literature: lecture notes or slides | `edit-lecture-notes` | `edit-page-to-pr.yml` | `edit-page-<issue>` |
+| Edit tutorial | `edit-tutorial` | `edit-page-to-pr.yml` | `edit-page-<issue>` |
 
-The three literature workflows share their steps through `_suggest-literature-to-pr.yml`. The issue forms live in `.github/ISSUE_TEMPLATE/` and the workflows in `.github/workflows/`.
+The issue forms live in `.github/ISSUE_TEMPLATE/` and the workflows in `.github/workflows/`. The workflows are short: the work is done by Python scripts in `scripts/`, which have tests in `tests/` that run in the build check. Run them locally with `uv run pytest`.
+
+| Script | What it does |
+|---|---|
+| `parse_issue.py` | Splits an issue body into the form's answers, using the form in `.github/ISSUE_TEMPLATE/`. The other scripts use it. |
+| `issue_to_note.py` | Writes a new note from a suggestion. `TEMPLATES` at the top lists each suggestion label and its form. |
+| `apply_edit.py` | Applies an edit suggestion to an existing page: the frontmatter fields the form asks about (e.g. tags), and the content. Writes the frontmatter in the standard layout. `TEMPLATES` at the top lists each edit label and its form. |
+| `localise_images.py` | Downloads images uploaded or pasted into the issue, and stores them next to the note. |
+
+To add a new kind of suggestion: create the issue form and its label, add the label and form to `TEMPLATES` in `issue_to_note.py`, and add it to the `if:` at the top of `suggest-to-pr.yml`. Add an edit form for it in the same way (`TEMPLATES` in `apply_edit.py`, and the `if:` in `edit-page-to-pr.yml`), and teach the ✏️ button which pages it's for (`overrides/partials/actions.html`).
+
+A form field's id is the frontmatter key it sets (e.g. `tags`), except for `title`, whose field is `resource_title`: GitHub reads `title=` in a link to a form as the issue's title, so the ✏️ button couldn't fill in a field with that id.
 
 The PR closes its issue when it's merged.
 
@@ -36,7 +49,7 @@ The PR closes its issue when it's merged.
 These have both caught us out before, and neither produces an obvious error:
 
 - **The labels must exist in the repository.** An issue form can only apply a label that already exists; otherwise it's dropped silently and no workflow runs. If you add a form or rename a label, create the label first (**Issues** → **Labels**, or `gh label create <name>`).
-- **Workflows must ask for write permissions explicitly.** The repository's default token is read-only. Any workflow that pushes a branch or opens a PR needs a `permissions:` block with `contents: write` and `pull-requests: write`. For workflows that call `_suggest-literature-to-pr.yml`, that block must be on the _calling_ job. Without it the run fails immediately with `startup_failure`, before any step runs.
+- **Workflows must ask for write permissions explicitly.** The repository's default token is read-only. Any workflow that pushes a branch or opens a PR needs a `permissions:` block with `contents: write` and `pull-requests: write`. Without it the run fails immediately with `startup_failure`, before any step runs.
 
 Check **Actions** now and then for failed runs, especially after changing a workflow.
 
@@ -44,7 +57,7 @@ Check **Actions** now and then for failed runs, especially after changing a work
 
 Look at the issue's labels, then at the matching run in **Actions**.
 
-- **Suggestions** (paper, textbook, lecture notes, tutorial) run again whenever the issue is edited. They skip the issue if its PR branch already exists.
+- **Suggestions** (paper, textbook, lecture notes, tutorial) run again whenever the issue is edited. They skip the issue if its PR branch already exists, or if the issue is closed. A run also fails, with the reason on the run's summary page, if the location climbs out of its folder (e.g. `../`) or a page already exists there. Ask the contributor to fix the location in the issue, which runs it again.
   - **No PR yet:** fix the problem (e.g. add the missing label), then make any small edit to the issue body.
   - **A PR exists but is wrong:** usually it's quickest to fix the PR directly (see below). To regenerate it instead, close the PR, delete its branch, then edit the issue.
 - **Edits** only run when the issue is first opened, so editing the issue does nothing. Use **Re-run jobs** on the failed run in **Actions**, or ask the contributor to open a new edit from the page's ✏️ button.
@@ -63,6 +76,7 @@ The **build** check (`build.yml`) builds the whole site, so a red check usually 
 - [ ] **Filename:** literature notes follow the [filename convention](CONTRIBUTING.md#filename-convention-for-literature-notes), e.g. `howes2006astro-gyrokinetics.md`.
 - [ ] **Tags:** reuse existing tags where possible and follow the [tag conventions](CONTRIBUTING.md#choosing-tags). The Tags page on the site lists every tag in use.
 - [ ] **Frontmatter:** for papers, the DOI is correct (the title, authors and journal shown on the page come from it). For textbooks and lecture notes, check the title, authors and links.
+- [ ] **Images:** check the PR's run in **Actions** for warnings. An image that was uploaded but not used in the note, or couldn't be downloaded, is only reported there.
 - [ ] **No copyrighted files:** contributors sometimes attach PDFs of papers to the issue. Don't add these to the repository; link to the DOI or the publisher instead.
 - [ ] **Content:** reads sensibly, links work, and maths renders.
 - [ ] **Renders correctly:** for anything beyond a small text change, preview it locally (below).
@@ -106,7 +120,7 @@ They're enabled in `zensical.toml` under `[project.markdown_extensions]`. They'r
 
 Files in `overrides/` replace parts of the Zensical theme:
 
-- `partials/actions.html`: the ✏️ edit button. It links to the edit issue form, with the page's path in the title. `docs/javascripts/edit-button.js` pre-fills the form with the page's current text.
+- `partials/actions.html`: the ✏️ edit button. It links to the edit form for that kind of page (a `doi` means a paper, an `isbn` a textbook, otherwise lecture notes; or a tutorial), with the page's path in the issue title and the form's fields filled in from the page's frontmatter. `docs/javascripts/edit-button.js` fills in the page's current text.
 - `partials/comments.html`: the comments section (see below).
 
 ### Comments
