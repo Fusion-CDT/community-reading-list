@@ -102,6 +102,12 @@ Three Python-Markdown extensions in `scripts/` add the parts of each page that c
 
 They're enabled in `zensical.toml` under `[project.markdown_extensions]`. They're also listed under `[tool.hatch.build.targets.wheel]` in `pyproject.toml`, which is how they're installed so Zensical can find them. A new extension needs adding in both places.
 
+### Colours, font and logo
+
+- **Colours:** `docs/stylesheets/theme.css`. Light mode uses the colours of [fusion-cdt.ac.uk](https://fusion-cdt.ac.uk/), and dark mode a deep navy based on the same blue. The palette in `zensical.toml` sets `primary` and `accent` to `"custom"`, which tells the theme to use these colours instead of its own.
+- **Font:** Figtree, the font fusion-cdt.ac.uk uses, set under `[project.theme.font]` in `zensical.toml`.
+- **Logo:** `docs/images/fusion-cdt-logo-white.svg`, set by `logo` in `zensical.toml`. The header is blue in both modes, so it's the version with white text. `README.md` uses the black version in light mode.
+
 ### Theme overrides
 
 Files in `overrides/` replace parts of the Zensical theme:

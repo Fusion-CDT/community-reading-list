@@ -1,0 +1,174 @@
+/*
+ * Colours for the site, in light and dark mode.
+ *
+ * Light mode uses the colours of fusion-cdt.ac.uk. Dark mode uses a deep
+ * navy based on the same blue, so the blue header doesn't sit on black.
+ * The palette in zensical.toml sets `primary` and `accent` to "custom", so
+ * the theme takes these colours instead of its own.
+ */
+
+:root {
+  /* From fusion-cdt.ac.uk */
+  --cdt-blue: #277cb3;
+  --cdt-dark-blue: #1d6394;
+  --cdt-cream: #eeeee6;
+  --cdt-magenta: #dc2099;
+  --cdt-lime: #c5d300;
+
+  --md-primary-fg-color: var(--cdt-blue);
+  --md-primary-fg-color--light: #5296c4;
+  --md-primary-fg-color--dark: var(--cdt-dark-blue);
+  --md-primary-bg-color: #fff;
+  --md-primary-bg-color--light: #ffffffb3;
+}
+
+/* Light mode */
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: var(--cdt-cream);
+  --md-default-bg-color--light: #eeeee6b3;
+  --md-default-bg-color--lighter: #eeeee64d;
+  --md-default-bg-color--lightest: #eeeee61f;
+
+  /* fusion-cdt.ac.uk writes its text in its dark blue */
+  --md-default-fg-color: var(--cdt-dark-blue);
+  --md-default-fg-color--light: #1d6394bf;
+  --md-default-fg-color--lighter: #1d639473;
+  --md-default-fg-color--lightest: #1d63941f;
+
+  --md-typeset-a-color: var(--cdt-dark-blue);
+  --md-accent-fg-color: var(--cdt-magenta);
+  --md-accent-fg-color--transparent: #dc20991a;
+  --md-accent-bg-color: #fff;
+
+  --md-code-bg-color: #f6f6f2;
+  --md-code-bg-color--light: #f6f6f2b3;
+  --md-code-bg-color--lighter: #f6f6f24d;
+}
+
+/* Dark mode: deep navy, with cream text and a lime accent */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: var(--cdt-dark-blue);
+
+  --md-default-bg-color: #0f1f2c;
+  --md-default-bg-color--light: #0f1f2cb3;
+  --md-default-bg-color--lighter: #0f1f2c4d;
+  --md-default-bg-color--lightest: #0f1f2c1f;
+
+  --md-default-fg-color: #eeeee6e6;
+  --md-default-fg-color--light: #eeeee6a6;
+  --md-default-fg-color--lighter: #eeeee652;
+  --md-default-fg-color--lightest: #eeeee61f;
+
+  --md-typeset-a-color: #8cc4ea;
+  --md-accent-fg-color: var(--cdt-lime);
+  --md-accent-fg-color--transparent: #c5d3001a;
+  --md-accent-bg-color: #0f1f2c;
+
+  --md-code-bg-color: #16293a;
+  --md-code-bg-color--light: #16293ab3;
+  --md-code-bg-color--lighter: #16293a4d;
+
+  --md-footer-bg-color: #0b1823;
+  --md-footer-bg-color--dark: #08121a;
+}
+
+/* Headings in the text colour, not the theme's white */
+[data-md-color-scheme="slate"] .md-typeset h1,
+[data-md-color-scheme="slate"] .md-typeset h2,
+[data-md-color-scheme="slate"] .md-typeset h3,
+[data-md-color-scheme="slate"] .md-typeset h4,
+[data-md-color-scheme="slate"] .md-typeset h5,
+[data-md-color-scheme="slate"] .md-typeset h6 {
+  color: var(--cdt-cream);
+}
+
+/* Underline links in the text, as fusion-cdt.ac.uk does */
+.md-typeset a {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* The header: blue, with white text and icons, in both modes */
+.md-header {
+  background-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* The site name (and, once scrolled, the page title) at the size of a
+   page's main heading. Smaller on phones, so it fits beside the buttons. */
+.md-header__title {
+  color: var(--md-primary-bg-color);
+  font-size: 1.4rem;
+}
+
+@media screen and (max-width: 44.984375em) {
+  .md-header__title {
+    font-size: 1rem;
+  }
+}
+
+/* A larger logo than the theme's default, as it includes "Fusion CDT" */
+.md-header__button.md-logo img {
+  height: 1.8rem;
+}
+
+/* The search box: white text on a translucent white background */
+.md-header .md-search__button {
+  color: var(--md-primary-bg-color);
+  background-color: #ffffff26;
+}
+
+.md-header .md-search__button:hover {
+  background-color: #ffffff40;
+}
+
+/* The current page in the sidebar: the link colour, not the accent */
+.md-nav--primary .md-nav__item .md-nav__link--active {
+  color: var(--md-typeset-a-color);
+  background: var(--md-default-fg-color--lightest);
+}
+
+/* The copyright line at the bottom: blue, like fusion-cdt.ac.uk's footer.
+   The theme colours its text with the page's text colours, so set those. */
+.md-footer-meta {
+  --md-default-fg-color: #fff;
+  --md-default-fg-color--light: #ffffffd9;
+  background-color: var(--md-primary-fg-color);
+}
+
+/* On small screens the logo moves from the header to the top of the
+   navigation drawer. Make that blue too, so the white logo shows, and
+   let the logo be wider than the theme's square. */
+.md-nav .md-nav__title[for="__drawer"] {
+  background-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+}
+
+.md-nav .md-nav__title[for="__drawer"] .md-logo {
+  width: auto;
+}
+
+/* The theme reserves space for the scroll bar on every page, even where
+   it's hidden, which left a white strip beside the header and footer.
+   Only take up space when there is a scroll bar, and fill any gap with
+   the page's colour. */
+html {
+  scrollbar-gutter: auto;
+  background-color: var(--md-default-bg-color);
+}
+
+/* Scroll bars in the sidebars and code blocks: the link colour, not the
+   accent (lime in dark mode, which was too bright) */
+.md-sidebar__scrollwrap:focus-within,
+.md-sidebar__scrollwrap:hover,
+.md-typeset pre > code:hover {
+  scrollbar-color: var(--md-typeset-a-color) #0000;
+}
+
+.md-sidebar__scrollwrap:focus-within::-webkit-scrollbar-thumb:hover,
+.md-sidebar__scrollwrap:hover::-webkit-scrollbar-thumb:hover,
+.md-typeset pre > code::-webkit-scrollbar-thumb:hover {
+  background-color: var(--md-typeset-a-color);
+}
