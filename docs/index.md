@@ -14,11 +14,13 @@ Every year, new students join the Fusion CDT and have to get up to speed with th
 This site is an attempt to fix both of those problems. Here we collect resources that students have found genuinely useful, and pair them with notes written from a student's perspective: what the paper is actually about, recommended background before attempting to read the paper, what to look out for, etc.
 
 ## What can I find here?
-Resources on this site fall into two categories:
+Resources on this site fall into three categories:
 
 - **Literature notes** — brief annotations on specific papers. These tell you what a paper covers, why it might be worth reading, and how it fits into the broader literature.
 
 - **Tutorial notes** — longer walkthroughs on a topic or concept, written by students who recently worked through the material themselves. These are designed to give you the kind of context and signposting that textbooks and papers often skip.
+
+- **Resources** — useful tools, code and other things that aren't papers or tutorials, such as scripts for plotting fusion cross sections, or a tokamak flight simulator to try your hand at.
 
 To browse by topic, see the [Tags](tags.md) page.
 

@@ -60,7 +60,7 @@ body:
     id: contributor_name
     attributes:
       label: Your name (optional)
-      description: You'll be credited as a contributor to this note by your GitHub username. Add your full name to be credited by name instead.
+      description: You'll be credited as a contributor at the bottom of the page by your GitHub username, linked to your GitHub profile, e.g. [baiway](https://github.com/baiway). Add your full name to be credited by name instead, still linked to your profile, e.g. [Bailey Cook](https://github.com/baiway).
       placeholder: "e.g. Bailey Cook"
     validations:
       required: false
