@@ -1,12 +1,11 @@
 ---
+doi: "10.1063/1.2180747"
 tags:
-  - MCF
-  - Stability
-  - MHD
-doi: 10.1063/1.2180747
+  - "MCF"
+  - "Stability"
+  - "MHD"
 contributors:
-  - name: "Marcus Quantrill"
-    github: "mjjq"
+  - {"name": "Marcus Quantrill", "github": "mjjq"}
 comments: true
 ---
 

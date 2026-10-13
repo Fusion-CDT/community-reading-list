@@ -29,6 +29,10 @@ jobs:
       - name: Test scripts
         run: uv run pytest
       - run: uv run zensical build --clean
+      # Fails if a page's frontmatter isn't in the standard layout, e.g. a
+      # note written by hand. The log says how to fix it.
+      - name: Check frontmatter layout
+        run: uv run scripts/format_notes.py --check
 
       - if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v4

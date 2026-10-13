@@ -1,7 +1,6 @@
 ---
 contributors:
-  - name: "Felix Watts"
-    github: "FelixWattsYork"
+  - {"name": "Felix Watts", "github": "FelixWattsYork"}
 comments: true
 ---
 

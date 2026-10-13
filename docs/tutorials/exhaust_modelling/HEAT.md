@@ -1,11 +1,10 @@
 ---
 tags:
-  - MCF
-  - Heat flux
-  - Exhaust modelling
+  - "MCF"
+  - "Heat flux"
+  - "Exhaust modelling"
 contributors:
-  - name: "Michael I. Battye"
-    github: "mbattye"
+  - {"name": "Michael I. Battye", "github": "mbattye"}
 comments: true
 ---
 

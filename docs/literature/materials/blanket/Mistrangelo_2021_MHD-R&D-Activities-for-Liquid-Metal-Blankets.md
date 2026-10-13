@@ -1,12 +1,11 @@
 ---
+doi: "https://doi.org/10.3390/en14206640"
 tags:
-  - Tritium
-  - Blankets
-  - TBR
-doi: https://doi.org/10.3390/en14206640
+  - "Tritium"
+  - "Blankets"
+  - "TBR"
 contributors:
-  - name: "Lawrence Jones"
-    github: "lawjones5"
+  - {"name": "Lawrence Jones", "github": "lawjones5"}
 comments: true
 ---
 

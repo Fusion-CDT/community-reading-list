@@ -1,13 +1,12 @@
 ---
+doi: "https://doi.org/10.1016/j.fusengdes.2021.112795"
 tags:
-  - MHD
-  - Tritium
-  - Blankets
-  - TBR
-doi: https://doi.org/10.1016/j.fusengdes.2021.112795
+  - "MHD"
+  - "Tritium"
+  - "Blankets"
+  - "TBR"
 contributors:
-  - name: "Lawrence Jones"
-    github: "lawjones5"
+  - {"name": "Lawrence Jones", "github": "lawjones5"}
 comments: true
 ---
 

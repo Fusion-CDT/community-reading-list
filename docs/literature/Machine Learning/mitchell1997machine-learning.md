@@ -1,24 +1,23 @@
 ---
-tags:
-  - Machine learning
-  - Neural networks
-  - Decision trees
-  - Bayesian learning
-  - Genetic algorithms
-  - Reinforcement learning
-  - Backpropagation
-title: Machine learning (Book)
-authors: Tom Mitchell, McGraw Hill
+title: "Machine learning (Book)"
+authors: "Tom Mitchell, McGraw Hill"
 isbn: "0070428077"
-url: 
-  - https://www.cs.cmu.edu/~tom/mlbook.html
-  - https://www.cs.cmu.edu/%7Etom/10701_sp11/lectures.shtml
+tags:
+  - "Machine learning"
+  - "Neural networks"
+  - "Decision trees"
+  - "Bayesian learning"
+  - "Genetic algorithms"
+  - "Reinforcement learning"
+  - "Backpropagation"
+url:
+  - "https://www.cs.cmu.edu/~tom/mlbook.html"
+  - "https://www.cs.cmu.edu/%7Etom/10701_sp11/lectures.shtml"
 url_name:
-  - Book
-  - Accompanying lecture course
+  - "Book"
+  - "Accompanying lecture course"
 contributors:
-  - name: "Joe Umpleby-Thorp"
-    github: "JoeUT"
+  - {"name": "Joe Umpleby-Thorp", "github": "JoeUT"}
 comments: true
 ---
 

@@ -1,11 +1,10 @@
 ---
 tags:
-  - TGLF
-  - Gyrokinetics
-  - Gyrofluid
+  - "TGLF"
+  - "Gyrokinetics"
+  - "Gyrofluid"
 contributors:
-  - name: "Felix Watts"
-    github: "FelixWattsYork"
+  - {"name": "Felix Watts", "github": "FelixWattsYork"}
 comments: true
 ---
 

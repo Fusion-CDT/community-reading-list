@@ -1,12 +1,11 @@
 ---
+doi: "10.1088/0034-4885/76/11/116201"
 tags:
-  - MCF
-  - Gyrokinetics
-doi: 10.1088/0034-4885/76/11/116201
+  - "MCF"
+  - "Gyrokinetics"
+contributors:
+  - {"name": "Bailey Cook", "github": "baiway"}
 comments: true
-contributors: 
-  - name: "Bailey Cook"
-    github: "baiway"
 ---
 
 Thorough tutorial paper.

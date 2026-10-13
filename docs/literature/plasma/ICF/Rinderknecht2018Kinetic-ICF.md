@@ -1,11 +1,10 @@
 ---
+doi: "10.1088/1361-6587/aab79f"
 tags:
-  - ICF
-  - Kinetic theory
-doi: 10.1088/1361-6587/aab79f
+  - "ICF"
+  - "Kinetic theory"
 contributors:
-  - name: "Tom Hipgrave"
-    github: "Tomphysics"
+  - {"name": "Tom Hipgrave", "github": "Tomphysics"}
 comments: true
 ---
 

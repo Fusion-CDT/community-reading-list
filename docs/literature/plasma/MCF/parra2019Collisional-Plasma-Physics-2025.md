@@ -1,16 +1,16 @@
 ---
+title: "Collisional Plasma Physics (2025 Oxford MMathPhys Course)"
+authors: "Sarah Newton (2025), Plamen Ivanov (2026)"
 tags:
-  - MCF
-  - Tokamak physics
-  - Resistive MHD
-  - Braginskii
-  - Pfirsch-Schlüter
-title: Collisional Plasma Physics (2025 Oxford MMathPhys Course)
-url: https://www-thphys.physics.ox.ac.uk/people/FelixParra/CollisionalPlasmaPhysics/CollisionalPlasmaPhysics.html
-authors: Sarah Newton (2025), Plamen Ivanov (2026)
+  - "MCF"
+  - "Tokamak physics"
+  - "Resistive MHD"
+  - "Braginskii"
+  - "Pfirsch-Schlüter"
+url:
+  - "https://www-thphys.physics.ox.ac.uk/people/FelixParra/CollisionalPlasmaPhysics/CollisionalPlasmaPhysics.html"
 contributors:
-  - name: "Zheyuan Chen"
-    github: "ZheyuanChen"
+  - {"name": "Zheyuan Chen", "github": "ZheyuanChen"}
 comments: true
 ---
 

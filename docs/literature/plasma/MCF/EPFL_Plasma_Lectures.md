@@ -1,19 +1,18 @@
 ---
+title: "EPFL Plasma Physics Online Lecture Course"
+authors: "A. Fasoli, P. Ricci, A. Howling, C. Theiler, D. Testa, I. Furno, J. P. Hogge"
 tags:
-- MHD
-- MCF
-- ICF
-title: EPFL Plasma Physics Online Lecture Course
-authors: A. Fasoli, P. Ricci, A. Howling, C. Theiler, D. Testa, I. Furno, J. P. Hogge
-url: 
-  - https://courseware.epfl.ch/courses/course-v1:EPFL+PlasmaIntroduction+1T_2018/about
-  - https://courseware.epfl.ch/courses/course-v1:EPFL+PlasmaApplication+1T_2018/about
-url_name: 
-  - Plasma Physics Introduction
-  - Plasma Physics Applications
+  - "MHD"
+  - "MCF"
+  - "ICF"
+url:
+  - "https://courseware.epfl.ch/courses/course-v1:EPFL+PlasmaIntroduction+1T_2018/about"
+  - "https://courseware.epfl.ch/courses/course-v1:EPFL+PlasmaApplication+1T_2018/about"
+url_name:
+  - "Plasma Physics Introduction"
+  - "Plasma Physics Applications"
 contributors:
-- name: Felix Watts
-  github: FelixWattsYork
+  - {"name": "Felix Watts", "github": "FelixWattsYork"}
 comments: true
 ---
 

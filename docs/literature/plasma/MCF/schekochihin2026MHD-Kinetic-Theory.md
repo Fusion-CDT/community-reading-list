@@ -1,15 +1,16 @@
 ---
+title: "Lectures on Kinetic Theory and Magnetohydrodynamics of Plasmas"
+authors: "AA Schekochihin"
 tags:
-  - MCF
-  - MHD
-  - Kinetic theory
-title: Lectures on Kinetic Theory and Magnetohydrodynamics of Plasmas
-url: https://www-thphys.physics.ox.ac.uk/people/AlexanderSchekochihin/KT/2015/KTLectureNotes.pdf
-url_name: Lecture notes
-authors: AA Schekochihin
+  - "MCF"
+  - "MHD"
+  - "Kinetic theory"
+url:
+  - "https://www-thphys.physics.ox.ac.uk/people/AlexanderSchekochihin/KT/2015/KTLectureNotes.pdf"
+url_name:
+  - "Lecture notes"
 contributors:
-  - name: "Zheyuan Chen"
-    github: "ZheyuanChen"
+  - {"name": "Zheyuan Chen", "github": "ZheyuanChen"}
 comments: true
 ---
 

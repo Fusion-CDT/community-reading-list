@@ -1,11 +1,10 @@
 ---
+doi: "10.3390/physics8010026"
 tags:
-  - Laser-plasma interactions
-  - QED
-doi: 10.3390/physics8010026
+  - "Laser-plasma interactions"
+  - "QED"
 contributors:
-  - name: "Zheyuan Chen"
-    github: "ZheyuanChen"
+  - {"name": "Zheyuan Chen", "github": "ZheyuanChen"}
 comments: true
 ---
 
