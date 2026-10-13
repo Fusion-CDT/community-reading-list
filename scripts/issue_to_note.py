@@ -20,7 +20,7 @@ import json
 import os
 import sys
 from pathlib import Path, PurePosixPath
-from typing import Any, NoReturn
+from typing import Any
 
 from parse_issue import TEMPLATE_DIR, load_fields, parse_body, set_outputs
 
@@ -129,7 +129,7 @@ def format_frontmatter(meta: dict[str, Any]) -> str:
         if isinstance(value, list) and value:
             lines.append(f"{key}:")
             lines += [f"  - {json.dumps(item, ensure_ascii=False)}" for item in value]
-            
+
         # Everything else on one line (e.g. `doi: "10.1063/1.2178779"`).
         else:
             lines.append(f"{key}: {json.dumps(value, ensure_ascii=False)}")
@@ -161,7 +161,7 @@ def main() -> None:
     with open(path, "w", encoding="utf-8") as f:
         f.write(f"{frontmatter}\n{content}\n")
     print(f"Wrote {path}")
-    
+
     # Pass outputs to GitHub Actions output file
     outputs = {
         "filepath": str(path),
