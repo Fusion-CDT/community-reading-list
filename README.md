@@ -1,8 +1,8 @@
 <h1 align="center">
   <picture>
-    <source srcset="docs/images/Fusion_CDT_logo_dark.png" media="(prefers-color-scheme: dark)">
-    <source srcset="docs/images/Fusion_CDT_logo_light.png" media="(prefers-color-scheme: light)">
-    <img src="docs/images/Fusion_CDT_logo_light.png" alt="Fusion CDT logo">
+    <source srcset="docs/images/fusion-cdt-logo-white.svg" media="(prefers-color-scheme: dark)">
+    <source srcset="docs/images/fusion-cdt-logo-black.svg" media="(prefers-color-scheme: light)">
+    <img src="docs/images/fusion-cdt-logo-black.svg" alt="Fusion CDT logo" width="600">
   </picture>
 </h1>
 

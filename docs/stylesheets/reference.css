@@ -20,7 +20,7 @@
 }
 
 .ref-doi a {
-  color: var(--md-accent-fg-color);
+  color: var(--md-typeset-a-color);
   text-decoration: none;
 }
 
@@ -47,7 +47,7 @@
 }
 
 .ref-url a {
-  color: var(--md-accent-fg-color);
+  color: var(--md-typeset-a-color);
   text-decoration: none;
 }
 
@@ -61,7 +61,7 @@
 }
 
 .ref-contributors a {
-  color: var(--md-accent-fg-color);
+  color: var(--md-typeset-a-color);
   text-decoration: none;
 }
 
