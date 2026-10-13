@@ -125,6 +125,10 @@ def format_frontmatter(meta: dict[str, Any]) -> str:
     lines = ["---"]
     for key in keys:
         value = meta[key]
+        # A single tag or link may be written by hand without a list, e.g.
+        # `url: https://...`. Write it as a one-item list, like the others.
+        if key in LIST_KEYS and isinstance(value, str):
+            value = [value]
         # Lists (e.g. tags, url): one item per line, under the key
         if isinstance(value, list) and value:
             lines.append(f"{key}:")
