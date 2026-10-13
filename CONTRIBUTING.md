@@ -80,17 +80,42 @@ If you are comfortable with Git and want to contribute changes directly:
    ```sh
    git switch -c <your-branch-name>
    ```
-3. Make your edits. To add a new file, create it in the appropriate subfolder under `docs/` following the [filename convention](#filename-convention-for-literature-notes).
-4. Stage and commit your changes:
+3. Make your edits. To add a new file, create it in the appropriate subfolder under `docs/` following the [filename convention](#filename-convention-for-literature-notes), starting with [frontmatter](#writing-frontmatter-by-hand).
+4. Put the frontmatter in the standard layout (you'll need [uv](https://docs.astral.sh/uv/)):
+   ```sh
+   uv run scripts/format_notes.py
+   ```
+   The build check on your pull request fails if any frontmatter isn't in this layout.
+5. Stage and commit your changes:
    ```sh
    git add <file>
    git commit -m "<short description of your change>"
    ```
-5. Push the branch to GitHub:
+6. Push the branch to GitHub:
    ```sh
    git push -u origin <your-branch-name>
    ```
-6. Open a pull request on GitHub from your branch into `main`.
+7. Open a pull request on GitHub from your branch into `main`.
+
+### Writing frontmatter by hand
+
+Each note starts with frontmatter: details about the note, between two `---` lines. For a paper:
+
+```yaml
+---
+doi: "10.1063/1.2178779"
+tags:
+  - "MCF"
+  - "Zonal flows"
+contributors:
+  - {"name": "Ada Lovelace", "github": "ada"}
+comments: true
+---
+```
+
+The title, authors and journal are filled in on the site from the DOI. For a textbook or lecture notes, which don't have one, give `title` and `authors` instead, plus `isbn` (or `"N/A"` if it has none) and, optionally, `availability` for a textbook, and any links as a list under `url`, with the text to show for each under `url_name`.
+
+You don't need to get the layout exactly right: `uv run scripts/format_notes.py` puts the keys in order and the values in quotes.
 
 ## Adding images
 
