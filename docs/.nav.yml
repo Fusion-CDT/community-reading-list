@@ -2,6 +2,7 @@
 # so new pages appear automatically without editing this file.
 nav:
   - index.md
+  - how-to-read-papers.md
   - tags.md
   - "*"
   - resources

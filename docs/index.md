@@ -22,10 +22,11 @@ Resources on this site fall into three categories:
 
 - **Resources** — useful tools, code and other things that aren't papers or tutorials, such as scripts for plotting fusion cross sections, or a tokamak flight simulator to try your hand at.
 
-To browse by topic, see the [Tags](tags.md) page.
+## How should I use this?
+Find your topic using the search bar, the sidebar or the [Tags](tags.md) page. If there's a tutorial for your area, start there: tutorials are written to be the most accessible way in. Then move on to the papers in the literature notes. Before you do, [How to read papers](how-to-read-papers.md) has a few habits that make reading them quicker, and help you judge how far to trust them.
 
 ## Disclaimer
-This reading list is curated by PhD students. Including a resource here means that students found it useful, not that all of its contents are endorsed by the EPSRC CDT in Fusion Power. Review papers in particular can be selective: authors may favour their own work or not fairly represent the range of opinion in a field. Read critically, and ask your supervisor or other students when in doubt.
+This reading list is curated by PhD students. Including a resource here means that students found it useful, not that all of its contents are endorsed by the EPSRC CDT in Fusion Power. Review papers in particular can be selective: authors may favour their own work or not fairly represent the range of opinion in a field. Read critically (see [How to read papers](how-to-read-papers.md#reading-reviews)), and ask your supervisor or other students when in doubt.
 
 ## How do I contribute?
 This repository is a community-driven effort and is not actively maintained by a dedicated team. As such, some resources may become outdated. We warmly welcome contributions from the community to keep this list relevant! If you have resources to add or corrections to make, please feel free to do so. For guidance, see [`CONTRIBUTING.md`](https://github.com/Fusion-CDT/community-reading-list/blob/main/CONTRIBUTING.md)
