@@ -18,19 +18,21 @@ for older releases.
 """
 
 import inspect
+from typing import Any
 
-from markdown import Extension
+from markdown import Extension, Markdown
 from markdown.preprocessors import Preprocessor
 
 
 class ContributorsPreprocessor(Preprocessor):
     """Append a formatted 'Contributed by:' line for pages with frontmatter contributors."""
 
-    def _contributors_from_render_frame(self):
+    def _contributors_from_render_frame(self) -> list[dict[str, Any]] | None:
         """Read contributors from Zensical's current page context."""
         try:
             from zensical.extensions.context import ContextPreprocessor
 
+            assert self.md is not None  # set when the extension registers us
             context = ContextPreprocessor.from_markdown(self.md)
             if context is not None:
                 return context.page.meta.get("contributors")
@@ -48,14 +50,16 @@ class ContributorsPreprocessor(Preprocessor):
                 return meta.get("contributors")
         return None
 
-    def _format_contributor(self, contributor):
+    def _format_contributor(self, contributor: dict[str, Any]) -> str:
         name = contributor.get("name", "")
         github = contributor.get("github", "")
         if github:
             return f"[{name}](https://github.com/{github})"
         return name
 
-    def _format_contributor_list(self, contributors):
+    def _format_contributor_list(
+        self, contributors: list[dict[str, Any]]
+    ) -> str | None:
         formatted = [self._format_contributor(c) for c in contributors if c.get("name")]
         if not formatted:
             return None
@@ -65,7 +69,7 @@ class ContributorsPreprocessor(Preprocessor):
             return f"{formatted[0]} and {formatted[1]}"
         return ", ".join(formatted[:-1]) + f", and {formatted[-1]}"
 
-    def run(self, lines):
+    def run(self, lines: list[str]) -> list[str]:
         contributors = self._contributors_from_render_frame()
         if not contributors:
             return lines
@@ -91,10 +95,10 @@ class ContributorsExtension(Extension):
     so the contributors line is appended after any DOI header has been prepended.
     """
 
-    def extendMarkdown(self, md):
+    def extendMarkdown(self, md: Markdown) -> None:
         md.preprocessors.register(ContributorsPreprocessor(md), "contributors", 29)
 
 
-def makeExtension(**kwargs):
+def makeExtension(**kwargs: Any) -> ContributorsExtension:
     """Entry point called by Python Markdown when loading the extension by name."""
     return ContributorsExtension(**kwargs)

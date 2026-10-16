@@ -15,24 +15,26 @@ fallback for older Zensical releases.
 
 import inspect
 from itertools import zip_longest
+from typing import Any
 
-from markdown import Extension
+from markdown import Extension, Markdown
 from markdown.preprocessors import Preprocessor
 
 
 class TitleReferencePreprocessor(Preprocessor):
     """Inject a formatted reference header for pages with a frontmatter title but no doi."""
 
-    def _as_list(self, value):
+    def _as_list(self, value: Any) -> list[Any]:
         if not value:
             return []
         return value if isinstance(value, list) else [value]
 
-    def _meta_from_render_frame(self):
+    def _meta_from_render_frame(self) -> dict[str, Any]:
         """Read frontmatter from Zensical's current page context."""
         try:
             from zensical.extensions.context import ContextPreprocessor
 
+            assert self.md is not None  # set when the extension registers us
             context = ContextPreprocessor.from_markdown(self.md)
             if context is not None:
                 return context.page.meta
@@ -49,7 +51,7 @@ class TitleReferencePreprocessor(Preprocessor):
                 return frame_info.frame.f_locals.get("meta", {})
         return {}
 
-    def run(self, lines):
+    def run(self, lines: list[str]) -> list[str]:
         meta = self._meta_from_render_frame()
 
         # Defer to doi_reference.py for pages that have a DOI
@@ -106,10 +108,10 @@ class TitleReferenceExtension(Extension):
     absence).
     """
 
-    def extendMarkdown(self, md):
+    def extendMarkdown(self, md: Markdown) -> None:
         md.preprocessors.register(TitleReferencePreprocessor(md), "title_reference", 30)
 
 
-def makeExtension(**kwargs):
+def makeExtension(**kwargs: Any) -> TitleReferenceExtension:
     """Entry point called by Python Markdown when loading the extension by name."""
     return TitleReferenceExtension(**kwargs)

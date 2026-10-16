@@ -18,11 +18,13 @@ Two metadata sources are supported, dispatched on the DOI prefix:
 import inspect
 import json
 import urllib.request
-from markdown import Extension
+from typing import Any
+
+from markdown import Extension, Markdown
 from markdown.preprocessors import Preprocessor
 
 # In-memory cache: one HTTP request per DOI per build
-_cache = {}
+_cache: dict[str, dict[str, Any]] = {}
 
 # DOI prefixes registered with DataCite rather than Crossref
 _DATACITE_PREFIXES = ("10.48550",)
@@ -33,7 +35,7 @@ _DATACITE_PREFIXES = ("10.48550",)
 # ---------------------------------------------------------------------------
 
 
-def _normalise_doi(doi):
+def _normalise_doi(doi: Any) -> str:
     """Return the DOI identifier from a DOI or doi.org URL."""
     doi = str(doi).strip()
     for prefix in ("https://doi.org/", "http://doi.org/"):
@@ -42,7 +44,7 @@ def _normalise_doi(doi):
     return doi
 
 
-def _fetch(doi):
+def _fetch(doi: str) -> dict[str, Any]:
     doi = _normalise_doi(doi)
     if doi in _cache:
         return _cache[doi]
@@ -54,14 +56,14 @@ def _fetch(doi):
     return data
 
 
-def _fetch_crossref(doi):
+def _fetch_crossref(doi: str) -> dict[str, Any]:
     url = f"https://doi.org/{doi}"
     req = urllib.request.Request(url, headers={"Accept": "application/json"})
     with urllib.request.urlopen(req, timeout=10) as resp:
         return json.loads(resp.read())
 
 
-def _fetch_datacite(doi):
+def _fetch_datacite(doi: str) -> dict[str, Any]:
     url = f"https://api.datacite.org/dois/{doi}"
     with urllib.request.urlopen(url, timeout=10) as resp:
         return json.loads(resp.read())
@@ -72,7 +74,7 @@ def _fetch_datacite(doi):
 # ---------------------------------------------------------------------------
 
 
-def _first_or_str(value):
+def _first_or_str(value: Any) -> str:
     """Return the first element if value is a list, otherwise the value itself.
 
     The Crossref API schema defines fields like `title` and `container-title`
@@ -84,7 +86,7 @@ def _first_or_str(value):
     return value or ""
 
 
-def _initials(given):
+def _initials(given: str) -> str:
     """Return dot-separated initials from a given name string.
 
     e.g. "S. I." -> "S. I.", "Gregory G." -> "G. G.", "William" -> "W."
@@ -93,7 +95,9 @@ def _initials(given):
     return " ".join(p[0].upper() + "." for p in parts if p)
 
 
-def _header_lines(title, authors, journal_line, doi):
+def _header_lines(
+    title: str, authors: str, journal_line: str, doi: str
+) -> list[str]:
     """Return the common list of Markdown/HTML lines for a reference header."""
     doi_url = f"https://doi.org/{doi}"
     return [
@@ -112,7 +116,7 @@ def _header_lines(title, authors, journal_line, doi):
 # ---------------------------------------------------------------------------
 
 
-def _format_crossref(data, doi):
+def _format_crossref(data: dict[str, Any], doi: str) -> list[str]:
     """Format a Crossref metadata record (journal articles, etc.)."""
     title = _first_or_str(data["title"])
     # Here we use `.title()` rather than `.capitalize()` as the former better
@@ -132,7 +136,7 @@ def _format_crossref(data, doi):
     return _header_lines(title, authors, journal_line, doi)
 
 
-def _format_datacite_arxiv(data, doi):
+def _format_datacite_arxiv(data: dict[str, Any], doi: str) -> list[str]:
     """Format a DataCite metadata record for an arXiv preprint."""
     attrs = data["data"]["attributes"]
 
@@ -159,7 +163,7 @@ def _format_datacite_arxiv(data, doi):
 # ---------------------------------------------------------------------------
 
 
-def _format_header(data, doi):
+def _format_header(data: dict[str, Any], doi: str) -> list[str]:
     if doi.startswith(_DATACITE_PREFIXES):
         return _format_datacite_arxiv(data, doi)
     return _format_crossref(data, doi)
@@ -173,7 +177,7 @@ def _format_header(data, doi):
 class DoiReferencePreprocessor(Preprocessor):
     """Inject a formatted reference header for pages with a frontmatter doi."""
 
-    def _doi_from_render_frame(self):
+    def _doi_from_render_frame(self) -> Any:
         """Read doi from Zensical's current page context.
 
         Recent Zensical releases expose the page metadata through the
@@ -183,6 +187,7 @@ class DoiReferencePreprocessor(Preprocessor):
         try:
             from zensical.extensions.context import ContextPreprocessor
 
+            assert self.md is not None  # set when the extension registers us
             context = ContextPreprocessor.from_markdown(self.md)
             if context is not None:
                 return context.page.meta.get("doi")
@@ -200,7 +205,7 @@ class DoiReferencePreprocessor(Preprocessor):
                 return meta.get("doi")
         return None
 
-    def run(self, lines):
+    def run(self, lines: list[str]) -> list[str]:
         doi = self._doi_from_render_frame()
         if not doi:
             return lines
@@ -223,12 +228,12 @@ class DoiReferenceExtension(Extension):
     before calling `md.convert()`, so the ordering is not significant here.
     """
 
-    def extendMarkdown(self, md):
+    def extendMarkdown(self, md: Markdown) -> None:
         md.preprocessors.register(
             DoiReferencePreprocessor(md), "doi_reference", 30
         )
 
 
-def makeExtension(**kwargs):
+def makeExtension(**kwargs: Any) -> DoiReferenceExtension:
     """Entry point called by Python Markdown when loading the extension by name."""
     return DoiReferenceExtension(**kwargs)
