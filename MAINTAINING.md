@@ -129,6 +129,7 @@ Files in `overrides/` replace parts of the Zensical theme:
 
 - `partials/actions.html`: the ✏️ edit button. It links to the edit form for that kind of page (a `doi` means a paper, an `isbn` a textbook, otherwise lecture notes; or a tutorial), with the page's path in the issue title and the form's fields filled in from the page's frontmatter. `docs/javascripts/edit-button.js` fills in the page's current text.
 - `partials/comments.html`: the comments section (see below).
+- `main.html`: the tags that LinkedIn and other social media sites read to show a preview (title, description and image) when someone shares a link to the site. Every page uses `docs/images/social-card.png` as the preview image. It's made from the files in `design/social-card/`, whose README explains how to change it.
 
 ### Comments
 

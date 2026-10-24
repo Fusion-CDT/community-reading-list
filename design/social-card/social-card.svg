@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!--
+    The preview image shown when a link to the site is shared (see README.md).
+    Edit this file, then run `uv run design/social-card/make_card.py` to
+    update docs/images/social-card.png.
+
+    It's often shown tiny (about 110x55 px next to a link on a LinkedIn
+    profile), so it's kept to the logo and a large title.
+  -->
+  <style>
+    /* The site's font, from Google Fonts like the site itself */
+    @import url("https://fonts.googleapis.com/css2?family=Figtree:wght@600");
+    text { font-family: "Figtree"; }
+  </style>
+
+  <!-- Background, and the magenta and lime stripe along the bottom -->
+  <rect width="1200" height="630" fill="#277cb3"/>
+  <rect x="0" y="594" width="744" height="36" fill="#dc2099"/>
+  <rect x="744" y="594" width="456" height="36" fill="#c5d300"/>
+
+  <image href="../../docs/images/fusion-cdt-logo-white.svg"
+         x="90" y="70" width="620" height="188"/>
+
+  <text x="86" y="400" font-weight="600" font-size="112" fill="#ffffff">Community</text>
+  <text x="86" y="510" font-weight="600" font-size="112" fill="#ffffff">Reading List</text>
+</svg>
