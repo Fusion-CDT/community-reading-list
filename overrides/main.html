@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{#
+  Open Graph and Twitter card tags, so links to the site shared on
+  LinkedIn and other social media sites show a title, description
+  and preview image instead of a blank box.
+
+  The image must be an absolute URL, so it is built from `site_url` in
+  `zensical.toml`. To change the image, see `design/social-card/README.md`.
+#}
+{% block extrahead %}
+  {% if page and page.meta and page.meta.title %}
+    {% set og_title = page.meta.title ~ " · " ~ config.site_name %}
+  {% elif page and page.title and page.url not in ["", "index.html"] %}
+    {% set og_title = page.title ~ " · " ~ config.site_name %}
+  {% else %}
+    {% set og_title = "Fusion CDT " ~ config.site_name %}
+  {% endif %}
+  {% if page and page.meta and page.meta.description %}
+    {% set og_description = page.meta.description %}
+  {% else %}
+    {% set og_description = config.site_description %}
+  {% endif %}
+  {% set og_image = config.site_url ~ "images/social-card.png" %}
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ config.site_name }}">
+  <meta property="og:title" content="{{ og_title | striptags | e }}">
+  <meta property="og:description" content="{{ og_description | e }}">
+  <meta property="og:url" content="{{ page.canonical_url if page and page.canonical_url else config.site_url }}">
+  <meta property="og:image" content="{{ og_image }}">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Fusion CDT Community Reading List">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ og_title | striptags | e }}">
+  <meta name="twitter:description" content="{{ og_description | e }}">
+  <meta name="twitter:image" content="{{ og_image }}">
+{% endblock %}
